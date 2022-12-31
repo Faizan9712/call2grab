@@ -23,9 +23,8 @@ export default async function isAuth(
       const userDetails: any = jwt.verify(token, jwtPrivateKey);
       if (userDetails) {
         tokenResponse = {
-          userId: userDetails.userId,
-          phoneNumber: userDetails.phoneNumber,
-          otp: userDetails.otp,
+          id: userDetails.adminId,
+          email: userDetails.adminEmail,
           status: 200,
         };
         next();
