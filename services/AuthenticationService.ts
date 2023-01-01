@@ -11,11 +11,12 @@ export default class AuthenticationService {
         admin_password: password,
       },
     });
-    if (output) {
-      return { flag: true, result: output };
-    } else {
-      return { flag: false };
-    }
+    return (await output) ? { flag: true, result: output } : { flag: false };
+    // if (output) {
+    //   return { flag: true, result: output };
+    // } else {
+    //   return { flag: false };
+    // }
   }
 
   //CHECK EMAIL
@@ -26,10 +27,11 @@ export default class AuthenticationService {
         admin_email: email,
       },
     });
-    if (output) {
-      return true;
-    } else {
-      return false;
-    }
+    return output ? true : false;
+    // if (output) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
   }
 }
