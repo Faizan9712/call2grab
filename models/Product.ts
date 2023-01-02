@@ -32,6 +32,7 @@ export interface ProductI {
 export default class Product extends Model implements ProductI {
   @Column({
     primaryKey: true,
+    autoIncrement: true,
     type: DataType.INTEGER,
     allowNull: false,
     field: "product_id",

@@ -19,10 +19,35 @@ export default class ProductService {
     return output == "" ? "No Products Found" : output;
   }
 
-  //GET Product BY ID
-  async getProduct(id: any) {
+  //GET PRODUCT BY ID
+  async getProduct(id: number) {
     output = "";
     output = await Product.findByPk(id);
     return output == "" ? `No Product with ${id} Found` : output;
+  }
+
+  //ADD PRODUCT
+  async addProduct(body: any) {
+    output = "";
+    output = await Product.create(body);
+    return output == "" ? `Error occured` : output._previousDataValues;
+  }
+
+  //UPDATE PRODUCT
+  async updateProduct(body: any, id: number) {
+    output = "";
+    output = await Product.update(body, {
+      where: { product_id: id },
+    });
+    return output;
+  }
+
+  //DELETE PRODUCT
+  async deleteProduct(id: number) {
+    output = "";
+    output = await Product.destroy({
+      where: { product_id: id },
+    });
+    return output;
   }
 }
