@@ -13,10 +13,10 @@ import {
 dotenv.config();
 const router: Express = express();
 
-//GET ALL CINEMAS
+//GET ALL PRODUCTS
 router.get("/products", isAuth, getProducts);
 
-//GET CINEMA BY ID
+//GET PRODUCT BY ID
 router.get("/product/:id", isAuth, getProduct);
 
 // ADD PRODUCT

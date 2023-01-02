@@ -4,6 +4,7 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import db from "./config/database";
 import authenticationRouter from "./routes/Authentication";
+import userRouter from "./routes/User";
 import productRouter from "./routes/Product";
 import createHttpError from "http-errors";
 
@@ -41,6 +42,7 @@ app.get("/", (req: Request, res: Response) => {
 
 //BINDING ROUTES
 app.use("/api", authenticationRouter);
+app.use("/api", userRouter);
 app.use("/api", productRouter);
 
 // Catch HTTP 404
