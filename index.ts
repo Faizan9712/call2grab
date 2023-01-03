@@ -8,7 +8,7 @@ import userRouter from "./routes/User";
 import productRouter from "./routes/Product";
 import categoryRouter from "./routes/Category";
 import createHttpError from "http-errors";
-
+import cors from "cors";
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
@@ -17,7 +17,7 @@ const app: Express = express();
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cors());
 //PORT AND DATABASE CHECK
 app.listen(PORT, () => {
   console.log(`Running on ${PORT}⚡`);
