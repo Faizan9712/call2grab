@@ -11,7 +11,7 @@ export interface AdminI {
 }
 
 @Table({
-  tableName: "call2grab_admin",
+  tableName: "admin",
   freezeTableName: true,
   timestamps: false,
   underscored: true,

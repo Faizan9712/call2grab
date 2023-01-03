@@ -6,6 +6,7 @@ import db from "./config/database";
 import authenticationRouter from "./routes/Authentication";
 import userRouter from "./routes/User";
 import productRouter from "./routes/Product";
+import categoryRouter from "./routes/Category";
 import createHttpError from "http-errors";
 
 dotenv.config();
@@ -44,6 +45,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api", authenticationRouter);
 app.use("/api", userRouter);
 app.use("/api", productRouter);
+app.use("/api", categoryRouter);
 
 // Catch HTTP 404
 app.use((req, res, next) => {

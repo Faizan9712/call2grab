@@ -25,7 +25,7 @@ export interface UserI {
 }
 
 @Table({
-  tableName: "call2grab_user",
+  tableName: "user",
   freezeTableName: true,
   timestamps: false,
   underscored: true,

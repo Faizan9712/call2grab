@@ -24,7 +24,7 @@ export interface ProductI {
 }
 
 @Table({
-  tableName: "call2grab_product",
+  tableName: "product",
   freezeTableName: true,
   timestamps: false,
   underscored: true,
