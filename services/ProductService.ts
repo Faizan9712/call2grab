@@ -1,6 +1,7 @@
 import path from "path";
 import { col, fn, json, Op, QueryTypes, Sequelize } from "sequelize";
 import Product from "../models/Product";
+import Category from "../models/Category";
 import dotenv from "dotenv";
 import db from "../config/database";
 
@@ -16,6 +17,18 @@ export default class ProductService {
   async getAllProducts() {
     output = "";
     output = await Product.findAll();
+    // output = Product.findOne({
+    //   //  where: {
+    //   //    productId: payload.email,
+    //   //  },
+    //   include: [
+    //     {
+    //     //   model: Category,
+    //     //   where: { Category.category_id": "Product.product_category_id" },
+    //     // // },
+    //     // (all = true),
+    //   ],
+    // });
     return output == "" ? "No Products Found" : output;
   }
 

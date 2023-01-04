@@ -16,7 +16,7 @@ export default class CategoryService {
   async getAllCategorys() {
     output = "";
     output = await Category.findAll();
-    return output == "" ? "No Categorys Found" : output;
+    return output == "" ? "No Categories Found" : output;
   }
 
   //GET Category BY ID
@@ -49,5 +49,15 @@ export default class CategoryService {
       where: { Category_id: id },
     });
     return output;
+  }
+
+  //POPULATE CATEGORY
+  async populateCategories(qpm: any) {
+    output = "";
+    output = await Category.findAll({
+      where: { categoryName: { [Op.like]: `%${qpm}%` } },
+      limit: 10,
+    });
+    return output == "" ? "No Categories Found" : output;
   }
 }

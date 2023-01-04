@@ -1,4 +1,5 @@
-import { Model, Table, Column, DataType } from "sequelize-typescript";
+import { Model, Table, Column, DataType, HasMany } from "sequelize-typescript";
+import Product from "./Product";
 export interface categoryI {
   categoryId: number;
   categoryName: string;
@@ -12,6 +13,7 @@ export interface categoryI {
   underscored: true,
 })
 export default class category extends Model implements categoryI {
+  // @HasMany(() => Product)
   @Column({
     autoIncrement: true,
     primaryKey: true,

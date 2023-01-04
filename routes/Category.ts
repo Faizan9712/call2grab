@@ -8,6 +8,7 @@ import {
   addCategory,
   updateCategory,
   deleteCategory,
+  populateCategories,
 } from "../controllers/CategoryController";
 
 dotenv.config();
@@ -32,5 +33,8 @@ router.put(
 
 //DELETE CATEGORY
 router.delete("/category/:id", isAuth, deleteCategory);
+
+//POPULATE CATEGORIES
+router.get("/populate-categories", isAuth, populateCategories);
 
 export default router;

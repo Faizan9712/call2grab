@@ -1,4 +1,11 @@
-import { Model, Table, Column, DataType } from "sequelize-typescript";
+import {
+  Model,
+  Table,
+  Column,
+  DataType,
+  ForeignKey,
+} from "sequelize-typescript";
+import Category from "./Category";
 export interface ProductI {
   productId: number;
   productName: string;
@@ -103,6 +110,7 @@ export default class Product extends Model implements ProductI {
   })
   productTotalSales!: number;
 
+  // @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
