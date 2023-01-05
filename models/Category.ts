@@ -13,7 +13,6 @@ export interface categoryI {
   underscored: true,
 })
 export default class category extends Model implements categoryI {
-  // @HasMany(() => Product)
   @Column({
     autoIncrement: true,
     primaryKey: true,
@@ -38,4 +37,7 @@ export default class category extends Model implements categoryI {
     defaultValue: "",
   })
   categoryDescription!: string;
+
+  @HasMany(() => Product)
+  Product!: Product[];
 }

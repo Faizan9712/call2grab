@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
 import ProductService from "../services/ProductService";
-import { sanitizeInput } from "../helpers/functions";
+import { sanitizeInput, uploadPic } from "../helpers/functions";
 import { string } from "joi";
 
 //INSTANCE VARIABLES
 let output: any;
 let querypm: number;
+let photo: any;
+let fullfilename: any;
 
 //CREATING OBJECT
 const productService = new ProductService();
@@ -112,7 +114,7 @@ export async function updateProduct(req: Request, res: Response) {
 }
 
 //DELETE PRODUCT
-//UPDATE PRODUCT
+
 export async function deleteProduct(req: Request, res: Response) {
   try {
     output = "";
@@ -134,5 +136,31 @@ export async function deleteProduct(req: Request, res: Response) {
   } catch (error) {
     res.status(503).json({ output: "Something went wrong" });
     console.log(error);
+  }
+}
+
+//UPLOAD PIC FUNCTION
+export async function uploadProduct(req: any, res: Response) {
+  try {
+    // const userId = await getIdFromAuth(req);
+    console.log("===1====", req.files);
+    const productId = await sanitizeInput(req.query.id);
+    // photo = "";
+
+    if (req.files === null || req.files === undefined) {
+      res.status(403).json({ message: "Please select image" });
+    } else {
+      photo = req.files.photo;
+      console.log("====2===", photo);
+      fullfilename = await uploadPic(res, photo);
+      console.log("===3====", fullfilename);
+      if (fullfilename) {
+        await productService.dbSetPath(fullfilename, productId);
+        res.status(200).json({ Message: "Image Uploaded Successfullly " });
+        console.log("Image Uploaded Successfullly ");
+      }
+    }
+  } catch (error) {
+    console.log("Error :  " + error);
   }
 }

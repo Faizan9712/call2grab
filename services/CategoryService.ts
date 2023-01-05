@@ -15,7 +15,7 @@ export default class CategoryService {
   //GET ALL CategoryS
   async getAllCategorys() {
     output = "";
-    output = await Category.findAll();
+    output = await Category.findAll({ limit: 10 });
     return output == "" ? "No Categories Found" : output;
   }
 

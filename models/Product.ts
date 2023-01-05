@@ -4,8 +4,11 @@ import {
   Column,
   DataType,
   ForeignKey,
+  BelongsTo,
+  HasMany,
 } from "sequelize-typescript";
 import Category from "./Category";
+import Image from "./Image";
 export interface ProductI {
   productId: number;
   productName: string;
@@ -17,7 +20,7 @@ export interface ProductI {
   productAverageRating: number;
   productTotalSales: number;
   productCategoryId: number;
-  productImages: string;
+  productImageId: number;
   productStockQuantity: number;
   productInStock: number;
   productOnsale: number;
@@ -110,7 +113,7 @@ export default class Product extends Model implements ProductI {
   })
   productTotalSales!: number;
 
-  // @ForeignKey(() => Category)
+  @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -119,13 +122,14 @@ export default class Product extends Model implements ProductI {
   })
   productCategoryId!: number;
 
+  @ForeignKey(() => Image)
   @Column({
-    type: DataType.STRING(50),
+    type: DataType.INTEGER,
     allowNull: false,
-    field: "product_images",
-    defaultValue: "",
+    field: "product_image_id",
+    defaultValue: 0,
   })
-  productImages!: string;
+  productImageId!: number;
 
   @Column({
     type: DataType.INTEGER,
@@ -206,4 +210,10 @@ export default class Product extends Model implements ProductI {
     defaultValue: new Date(),
   })
   productUpdatedDate!: Date;
+
+  @BelongsTo(() => Category)
+  Category!: Category;
+
+  @BelongsTo(() => Image)
+  Image!: Image[];
 }

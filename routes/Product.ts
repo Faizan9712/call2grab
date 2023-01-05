@@ -8,10 +8,13 @@ import {
   addProduct,
   updateProduct,
   deleteProduct,
+  uploadProduct,
 } from "../controllers/ProductController";
+import upload from "express-fileupload";
 
 dotenv.config();
 const router: Express = express();
+router.use(upload());
 
 //GET ALL PRODUCTS
 router.get("/products", isAuth, getProducts);
@@ -32,5 +35,8 @@ router.put(
 
 //DELETE PRODUCT
 router.delete("/product/:id", isAuth, deleteProduct);
+
+//UPLOAD PRODUCT IMAGE
+router.patch("/upload-product", isAuth, uploadProduct);
 
 export default router;
