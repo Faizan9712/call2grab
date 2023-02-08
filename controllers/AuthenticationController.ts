@@ -59,9 +59,6 @@ export async function changePassword(req: Request, res: Response) {
   try {
     const body = await sanitizeInput(req.body);
     const information: any = await infoFromToken(req);
-
-    console.log("=======flag======", information.email);
-
     const flag = await authenticationService.checkEmailAndPassword(
       information.email,
       body.password
@@ -72,14 +69,19 @@ export async function changePassword(req: Request, res: Response) {
           .updateNewPassword(information.email, body.newPassword)
           .then(() =>
             res.status(200).json({ message: "Password Changed Successfully" })
-          );
+          )
+          .catch((error: any) => {
+            res.status(500).json({ message: "Something went wrong" });
+            console.log(error);
+          });
       } else {
         res.status(400).json({ message: "New Password Mismatched" });
       }
     } else {
       res.status(400).json({ message: "Incorrect Old Password" });
     }
-    console.log("=======flag======", flag);
-    res.send(flag);
-  } catch {}
+  } catch (error) {
+    res.status(503).json({ output: "Something went wrong" });
+    console.log(error);
+  }
 }

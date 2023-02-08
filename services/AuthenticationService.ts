@@ -44,18 +44,18 @@ export default class AuthenticationService {
         admin_password: password,
       },
     });
-    console.log("====output=====", output);
     return output ? true : false;
   }
 
-    //CHANGE PASSWORD
-    async updateNewPassword(email: any, password: any) {
-      output = "";
-      output = await Admin.update(password, {
+  //CHANGE PASSWORD
+  async updateNewPassword(email: any, password: any) {
+    output = "";
+    output = await Admin.update(
+      { adminPassword: password },
+      {
         where: { admin_email: email },
-      });
-    
-      console.log("====output=====", output);
-      return output ? true : false;
-    }
+      }
+    );
+    return output ? true : false;
+  }
 }
