@@ -29,6 +29,8 @@ export interface ProductI {
   productCouponId: number;
   productTaxId: number;
   productShippingId: number;
+  productEntryId:number;
+  productModifiedId:number;
   productCreatedDate: Date;
   productUpdatedDate: Date;
 }
@@ -40,6 +42,7 @@ export interface ProductI {
   underscored: true,
 })
 export default class Product extends Model implements ProductI {
+ 
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -187,13 +190,29 @@ export default class Product extends Model implements ProductI {
   })
   productTaxId!: number;
 
-  @(Column({
+  @Column({
     type: DataType.INTEGER,
     allowNull: false,
     field: "product_shipping_id",
     defaultValue: 0,
-  })!)
+  })
   productShippingId!: number;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: "product_entry_id",
+    defaultValue: 0,
+  })
+  productEntryId!: number;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: "product_modified_id",
+    defaultValue: 0,
+  })
+  productModifiedId!: number;
 
   @Column({
     allowNull: false,

@@ -42,6 +42,8 @@ export const updateProductSchema = Joi.object({
   productActive: Joi.string().optional(),
   productBrandId: Joi.number().optional(),
   productCouponId: Joi.number().optional(),
+  productTaxId: Joi.number().required(),
+  productShippingId: Joi.number().required(),
   productCreatedDate: Joi.date().optional(),
   productUpdatedDate: Joi.date().optional(),
 });

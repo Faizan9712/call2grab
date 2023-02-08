@@ -90,6 +90,8 @@ export default class ProductService {
         "productCouponId",
         "productTaxId",
         "productShippingId",
+        "productEntryId",
+        "productModifiedId",
         "productCreatedDate",
         "productUpdatedDate",
       ],
