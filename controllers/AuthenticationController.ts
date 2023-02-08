@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import AuthenticationService from "../services/AuthenticationService";
-import { sanitizeInput } from "../helpers/functions";
+import { infoFromToken, sanitizeInput } from "../helpers/functions";
 import * as jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { DATE } from "sequelize";
@@ -53,4 +53,33 @@ export async function login(req: Request, res: Response) {
     res.status(500).json({ message: "Something went wrong" });
     console.log(error);
   }
+}
+//CHANGE PASSWORD FUNCTION
+export async function changePassword(req: Request, res: Response) {
+  try {
+    const body = await sanitizeInput(req.body);
+    const information: any = await infoFromToken(req);
+
+    console.log("=======flag======", information.email);
+
+    const flag = await authenticationService.checkEmailAndPassword(
+      information.email,
+      body.password
+    );
+    if (flag == true) {
+      if (body.newPassword == body.confirmNewPassword) {
+        await authenticationService
+          .updateNewPassword(information.email, body.newPassword)
+          .then(() =>
+            res.status(200).json({ message: "Password Changed Successfully" })
+          );
+      } else {
+        res.status(400).json({ message: "New Password Mismatched" });
+      }
+    } else {
+      res.status(400).json({ message: "Incorrect Old Password" });
+    }
+    console.log("=======flag======", flag);
+    res.send(flag);
+  } catch {}
 }

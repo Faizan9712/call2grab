@@ -1,6 +1,8 @@
 import fs from "fs";
 import short from "short-uuid";
 import path from "path";
+import jwt_decode from "jwt-decode";
+
 // import download from "image-downloader";
 // import axios from "axios";
 import dotenv from "dotenv";
@@ -19,6 +21,18 @@ let fullfilename: string;
 //Sanitize input
 export async function sanitizeInput(data: any) {
   return data;
+}
+
+//Information from the token
+export async function infoFromToken(req: any) {
+  let authorization = await sanitizeInput(req.headers["authorization"]);
+  if (authorization) {
+    const authHeader = authorization;
+    const token = authHeader.split(" ")[1];
+    var decoded = jwt_decode(token);
+    console.log("======decoded====", decoded);
+    return decoded;
+  }
 }
 
 //Upload Pic

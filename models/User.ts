@@ -164,7 +164,7 @@ export default class User extends Model implements UserI {
     allowNull: false,
     field: "user_dob",
     type: DataType.DATEONLY,
-    defaultValue: 0,
+    // defaultValue: "",
   })
   userDob!: Date;
 
@@ -180,7 +180,7 @@ export default class User extends Model implements UserI {
     allowNull: false,
     field: "user_last_login",
     type: DataType.DATE,
-    defaultValue: 0,
+    // defaultValue: 0,
   })
   userLastLogin!: Date;
 

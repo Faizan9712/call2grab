@@ -132,8 +132,7 @@ export async function updateUser(req: Request, res: Response) {
   }
 }
 
-//DELETE User
-//UPDATE User
+//DELETE USER
 export async function deleteUser(req: Request, res: Response) {
   try {
     output = "";

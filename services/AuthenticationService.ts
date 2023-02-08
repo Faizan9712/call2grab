@@ -34,4 +34,28 @@ export default class AuthenticationService {
     //   return false;
     // }
   }
+
+  //CHECK EMAIL AND PASSWORD
+  async checkEmailAndPassword(email: any, password: any) {
+    output = "";
+    output = await Admin.findOne({
+      where: {
+        admin_email: email,
+        admin_password: password,
+      },
+    });
+    console.log("====output=====", output);
+    return output ? true : false;
+  }
+
+    //CHANGE PASSWORD
+    async updateNewPassword(email: any, password: any) {
+      output = "";
+      output = await Admin.update(password, {
+        where: { admin_email: email },
+      });
+    
+      console.log("====output=====", output);
+      return output ? true : false;
+    }
 }
