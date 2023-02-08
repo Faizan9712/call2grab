@@ -29,8 +29,7 @@ export async function infoFromToken(req: any) {
   if (authorization) {
     const authHeader = authorization;
     const token = authHeader.split(" ")[1];
-    var decoded = jwt_decode(token);
-    console.log("======decoded====", decoded);
+    const decoded = jwt_decode(token);
     return decoded;
   }
 }

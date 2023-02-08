@@ -58,4 +58,13 @@ export default class AuthenticationService {
     );
     return output ? true : false;
   }
+
+  //UPDATE PRODUCT
+  async updateProfile(body: any, id: number) {
+    output = "";
+    output = await Admin.update(body, {
+      where: { admin_id: id },
+    });
+    return output;
+  }
 }

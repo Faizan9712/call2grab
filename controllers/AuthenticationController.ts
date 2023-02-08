@@ -85,3 +85,27 @@ export async function changePassword(req: Request, res: Response) {
     console.log(error);
   }
 }
+//UPDATE PROFILE
+export async function updateProfile(req: Request, res: Response) {
+  try {
+    output = "";
+    const querypm = await sanitizeInput(req.body);
+    const information: any = await infoFromToken(req);
+    output = await authenticationService
+      .updateProfile(querypm, information.id)
+      .then((output: any) => {
+        if (output[0] === 0) {
+          res.status(200).json({ message: "Already Updated" });
+        } else {
+          res.status(200).json({ message: "Profile Updated Successfully" });
+        }
+      })
+      .catch((error: any) => {
+        res.status(400).json({ message: "Invalid input" });
+        console.log(error);
+      });
+  } catch (error) {
+    res.status(503).json({ output: "Something went wrong" });
+    console.log(error);
+  }
+}
