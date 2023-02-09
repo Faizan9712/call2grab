@@ -8,7 +8,7 @@ import {
   HasMany,
 } from "sequelize-typescript";
 import Category from "./Category";
-import Image from "./Image";
+import Image from "./ProductImage";
 export interface ProductI {
   productId: number;
   productName: string;

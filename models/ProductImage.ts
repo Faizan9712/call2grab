@@ -9,11 +9,8 @@ import {
 import Product from "./Product";
 export interface ImageI {
   imageId: number;
-  imageOne: string;
-  imageTwo: string;
-  imageThree: string;
-  imageFour: string;
-  imageFive: string;
+  productImageId: number;
+  productImageName:string;
   imageCreatedDate: Date;
   imageUpdatedDate: Date;
 }
@@ -24,7 +21,7 @@ export interface ImageI {
   timestamps: false,
   underscored: true,
 })
-export default class Image extends Model implements ImageI {
+export default class ProductImage extends Model implements ImageI {
   @Column({
     autoIncrement: true,
     primaryKey: true,
@@ -36,43 +33,19 @@ export default class Image extends Model implements ImageI {
 
   @Column({
     allowNull: false,
-    field: "image_one",
-    type: DataType.STRING(50),
-    defaultValue: "",
+    field: "product_image_id",
+    type: DataType.INTEGER,
+    defaultValue: 0,
   })
-  imageOne!: string;
+  productImageId!: number;
 
   @Column({
     allowNull: false,
-    field: "image_two",
-    type: DataType.STRING(50),
+    field: "product_image_name",
+    type: DataType.STRING(70),
     defaultValue: "",
   })
-  imageTwo!: string;
-
-  @Column({
-    allowNull: false,
-    field: "image_three",
-    type: DataType.STRING(50),
-    defaultValue: "",
-  })
-  imageThree!: string;
-
-  @Column({
-    allowNull: true,
-    field: "image_four",
-    type: DataType.STRING(50),
-    defaultValue: "",
-  })
-  imageFour!: string;
-
-  @Column({
-    allowNull: false,
-    field: "image_five",
-    type: DataType.STRING(50),
-    defaultValue: "",
-  })
-  imageFive!: string;
+  productImageName!: string;
 
   @Column({
     allowNull: false,

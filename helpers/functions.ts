@@ -23,6 +23,12 @@ export async function sanitizeInput(data: any) {
   return data;
 }
 
+export async function pagination(pageNumber:number) {
+  const newPage = pageNumber ? pageNumber - 1 : 0;
+  const pagination = newPage != 0 ? newPage * 10 : 0;
+  return pagination;
+}
+
 //Information from the token
 export async function infoFromToken(req: any) {
   let authorization = await sanitizeInput(req.headers["authorization"]);
@@ -62,7 +68,6 @@ export async function uploadPic(res: any, photo: any) {
 
       if (flag == 0) {
         res.status(400).json({ message: "Something went wrong" });
-
         console.log("Something went wrong");
         return "";
       } else {

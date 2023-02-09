@@ -2,8 +2,10 @@ import path from "path";
 import { col, fn, json, Op, QueryTypes, Sequelize } from "sequelize";
 import Product from "../models/Product";
 import Category from "../models/Category";
-import Image from "../models/Image";
+import Image from "../models/ProductImage";
 import dotenv from "dotenv";
+import ProductImage from "../models/ProductImage";
+import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
@@ -14,9 +16,8 @@ dotenv.config();
 //Product SERVICE CLASS
 export default class ProductService {
   //GET ALL ProductS
-  async getAllProducts() {
+  async getAllProducts(pageNo: number, orderBy: string, sortBy: string) {
     output = "";
-    // output = await Product.findAll();
     output = await Product.findAll({
       include: [
         {
@@ -26,7 +27,7 @@ export default class ProductService {
         },
       ],
       attributes: [
-        "productId",
+        // "productId",
         "productId",
         "productName",
         "productStatus",
@@ -52,7 +53,10 @@ export default class ProductService {
       ],
 
       raw: true,
+      order: [[orderBy, sortBy]],
+
       limit: 10,
+      offset: await pagination(pageNo),
     });
     return output == "" ? "No Products Found" : output;
   }
@@ -107,7 +111,6 @@ export default class ProductService {
   async addProduct(body: any) {
     output = "";
     output = await Product.create(body);
-    console.log("======", output);
     return output == "" ? `Error occured` : output;
   }
 
@@ -132,14 +135,11 @@ export default class ProductService {
   //PATH OF PHOTO IN DB
   async dbSetPath(fullfilename: any, id: number) {
     output = "";
-    output = await Image.findOne({
-      where: { image_id: id },
+    output = await ProductImage.create({
+      productImageId: id,
+      productImageName: fullfilename,
     }).then((output: any) => {
-      console.log("========", output);
-      output.set({ imageOne: fullfilename });
-      console.log(output.userPhoto);
-      output.save();
+      return output;
     });
-    return output;
   }
 }
