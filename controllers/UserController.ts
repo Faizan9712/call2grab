@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import UserService from "../services/UserService";
 import { sanitizeInput } from "../helpers/functions";
+import { string } from "joi";
+import { stat } from "fs";
 
 //INSTANCE VARIABLES
 let output: any;
@@ -13,14 +15,17 @@ const userService = new UserService();
 export async function getUsers(req: Request, res: Response) {
   try {
     output = "";
+    const { pageNo, orderBy, sortBy } = await sanitizeInput(req.query);
     output = await userService
-      .getAllUsers()
+      .getAllUsers(
+        pageNo == undefined ? 1 : pageNo,
+        orderBy == undefined ? "userId" : orderBy,
+        sortBy == undefined ? "ASC" : sortBy
+      )
       .then((output: any) => {
         if (typeof output === "string") {
-          console.log("====message");
           res.status(200).json({ message: output });
         } else {
-          console.log("=====op");
           res.status(200).json({ output: output });
         }
       })
@@ -136,6 +141,7 @@ export async function updateUser(req: Request, res: Response) {
 export async function deleteUser(req: Request, res: Response) {
   try {
     output = "";
+
     querypm = await sanitizeInput(Number(req.params.id));
     let result = await userService.getUser(querypm);
     if (result == null) {
@@ -154,5 +160,61 @@ export async function deleteUser(req: Request, res: Response) {
   } catch (error) {
     res.status(503).json({ output: "Something went wrong" });
     console.log(error);
+  }
+}
+
+//CHANGE USER PASSWORD
+export async function changeUserPasssword(req: Request, res: Response) {
+  try {
+    const userId = await sanitizeInput(req.params.id);
+    const { userPassword } = await sanitizeInput(req.body);
+    output = await userService.getUser(userId);
+    if (typeof output === "string") {
+      res.status(200).json({ message: output });
+    } else {
+      output.dataValues["userPassword"] = userPassword;
+      await userService
+        .updateUser(output.dataValues, userId)
+        .then((result: any) => {
+          res.status(200).json({ message: "Password Changed Successfully" });
+        })
+        .catch((error) => {
+          res.status(500).json({ message: "Something went wrong" });
+          console.log("Error : ", error);
+        });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+    console.log("Error : ", error);
+  }
+}
+
+//CHANGE USER PASSWORD
+export async function deactivateUser(req: Request, res: Response) {
+  try {
+    const userId = await sanitizeInput(req.params.id);
+    const { userActive } = await sanitizeInput(req.body);
+    output = await userService.getUser(userId);
+    if (typeof output === "string") {
+      res.status(200).json({ message: output });
+    } else {
+      output.dataValues["userActive"] = userActive;
+      await userService
+        .updateUser(output.dataValues, userId)
+        .then(() => {
+          const status =
+            userActive === "1"
+              ? "User Activated Successfully"
+              : "User Deactivated Successfully";
+          res.status(200).json({ message: status });
+        })
+        .catch((error) => {
+          res.status(500).json({ message: "Something went wrong" });
+          console.log("Error : ", error);
+        });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+    console.log("Error : ", error);
   }
 }

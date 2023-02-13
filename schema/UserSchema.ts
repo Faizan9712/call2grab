@@ -63,3 +63,11 @@ export const updateUserSchema = Joi.object({
   userCreatedDate: Joi.date().optional(),
   userUpdatedDate: Joi.date().optional(),
 });
+
+export const changeUserPasswordSchema = Joi.object({
+  userPassword: Joi.string().min(8).max(30).required(),
+});
+
+export const deactivateUserSchema = Joi.object({
+  userActive: Joi.string().required(),
+});

@@ -7,6 +7,7 @@ import {
   BelongsTo,
   HasMany,
 } from "sequelize-typescript";
+import Cart from "./Cart";
 import Category from "./Category";
 import Image from "./ProductImage";
 export interface ProductI {
@@ -29,8 +30,8 @@ export interface ProductI {
   productCouponId: number;
   productTaxId: number;
   productShippingId: number;
-  productEntryId:number;
-  productModifiedId:number;
+  productEntryId: number;
+  productModifiedId: number;
   productCreatedDate: Date;
   productUpdatedDate: Date;
 }
@@ -42,7 +43,6 @@ export interface ProductI {
   underscored: true,
 })
 export default class Product extends Model implements ProductI {
- 
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -235,4 +235,7 @@ export default class Product extends Model implements ProductI {
 
   @BelongsTo(() => Image)
   Image!: Image[];
+
+  @HasMany(() => Cart)
+  Cart!: Cart[];
 }

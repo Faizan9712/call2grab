@@ -7,17 +7,20 @@ import authenticationRouter from "./routes/Authentication";
 import userRouter from "./routes/User";
 import productRouter from "./routes/Product";
 import categoryRouter from "./routes/Category";
+import cartRouter from "./routes/Cart";
 import createHttpError from "http-errors";
 import cors from "cors";
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const app: Express = express();
 
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("client"));
 app.use(cors());
+app.use(express.json());
 //PORT AND DATABASE CHECK
 app.listen(PORT, () => {
   console.log(`Running on ${PORT}⚡`);
@@ -46,6 +49,7 @@ app.use("/api", authenticationRouter);
 app.use("/api", userRouter);
 app.use("/api", productRouter);
 app.use("/api", categoryRouter);
+app.use("/api", cartRouter);
 
 // Catch HTTP 404
 app.use((req, res, next) => {

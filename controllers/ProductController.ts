@@ -18,9 +18,9 @@ export async function getProducts(req: Request, res: Response) {
     const { pageNo, orderBy, sortBy } = await sanitizeInput(req.query);
     output = await productService
       .getAllProducts(
-        pageNo,
+        pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "productId" : orderBy,
-        sortBy == undefined ? "DESC" : sortBy
+        sortBy == undefined ? "ASC" : sortBy
       )
       .then((output: any) => {
         if (typeof output === "string") {

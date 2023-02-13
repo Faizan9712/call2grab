@@ -12,7 +12,7 @@ export interface categoryI {
   timestamps: false,
   underscored: true,
 })
-export default class category extends Model implements categoryI {
+export default class Category extends Model implements categoryI {
   @Column({
     autoIncrement: true,
     primaryKey: true,

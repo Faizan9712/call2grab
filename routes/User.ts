@@ -8,6 +8,8 @@ import {
   addUser,
   updateUser,
   deleteUser,
+  changeUserPasssword,
+  deactivateUser,
 } from "../controllers/UserController";
 
 dotenv.config();
@@ -21,6 +23,22 @@ router.get("/user/:id", isAuth, getUser);
 
 // ADD USER
 router.post("/user", isAuth, Validator("addUserSchema"), addUser);
+
+// ADD USER
+router.put(
+  "/change-userpassword/:id",
+  isAuth,
+  Validator("changeUserPasswordSchema"),
+  changeUserPasssword
+);
+
+// ADD USER
+router.put(
+  "/change-userstatus/:id",
+  isAuth,
+  Validator("deactivateUserSchema"),
+  deactivateUser
+);
 
 //UPDATE USER
 router.put("/user/:id", isAuth, Validator("updateUserSchema"), updateUser);
