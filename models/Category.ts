@@ -3,7 +3,9 @@ import Product from "./Product";
 export interface categoryI {
   categoryId: number;
   categoryName: string;
-  categoryDescription: string;
+  categoryParentId: number;
+  categoryImage: string;
+  categoryActive: number;
 }
 
 @Table({
@@ -12,6 +14,7 @@ export interface categoryI {
   timestamps: false,
   underscored: true,
 })
+
 export default class Category extends Model implements categoryI {
   @Column({
     autoIncrement: true,
@@ -31,12 +34,28 @@ export default class Category extends Model implements categoryI {
   categoryName!: string;
 
   @Column({
+    type: DataType.INTEGER,
     allowNull: false,
-    field: "category_description",
-    type: DataType.STRING(50),
+    field: "category_parent_id",
+    defaultValue: 0,
+  })
+  categoryParentId!: number;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    field: "category_image",
     defaultValue: "",
   })
-  categoryDescription!: string;
+  categoryImage!: string;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: "category_active",
+    defaultValue: 0,
+  })
+  categoryActive!: number;
 
   @HasMany(() => Product)
   Product!: Product[];

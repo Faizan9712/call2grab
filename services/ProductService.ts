@@ -4,6 +4,7 @@ import Product from "../models/Product";
 import Category from "../models/Category";
 import Image from "../models/ProductImage";
 import dotenv from "dotenv";
+import db from "../config/database";
 import ProductImage from "../models/ProductImage";
 import { pagination } from "../helpers/functions";
 
@@ -18,46 +19,50 @@ export default class ProductService {
   //GET ALL ProductS
   async getAllProducts(pageNo: number, orderBy: string, sortBy: string) {
     output = "";
-    output = await Product.findAll({
-      include: [
-        {
-          model: Category,
-          attributes: [],
-          required: true,
-        },
-      ],
-      attributes: [
-        // "productId",
-        "productId",
-        "productName",
-        "productStatus",
-        "productMinPrice",
-        "productMaxPrice",
-        "productQuantity",
-        "productRatingCount",
-        "productAverageRating",
-        "productTotalSales",
-        // "productCategoryId",
-        [Sequelize.col("category_name"), "categoryName"],
-        "productImageId",
-        "productStockQuantity",
-        "productInStock",
-        "productOnsale",
-        "productActive",
-        "productBrandId",
-        "productCouponId",
-        "productTaxId",
-        "productShippingId",
-        "productCreatedDate",
-        "productUpdatedDate",
-      ],
-
-      raw: true,
-      order: [[orderBy, sortBy]],
-
-      limit: 10,
-      offset: await pagination(pageNo),
+    output = await db.query("SELECT * FROM product product INNER JOIN image image on product.product_image_id = image.product_image_id", {
+      type: QueryTypes.SELECT,
     });
+    // output = await Product.findAll({
+    //   include: [
+    //     {
+    //       model: Category,
+    //       attributes: [],
+    //       required: true,
+    //     },
+    //   ],
+    //   attributes: [
+    //     // "productId",
+    //     "productId",
+    //     "productName",
+    //     "productStatus",
+    //     "productMinPrice",
+    //     "productMaxPrice",
+    //     "productQuantity",
+    //     "productRatingCount",
+    //     "productAverageRating",
+    //     "productTotalSales",
+    //     "productCategoryId",
+    //     // [Sequelize.col("category_name"), "categoryName"],
+    //     "productImageId",
+    //     "productStockQuantity",
+    //     "productInStock",
+    //     "productOnsale",
+    //     "productActive",
+    //     "productBrandId",
+    //     "productCouponId",
+    //     "productTaxId",
+    //     "productShippingId",
+    //     "productFeaturedId",
+    //     "productCreatedDate",
+    //     "productUpdatedDate",
+    //   ],
+
+    //   raw: true,
+    //   order: [[orderBy, sortBy]],
+
+    //   limit: 10,
+    //   offset: await pagination(pageNo),
+    // });
     return output == "" ? "No Products Found" : output;
   }
 
@@ -69,6 +74,13 @@ export default class ProductService {
         {
           model: Category,
           attributes: [],
+
+          required: true,
+        },
+        {
+          model: Image,
+          where: { product_image_id: "product_image_id" },
+          attributes: [],
           required: true,
         },
       ],
@@ -83,9 +95,10 @@ export default class ProductService {
         "productRatingCount",
         "productAverageRating",
         "productTotalSales",
-        // "productCategoryId",
+        "productCategoryId",
         [Sequelize.col("category_name"), "categoryName"],
         "productImageId",
+        [Sequelize.col("product_image_name"), "productImageName"],
         "productStockQuantity",
         "productInStock",
         "productOnsale",
@@ -96,6 +109,7 @@ export default class ProductService {
         "productShippingId",
         "productEntryId",
         "productModifiedId",
+        "productFeaturedId",
         "productCreatedDate",
         "productUpdatedDate",
       ],

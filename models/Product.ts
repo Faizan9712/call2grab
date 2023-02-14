@@ -11,6 +11,7 @@ import Cart from "./Cart";
 import Category from "./Category";
 import Image from "./ProductImage";
 export interface ProductI {
+  
   productId: number;
   productName: string;
   productStatus: string;
@@ -31,6 +32,7 @@ export interface ProductI {
   productTaxId: number;
   productShippingId: number;
   productEntryId: number;
+  productFeaturedId:number;
   productModifiedId: number;
   productCreatedDate: Date;
   productUpdatedDate: Date;
@@ -43,6 +45,7 @@ export interface ProductI {
   underscored: true,
 })
 export default class Product extends Model implements ProductI {
+  
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -213,6 +216,14 @@ export default class Product extends Model implements ProductI {
     defaultValue: 0,
   })
   productModifiedId!: number;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: "product_featured_id",
+    defaultValue: 0,
+  })
+  productFeaturedId!: number;
 
   @Column({
     allowNull: false,
