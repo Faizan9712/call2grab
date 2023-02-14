@@ -23,7 +23,13 @@ export async function sanitizeInput(data: any) {
   return data;
 }
 
-export async function pagination(pageNumber:number) {
+// export async function sanitizeInput(data: any) {
+//   return await data.replace(/[^\w. ]/gi, function (c: any) {
+//     return "&#" + c.charCodeAt(0) + ";";
+//   });
+// }
+
+export async function pagination(pageNumber: number) {
   const newPage = pageNumber ? pageNumber - 1 : 0;
   const pagination = newPage != 0 ? newPage * 10 : 0;
   return pagination;

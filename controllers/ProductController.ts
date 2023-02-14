@@ -12,15 +12,47 @@ let fullfilename: any;
 const productService = new ProductService();
 
 //GET ALL PRODUCTS FUNCTION
+// export async function getProducts(req: Request, res: Response) {
+//   try {
+//     output = "";
+//     const { pageNo, orderBy, sortBy } = await sanitizeInput(req.query);
+//     output = await productService
+//       .getAllProducts(
+//         pageNo == undefined ? 1 : pageNo,
+//         orderBy == undefined ? "productId" : orderBy,
+//         sortBy == undefined ? "ASC" : sortBy
+//       )
+//       .then((output: any) => {
+//         if (typeof output === "string") {
+//           res.status(200).json({ message: output });
+//         } else {
+//           res.status(200).json({ output: output });
+//         }
+//       })
+//       .catch((error: any) => {
+//         res.status(400).json({ output: "Something went wrong" });
+//         console.log(error);
+//       });
+//   } catch (error) {
+//     res.status(503).json({ output: "Something went wrong" });
+//     console.log(error);
+//   }
+// }
+
+//GET ALL PRODUCTS FUNCTION USING FILTERS AND SEARCH
 export async function getProducts(req: Request, res: Response) {
   try {
     output = "";
-    const { pageNo, orderBy, sortBy } = await sanitizeInput(req.query);
+    const { pageNo, orderBy, sortBy, query, filter } = await sanitizeInput(
+      req.query
+    );
     output = await productService
-      .getAllProducts(
+      .productCases(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "productId" : orderBy,
-        sortBy == undefined ? "ASC" : sortBy
+        sortBy == undefined ? "ASC" : sortBy,
+        query,
+        filter == undefined ? "all" : filter
       )
       .then((output: any) => {
         if (typeof output === "string") {
@@ -38,7 +70,6 @@ export async function getProducts(req: Request, res: Response) {
     console.log(error);
   }
 }
-
 //GET PRODUCT BY ID
 export async function getProduct(req: Request, res: Response) {
   try {

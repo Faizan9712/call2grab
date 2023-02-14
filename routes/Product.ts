@@ -9,6 +9,7 @@ import {
   updateProduct,
   deleteProduct,
   uploadProduct,
+  // filteredProducts
 } from "../controllers/ProductController";
 import upload from "express-fileupload";
 
@@ -18,6 +19,9 @@ router.use(upload());
 
 //GET ALL PRODUCTS
 router.get("/products", isAuth, getProducts);
+
+//GET ALL PRODUCTS
+// router.get("/filter-products", isAuth, filteredProducts);
 
 //GET PRODUCT BY ID
 router.get("/product/:id", isAuth, getProduct);
