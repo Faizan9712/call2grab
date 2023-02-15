@@ -57,6 +57,6 @@ export default class Category extends Model implements categoryI {
   })
   categoryActive!: number;
 
-  @HasMany(() => Product)
-  Product!: Product[];
+  // @HasMany(() => Product)
+  // Product!: Product[];
 }

@@ -26,7 +26,7 @@ export interface ProductI {
   productStockQuantity: number;
   productInStock: number;
   productOnsale: number;
-  productActive: string;
+  productActive: number;
   productBrandId: number;
   productCouponId: number;
   productTaxId: number;
@@ -120,7 +120,7 @@ export default class Product extends Model implements ProductI {
   })
   productTotalSales!: number;
 
-  @ForeignKey(() => Category)
+  // @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -129,7 +129,7 @@ export default class Product extends Model implements ProductI {
   })
   productCategoryId!: number;
 
-  @ForeignKey(() => Image)
+  // @ForeignKey(() => Image)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -165,10 +165,10 @@ export default class Product extends Model implements ProductI {
   @Column({
     allowNull: false,
     field: "product_active",
-    type: DataType.CHAR,
+    type: DataType.INTEGER,
     defaultValue: "0",
   })
-  productActive!: string;
+  productActive!: number;
 
   @Column({
     type: DataType.INTEGER,
@@ -242,12 +242,12 @@ export default class Product extends Model implements ProductI {
   })
   productUpdatedDate!: Date;
 
-  @BelongsTo(() => Category)
-  Category!: Category;
+  // @BelongsTo(() => Category)
+  // Category!: Category;
 
-  @BelongsTo(() => Image)
-  Image!: Image[];
+  // @BelongsTo(() => Image)
+  // Image!: Image[];
 
-  @HasMany(() => Cart)
-  Cart!: Cart[];
+  // @HasMany(() => Cart)
+  // Cart!: Cart[];
 }

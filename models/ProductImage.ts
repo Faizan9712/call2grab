@@ -63,6 +63,6 @@ export default class ProductImage extends Model implements ImageI {
   })
   imageUpdatedDate!: Date;
 
-  @HasOne(() => Product)
-  Product!: Product;
+  // @HasOne(() => Product)
+  // Product!: Product;
 }
