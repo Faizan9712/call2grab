@@ -201,6 +201,6 @@ export default class User extends Model implements UserI {
   })
   userUpdatedDate!: Date;
 
-  @HasOne(() => Cart)
-  Cart!: Cart[];
+  // @HasOne(() => Cart)
+  // Cart!: Cart[];
 }
