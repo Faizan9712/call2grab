@@ -44,7 +44,7 @@ export default class ProductService {
       product.product_updated_date "productUpdatedDate"
       
     FROM
-      product product
+      tempproduct product
       LEFT JOIN  image image ON image.product_image_id = product.product_image_id
       LEFT JOIN  category category ON category.category_id = product.product_category_id
     WHERE 1=1
@@ -132,7 +132,7 @@ export default class ProductService {
       product.product_created_date "productCreatedDate",
       product.product_updated_date "productUpdatedDate" 
     FROM
-      product product
+      tempproduct product
       LEFT JOIN image image ON image.product_image_id = product.product_image_id
       LEFT JOIN category category ON category.category_id = product.product_category_id 
     WHERE
@@ -342,7 +342,7 @@ export default class ProductService {
       product.product_created_date "productCreatedDate",
       product.product_updated_date "productUpdatedDate" 
     FROM
-      product product
+    tempproduct product
       LEFT JOIN image image ON image.product_image_id = product.product_image_id
       LEFT JOIN category category ON category.category_id = product.product_category_id 
     WHERE
@@ -395,7 +395,7 @@ export default class ProductService {
       product.product_created_date "productCreatedDate",
       product.product_updated_date "productUpdatedDate" 
     FROM
-      product product
+    tempproduct product
       LEFT JOIN image image ON image.product_image_id = product.product_image_id
       LEFT JOIN category category ON category.category_id = product.product_category_id 
     WHERE

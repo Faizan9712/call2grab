@@ -39,11 +39,12 @@ export interface ProductI {
 }
 
 @Table({
-  tableName: "product",
+  tableName: "tempproduct",
   freezeTableName: true,
   timestamps: false,
   underscored: true,
 })
+
 export default class Product extends Model implements ProductI {
   
   @Column({
