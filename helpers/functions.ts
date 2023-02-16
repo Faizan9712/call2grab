@@ -47,7 +47,7 @@ export async function infoFromToken(req: any) {
 }
 
 //Upload Pic
-export async function uploadPic(res: any, photo: any) {
+export async function uploadPic(req: any, res: any, photo: any) {
   filename = photo.name;
   fileSize = photo.size;
   fileExtension = path.extname(filename);
@@ -58,7 +58,8 @@ export async function uploadPic(res: any, photo: any) {
       fileExtension == ".png"
     ) {
       uuid = short.generate();
-      fullfilename = "product_" + uuid + "_" + filename;
+      const prefix = await sanitizeInput(req.url.slice(8, 12));
+      fullfilename = prefix +"-"+ uuid + "_" + filename;
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
       }

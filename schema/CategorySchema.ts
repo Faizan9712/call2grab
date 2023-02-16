@@ -4,7 +4,7 @@ import Joi from "joi";
 export const addCategorySchema = Joi.object({
   categoryName: Joi.string().min(3).max(50).required(),
   categoryParentId:  Joi.number().required(),
-  categoryImage:  Joi.string().required(),
+  // categoryImage:  Joi.string().required(),
   categoryActive:  Joi.number().required(),
 });
 
@@ -12,6 +12,6 @@ export const addCategorySchema = Joi.object({
 export const updateCategorySchema = Joi.object({
   categoryName: Joi.string().min(3).max(50).optional(),
   categoryParentId:  Joi.number().optional(),
-  categoryImage:  Joi.string().optional(),
+  // categoryImage:  Joi.string().optional(),
   categoryActive:  Joi.number().optional(),
 });

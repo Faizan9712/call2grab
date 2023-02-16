@@ -129,8 +129,8 @@ export async function updateProduct(req: Request, res: Response) {
     const information: any = await infoFromToken(req);
     req.body["productModifiedId"] = information.id;
     let result = await productService.getProduct(id);
-    if (result == null) {
-      res.status(400).json({ message: "Product doesn't exist" });
+    if (typeof result == "string") {
+      res.status(400).json({ message: result });
     } else {
       output = await productService
         .updateProduct(querypm, id)
@@ -159,8 +159,8 @@ export async function deleteProduct(req: Request, res: Response) {
     output = "";
     querypm = await sanitizeInput(Number(req.params.id));
     let result = await productService.getProduct(querypm);
-    if (result == null) {
-      res.status(400).json({ message: "Product doesn't exist" });
+    if (typeof result == "string") {
+      res.status(400).json({ message: result });
     } else {
       output = await productService
         .deleteProduct(querypm)
@@ -182,13 +182,21 @@ export async function deleteProduct(req: Request, res: Response) {
 export async function uploadProduct(req: any, res: Response) {
   try {
     const productId = await sanitizeInput(req.query.id);
-    let count = 0;
     if (req.files === null || req.files === undefined) {
       res.status(403).json({ message: "Please select image" });
     } else {
+      let count = 0;
+      if (req.files.photo[count] == undefined) {
+        photo = req.files.photo;
+        fullfilename = await uploadPic(req, res, photo);
+        if (fullfilename) {
+          await productService.dbSetPath(fullfilename, productId);
+          res.status(200).json({ Message: "Image Uploaded Successfullly " });
+        }
+      }
       while (req.files.photo[count]) {
         photo = req.files.photo[count];
-        fullfilename = await uploadPic(res, photo);
+        fullfilename = await uploadPic(req, res, photo);
         if (fullfilename) {
           await productService.dbSetPath(fullfilename, productId);
           count++;

@@ -1,32 +1,24 @@
 import { Request, Response } from "express";
-import CategoryService from "../services/CategoryService";
-import { sanitizeInput, uploadPic } from "../helpers/functions";
-import { string } from "joi";
+import ParentCategoryService from "../services/ParentCategoryService";
+import { sanitizeInput } from "../helpers/functions";
 
 //INSTANCE VARIABLES
-
 let output: any;
 let querypm: number;
-let photo: any;
-let fullfilename: any;
 
 //CREATING OBJECT
-const categoryService = new CategoryService();
+const parentCategoryService = new ParentCategoryService();
 
-//GET ALL CategoryS FUNCTION
-export async function getCategorys(req: Request, res: Response) {
+//GET ALL parentCategoryS FUNCTION
+export async function getParentCategorys(req: Request, res: Response) {
   try {
     output = "";
-    const { pageNo, orderBy, sortBy, query, filter } = await sanitizeInput(
-      req.query
-    );
-    output = await categoryService
-      .categoryCases(
+    const { pageNo, orderBy, sortBy } = await sanitizeInput(req.query);
+    output = await parentCategoryService
+      .getAllParentCategorys(
         pageNo == undefined ? 1 : pageNo,
-        orderBy == undefined ? "categoryId" : orderBy,
-        sortBy == undefined ? "ASC" : sortBy,
-        query,
-        filter == undefined ? "all" : filter
+        orderBy == undefined ? "parentCategoryId" : orderBy,
+        sortBy == undefined ? "ASC" : sortBy
       )
       .then((output: any) => {
         if (typeof output === "string") {
@@ -45,17 +37,15 @@ export async function getCategorys(req: Request, res: Response) {
   }
 }
 
-//GET Category BY ID
-export async function getCategory(req: Request, res: Response) {
+//GET parentCategory BY ID
+export async function getParentCategory(req: Request, res: Response) {
   try {
     output = "";
     querypm = await sanitizeInput(Number(req.params.id));
-
-    output = await categoryService
-      .getCategory(querypm)
+    output = await parentCategoryService
+      .getParentCategory(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
-          console.log("======", output);
           res.status(200).json({ message: output });
         } else {
           res.status(200).json({ output: output });
@@ -71,13 +61,13 @@ export async function getCategory(req: Request, res: Response) {
   }
 }
 
-//ADD Category
-export async function addCategory(req: Request, res: Response) {
+//ADD parentCategory
+export async function addParentCategory(req: Request, res: Response) {
   try {
     output = "";
     querypm = await sanitizeInput(req.body);
-    output = await categoryService
-      .addCategory(querypm)
+    output = await parentCategoryService
+      .addParentCategory(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
           res.status(200).json({ message: output });
@@ -95,23 +85,25 @@ export async function addCategory(req: Request, res: Response) {
   }
 }
 
-//UPDATE Category
-export async function updateCategory(req: Request, res: Response) {
+//UPDATE parentCategory
+export async function updateParentCategory(req: Request, res: Response) {
   try {
     output = "";
     querypm = await sanitizeInput(req.body);
     const id = await sanitizeInput(Number(req.params.id));
-    let result = await categoryService.getCategory(id);
-    if (typeof result == "string") {
-      res.status(400).json({ message: result });
+    let result = await parentCategoryService.getParentCategory(id);
+    if (result == null) {
+      res.status(400).json({ message: "ParentCategory doesn't exist" });
     } else {
-      output = await categoryService
-        .updateCategory(querypm, id)
+      output = await parentCategoryService
+        .updateParentCategory(querypm, id)
         .then((output: any) => {
           if (output[0] === 0) {
             res.status(200).json({ message: "Already Updated" });
           } else {
-            res.status(200).json({ message: "Category Updated Successfully" });
+            res
+              .status(200)
+              .json({ message: "Parent Category Updated Successfully" });
           }
         })
         .catch((error: any) => {
@@ -125,19 +117,21 @@ export async function updateCategory(req: Request, res: Response) {
   }
 }
 
-//DELETE Category
-export async function deleteCategory(req: Request, res: Response) {
+//DELETE parentCategory
+export async function deleteParentCategory(req: Request, res: Response) {
   try {
     output = "";
     querypm = await sanitizeInput(Number(req.params.id));
-    let result = await categoryService.getCategory(querypm);
-    if (typeof result == "string") {
-      res.status(400).json({ message: result });
+    let result = await parentCategoryService.getParentCategory(querypm);
+    if (result == null) {
+      res.status(400).json({ message: "parentCategory doesn't exist" });
     } else {
-      output = await categoryService
-        .deleteCategory(querypm)
+      output = await parentCategoryService
+        .deleteParentCategory(querypm)
         .then((output: any) => {
-          res.status(200).json({ message: "Category Deleted Successfully" });
+          res
+            .status(200)
+            .json({ message: "Parent Category Deleted Successfully" });
         })
         .catch((error: any) => {
           res.status(400).json({ message: "Invalid input" });
@@ -151,12 +145,12 @@ export async function deleteCategory(req: Request, res: Response) {
 }
 
 //POPULATE CATEGORIES
-export async function populateCategories(req: Request, res: Response) {
+export async function populateParentCategories(req: Request, res: Response) {
   try {
     output = "";
     querypm = await sanitizeInput(req.query.qpm);
-    output = await categoryService
-      .populateCategories(querypm)
+    output = await parentCategoryService
+      .populateParentCategories(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
           res.status(200).json({ message: output });
@@ -171,38 +165,5 @@ export async function populateCategories(req: Request, res: Response) {
   } catch (error) {
     res.status(503).json({ output: "Something went wrong" });
     console.log(error);
-  }
-}
-
-//UPLOAD PIC FUNCTION
-export async function uploadCategory(req: any, res: Response) {
-  try {
-    const categoryId = await sanitizeInput(req.query.id);
-
-    if (req.files === null || req.files === undefined) {
-      res.status(403).json({ message: "Please select image" });
-    } else {
-      photo = req.files.photo;
-      fullfilename = await uploadPic(req, res, photo);
-      if (fullfilename) {
-        output = await categoryService
-          .getCategory(categoryId)
-          .then(async (output: any) => {
-            console.log(output);
-            if (typeof output === "string") {
-              res.status(200).json({ message: output });
-            } else {
-              await categoryService.dbSetPath(fullfilename, categoryId);
-              res
-                .status(200)
-                .json({ Message: "Image Uploaded Successfullly " });
-              console.log("Image Uploaded Successfullly ");
-            }
-          });
-      }
-    }
-  } catch (error) {
-    res.status(500).json({ Message: "Something went wrong " });
-    console.log("Error :  " + error);
   }
 }

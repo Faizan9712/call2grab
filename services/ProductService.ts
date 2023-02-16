@@ -14,93 +14,93 @@ dotenv.config();
 //Product SERVICE CLASS
 export default class ProductService {
   //GET ALL ProductS
-  async getAllProducts(pageNo: number, orderBy: string, sortBy: string) {
-    output = "";
-    output = await db.query(
-      `SELECT
-      product.product_id "productId",
-      product.product_name "productName",
-      product.product_status "productStatus",
-      product.product_min_price "productMinPrice",
-      product.product_max_price "productMaxPrice",
-      product.product_quantity "productQuantity",
-      product.product_rating_count "productRatingCount",
-      product.product_average_rating "productAverageRating",
-      product.product_total_sales "productTotalSales",
-      product.product_category_id "productCategoryId",
-      category.category_name "productCategoryName",
-      product.product_image_id "productImageId",
-      GROUP_CONCAT(image.product_image_name) "productImageName",
-      product.product_stock_quantity "productStockQuantity",
-      product.product_in_stock "productInStock",
-      product.product_onsale "productOnsale",
-      product.product_active "productActive",
-      product.product_brand_id "productBrandId",
-      product.product_coupon_id "productCouponId",
-      product.product_tax_id "productTaxId",
-      product.product_shipping_id "productShippingId",
-      product.product_featured_id "productFeaturedId",
-      product.product_created_date "productCreatedDate",
-      product.product_updated_date "productUpdatedDate"
-      
-    FROM
-      tempproduct product
-      LEFT JOIN  image image ON image.product_image_id = product.product_image_id
-      LEFT JOIN  category category ON category.category_id = product.product_category_id
-    WHERE 1=1
-      GROUP BY product_id
-      ORDER BY ${orderBy}
-      ${sortBy}
-      LIMIT 10
-      OFFSET ${await pagination(pageNo)}`,
+  // async getAllProducts(pageNo: number, orderBy: string, sortBy: string) {
+  //   output = "";
+  //   output = await db.query(
+  //     `SELECT
+  //     product.product_id "productId",
+  //     product.product_name "productName",
+  //     product.product_status "productStatus",
+  //     product.product_min_price "productMinPrice",
+  //     product.product_max_price "productMaxPrice",
+  //     product.product_quantity "productQuantity",
+  //     product.product_rating_count "productRatingCount",
+  //     product.product_average_rating "productAverageRating",
+  //     product.product_total_sales "productTotalSales",
+  //     product.product_category_id "productCategoryId",
+  //     category.category_name "productCategoryName",
+  //     product.product_image_id "productImageId",
+  //     GROUP_CONCAT(image.product_image_name) "productImageName",
+  //     product.product_stock_quantity "productStockQuantity",
+  //     product.product_in_stock "productInStock",
+  //     product.product_onsale "productOnsale",
+  //     product.product_active "productActive",
+  //     product.product_brand_id "productBrandId",
+  //     product.product_coupon_id "productCouponId",
+  //     product.product_tax_id "productTaxId",
+  //     product.product_shipping_id "productShippingId",
+  //     product.product_featured_id "productFeaturedId",
+  //     product.product_created_date "productCreatedDate",
+  //     product.product_updated_date "productUpdatedDate"
 
-      {
-        type: QueryTypes.SELECT,
-      }
-    );
-    // output = await Product.findAll({
-    //   include: [
-    //     {
-    //       model: Category,
-    //       attributes: [],
-    //       required: true,
-    //     },
-    //   ],
-    //   attributes: [
-    //     // "productId",
-    //     "productId",
-    //     "productName",
-    //     "productStatus",
-    //     "productMinPrice",
-    //     "productMaxPrice",
-    //     "productQuantity",
-    //     "productRatingCount",
-    //     "productAverageRating",
-    //     "productTotalSales",
-    //     "productCategoryId",
-    //     // [Sequelize.col("category_name"), "categoryName"],
-    //     "productImageId",
-    //     "productStockQuantity",
-    //     "productInStock",
-    //     "productOnsale",
-    //     "productActive",
-    //     "productBrandId",
-    //     "productCouponId",
-    //     "productTaxId",
-    //     "productShippingId",
-    //     "productFeaturedId",
-    //     "productCreatedDate",
-    //     "productUpdatedDate",
-    //   ],
+  //   FROM
+  //     tempproduct product
+  //     LEFT JOIN  image image ON image.product_image_id = product.product_image_id
+  //     LEFT JOIN  category category ON category.category_id = product.product_category_id
+  //   WHERE 1=1
+  //     GROUP BY product_id
+  //     ORDER BY ${orderBy}
+  //     ${sortBy}
+  //     LIMIT 10
+  //     OFFSET ${await pagination(pageNo)}`,
 
-    //   raw: true,
-    //   order: [[orderBy, sortBy]],
+  //     {
+  //       type: QueryTypes.SELECT,
+  //     }
+  //   );
+  //   // output = await Product.findAll({
+  //   //   include: [
+  //   //     {
+  //   //       model: Category,
+  //   //       attributes: [],
+  //   //       required: true,
+  //   //     },
+  //   //   ],
+  //   //   attributes: [
+  //   //     // "productId",
+  //   //     "productId",
+  //   //     "productName",
+  //   //     "productStatus",
+  //   //     "productMinPrice",
+  //   //     "productMaxPrice",
+  //   //     "productQuantity",
+  //   //     "productRatingCount",
+  //   //     "productAverageRating",
+  //   //     "productTotalSales",
+  //   //     "productCategoryId",
+  //   //     // [Sequelize.col("category_name"), "categoryName"],
+  //   //     "productImageId",
+  //   //     "productStockQuantity",
+  //   //     "productInStock",
+  //   //     "productOnsale",
+  //   //     "productActive",
+  //   //     "productBrandId",
+  //   //     "productCouponId",
+  //   //     "productTaxId",
+  //   //     "productShippingId",
+  //   //     "productFeaturedId",
+  //   //     "productCreatedDate",
+  //   //     "productUpdatedDate",
+  //   //   ],
 
-    //   limit: 10,
-    //   offset: await pagination(pageNo),
-    // });
-    return output == "" ? "No Products Found" : output;
-  }
+  //   //   raw: true,
+  //   //   order: [[orderBy, sortBy]],
+
+  //   //   limit: 10,
+  //   //   offset: await pagination(pageNo),
+  //   // });
+  //   return output == "" ? "No Products Found" : output;
+  // }
 
   //GET PRODUCT BY ID
   async getProduct(id: number) {
@@ -192,7 +192,9 @@ export default class ProductService {
     //   limit: 10,
     //   where: { product_id: id },
     // });
-    return output == "" ? `No Product with ${id} Found` : output;
+    return output == "" || output == null || output[0].productId == null
+      ? `No Product with id=${id} Found`
+      : output;
   }
 
   //ADD PRODUCT

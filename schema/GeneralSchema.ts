@@ -8,10 +8,14 @@ import {
   addUserSchema,
   updateUserSchema,
   changeUserPasswordSchema,
-  deactivateUserSchema
+  deactivateUserSchema,
 } from "./UserSchema";
 import { addCategorySchema, updateCategorySchema } from "./CategorySchema";
 import { addProductCartSchema, updateProductCartSchema } from "./CartSchema";
+import {
+  addParentCategorySchema,
+  updateParentCategorySchema,
+} from "./ParentCategorySchema";
 
 module.exports = {
   loginSchema,
@@ -27,4 +31,6 @@ module.exports = {
   updateProductCartSchema,
   addCategorySchema,
   updateCategorySchema,
+  addParentCategorySchema,
+  updateParentCategorySchema
 };

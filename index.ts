@@ -7,6 +7,7 @@ import authenticationRouter from "./routes/Authentication";
 import userRouter from "./routes/User";
 import productRouter from "./routes/Product";
 import categoryRouter from "./routes/Category";
+import parentCategoryRouter from "./routes/ParentCategory";
 import cartRouter from "./routes/Cart";
 import createHttpError from "http-errors";
 import cors from "cors";
@@ -48,6 +49,7 @@ app.use("/api", authenticationRouter);
 app.use("/api", userRouter);
 app.use("/api", productRouter);
 app.use("/api", categoryRouter);
+app.use("/api", parentCategoryRouter);
 app.use("/api", cartRouter);
 
 // Catch HTTP 404
