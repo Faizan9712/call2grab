@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import CategoryService from "../services/CategoryService";
 import { sanitizeInput, uploadPic } from "../helpers/functions";
-import { string } from "joi";
+import { filePath } from "../helpers/functions";
+import path from "path";
 
 //INSTANCE VARIABLES
 
@@ -55,7 +56,7 @@ export async function getCategory(req: Request, res: Response) {
       .getCategory(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
-          console.log("======", output);
+          // console.log("======", output);
           res.status(200).json({ message: output });
         } else {
           res.status(200).json({ output: output });
@@ -175,34 +176,65 @@ export async function populateCategories(req: Request, res: Response) {
 }
 
 //UPLOAD PIC FUNCTION
+// export async function uploadCategory(req: any, res: Response) {
+//   try {
+//     const categoryId = await sanitizeInput(req.params.id);
+//     if (req.files === null || req.files === undefined) {
+//       res.status(400).json({ message: "Please select image" });
+//     } else {
+//       // if (fullfilename) {
+//       output = await categoryService
+//         .getCategory(categoryId)
+//         .then(async (output: any) => {
+//           // console.log(output);
+//           if (typeof output === "string") {
+//             res.status(200).json({ message: output });
+//           } else {
+//             photo = await req.files.photo;
+//             fullfilename = await uploadPic(req, res, photo);
+//             if (fullfilename) {
+//               await categoryService.dbSetPath(fullfilename, categoryId);
+//               res
+//                 .status(200)
+//                 .json({ Message: "Image Uploaded Successfullly " });
+//               console.log("Image Uploaded Successfullly ");
+//             }
+//           }
+//         });
+
+//       // }
+//     }
+//   } catch (error) {
+//     res.status(500).json({ Message: "Something went wrong " });
+//     console.log("Error :  " + error);
+//   }
+// }
+
 export async function uploadCategory(req: any, res: Response) {
   try {
-    const categoryId = await sanitizeInput(req.query.id);
-
-    if (req.files === null || req.files === undefined) {
-      res.status(403).json({ message: "Please select image" });
-    } else {
-      photo = req.files.photo;
-      fullfilename = await uploadPic(req, res, photo);
-      if (fullfilename) {
-        output = await categoryService
-          .getCategory(categoryId)
-          .then(async (output: any) => {
-            console.log(output);
-            if (typeof output === "string") {
-              res.status(200).json({ message: output });
-            } else {
-              await categoryService.dbSetPath(fullfilename, categoryId);
-              res
-                .status(200)
-                .json({ Message: "Image Uploaded Successfullly " });
-              console.log("Image Uploaded Successfullly ");
-            }
-          });
-      }
+    // Check if file exists
+    if (!req.file) {
+      throw new Error("No file uploaded.");
     }
-  } catch (error) {
-    res.status(500).json({ Message: "Something went wrong " });
-    console.log("Error :  " + error);
+    // Save file path to database
+    const categoryId = await sanitizeInput(req.params.id);
+    output = await categoryService
+      .getCategory(categoryId)
+      .then(async (output: any) => {
+        // console.log(output);
+        if (typeof output === "string") {
+          res.status(200).json({ message: output });
+        } else {
+          const fullfilename = await filePath(req);
+          // Save file to database using filePath
+          await categoryService.dbSetPath(fullfilename, categoryId);
+
+          res.status(200).json({ message: "File uploaded successfully." });
+        }
+      });
+  } catch (error: any) {
+    console.error(error);
+    res.status(400).json({ message: "Something went wrong" });
   }
 }
+

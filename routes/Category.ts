@@ -2,6 +2,7 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
+import { upload } from "../helpers/functions";
 import {
   getCategorys,
   getCategory,
@@ -9,7 +10,7 @@ import {
   updateCategory,
   deleteCategory,
   populateCategories,
-  uploadCategory
+  uploadCategory,
 } from "../controllers/CategoryController";
 
 dotenv.config();
@@ -39,6 +40,19 @@ router.delete("/category/:id", isAuth, deleteCategory);
 router.get("/populate-categories", isAuth, populateCategories);
 
 //UPLOAD PHOTO
-router.patch("/upload-category", isAuth, uploadCategory);
+// router.patch("/upload-category/:id", isAuth, uploadCategory);
+
+//UPLOAD PHOTO
+// app.post('/upload', upload.single('image'), uploadCategory);
+
+/////////////////////////////////////////
+
+// Single file upload endpoint
+router.patch(
+  "/upload-category/:id",
+  isAuth,
+  upload.single("image"),
+  uploadCategory
+);
 
 export default router;

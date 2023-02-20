@@ -66,7 +66,7 @@ export default class CategoryService {
   async getCategory(id: number) {
     output = "";
     output = await Category.findByPk(id);
-    console.log(output);
+    // console.log(output);
     return output == "" || output == null
       ? `No Category with id=${id} Found`
       : output;

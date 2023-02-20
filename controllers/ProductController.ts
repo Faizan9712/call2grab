@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 import ProductService from "../services/ProductService";
-import { infoFromToken, sanitizeInput, uploadPic } from "../helpers/functions";
+import {
+  filePath,
+  infoFromToken,
+  sanitizeInput,
+  uploadPic,
+} from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
@@ -179,35 +184,56 @@ export async function deleteProduct(req: Request, res: Response) {
 }
 
 //UPLOAD PIC FUNCTION
-export async function uploadProduct(req: any, res: Response) {
+// export async function uploadProduct(req: any, res: Response) {
+//   try {
+//     const productId = await sanitizeInput(req.query.id);
+//     if (req.files === null || req.files === undefined) {
+//       res.status(403).json({ message: "Please select image" });
+//     } else {
+//       let count = 0;
+//       if (req.files.photo[count] == undefined) {
+//         photo = req.files.photo;
+//         fullfilename = await uploadPic(req, res, photo);
+//         if (fullfilename) {
+//           await productService.dbSetPath(fullfilename, productId);
+//           res.status(200).json({ Message: "Image Uploaded Successfullly " });
+//         }
+//       }
+//       while (req.files.photo[count]) {
+//         photo = req.files.photo[count];
+//         fullfilename = await uploadPic(req, res, photo);
+//         if (fullfilename) {
+//           await productService.dbSetPath(fullfilename, productId);
+//           count++;
+//           if (req.files.photo[count] == undefined)
+//             res.status(200).json({ Message: "Image Uploaded Successfullly " });
+//           console.log("Image Uploaded Successfullly ");
+//         }
+//       }
+//     }
+//   } catch (error) {
+//     res.status(500).json({ Message: "Something went wrong " });
+//     console.log("Error :  " + error);
+//   }
+// }
+
+export async function uploadProductImages(req: any, res: Response) {
   try {
-    const productId = await sanitizeInput(req.query.id);
-    if (req.files === null || req.files === undefined) {
-      res.status(403).json({ message: "Please select image" });
-    } else {
-      let count = 0;
-      if (req.files.photo[count] == undefined) {
-        photo = req.files.photo;
-        fullfilename = await uploadPic(req, res, photo);
-        if (fullfilename) {
-          await productService.dbSetPath(fullfilename, productId);
-          res.status(200).json({ Message: "Image Uploaded Successfullly " });
-        }
-      }
-      while (req.files.photo[count]) {
-        photo = req.files.photo[count];
-        fullfilename = await uploadPic(req, res, photo);
-        if (fullfilename) {
-          await productService.dbSetPath(fullfilename, productId);
-          count++;
-          if (req.files.photo[count] == undefined)
-            res.status(200).json({ Message: "Image Uploaded Successfullly " });
-          console.log("Image Uploaded Successfullly ");
-        }
-      }
+    // Check if files exist
+    if (!req.files || req.files.length === 0) {
+      throw new Error("No files uploaded.");
     }
-  } catch (error) {
-    res.status(500).json({ Message: "Something went wrong " });
-    console.log("Error :  " + error);
+    const productId = await sanitizeInput(req.params.id);
+    let count = 0;
+    while (req.files[count] !== undefined) {
+      const fullfilename = req.files[count].filename;
+      // Save file to database using filePath
+      await productService.dbSetPath(fullfilename, productId);
+      count++;
+    }
+    res.status(200).json({ message: "File uploaded successfully." });
+  } catch (error: any) {
+    console.error(error);
+    res.status(400).json({ message: "" });
   }
 }

@@ -6,6 +6,8 @@ import Category from "../models/Category";
 import Image from "../models/ProductImage";
 import Cart from "../models/Cart";
 import ParentCategory from "../models/ParentCategory";
+import Order from "../models/Order";
+import Coupon from "../models/Coupon";
 const db: any = new Sequelize("call2grab", "root", "", {
   host: "localhost",
   storage: ".database/mysql",
@@ -13,6 +15,16 @@ const db: any = new Sequelize("call2grab", "root", "", {
   models: ["../models/*.ts"],
   logging: false,
 });
-db.addModels([Admin, Product, User, Category,ParentCategory, Image, Cart]);
+db.addModels([
+  Admin,
+  Product,
+  User,
+  Category,
+  ParentCategory,
+  Image,
+  Cart,
+  Order,
+  Coupon
+]);
 
 export default db;

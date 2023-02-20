@@ -30,7 +30,9 @@ export default class ParentCategoryService {
   async getParentCategory(id: number) {
     output = "";
     output = await ParentCategory.findByPk(id);
-    return output == "" ? `No ParentCategory with ${id} Found` : output;
+    return output == "" || output == null
+      ? `No ParentCategory with id=${id} Found`
+      : output;
   }
 
   //ADD ParentCategory

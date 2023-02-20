@@ -2,6 +2,7 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
+import { upload } from "../helpers/functions";
 import {
   getUsers,
   getUser,
@@ -10,6 +11,7 @@ import {
   deleteUser,
   changeUserPasssword,
   deactivateUser,
+  uploadUser,
 } from "../controllers/UserController";
 
 dotenv.config();
@@ -44,6 +46,11 @@ router.put(
 router.put("/user/:id", isAuth, Validator("updateUserSchema"), updateUser);
 
 //DELETE User
-router.delete("/User/:id", isAuth, deleteUser);
+router.delete("/user/:id", isAuth, deleteUser);
+
+//UPLOAD PHOTO
+// router.patch("/upload-user/:id", isAuth, uploadUser);
+
+router.patch("/upload-user/:id", isAuth, upload.single("image"), uploadUser);
 
 export default router;

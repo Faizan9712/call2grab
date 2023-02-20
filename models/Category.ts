@@ -42,7 +42,7 @@ export default class Category extends Model implements categoryI {
   categoryParentId!: number;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING(150),
     allowNull: false,
     field: "category_image",
     defaultValue: "",

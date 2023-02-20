@@ -18,21 +18,23 @@ export default class UserService {
     output = "";
     output = await User.findAll({
       where: {
-        user_active: 1,
+        // user_active: 1,
       },
       order: [[orderBy, sortBy]],
 
       limit: 10,
       offset: await pagination(pageNo),
     });
-    return output == "" ? "No Users Found" : output;
+    return output == "" || output == null ? "No Users Found" : output;
   }
 
   //GET User BY ID
   async getUser(id: number) {
     output = "";
     output = await User.findByPk(id);
-    return output == "" ? `No User with ${id} Found` : output;
+    return output == "" || output == null
+      ? `No User with id=${id} Found`
+      : output;
   }
 
   //ADD User
@@ -81,5 +83,19 @@ export default class UserService {
       },
     });
     return output == null ? 0 : 1;
+  }
+
+  //PATH OF PHOTO IN DB
+  async dbSetPath(fullfilename: any, id: number) {
+    output = "";
+    output = await User.update(
+      { userPhoto: fullfilename },
+      {
+        where: { userId: id },
+      }
+    ).then((output: any) => {
+      // console.log("=========",output)
+      return output;
+    });
   }
 }

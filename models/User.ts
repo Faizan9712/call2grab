@@ -26,7 +26,7 @@ export interface UserI {
 }
 
 @Table({
-  tableName: "user",
+  tableName: "users",
   freezeTableName: true,
   timestamps: false,
   underscored: true,
@@ -92,7 +92,7 @@ export default class User extends Model implements UserI {
   @Column({
     allowNull: false,
     field: "user_photo",
-    type: DataType.STRING(50),
+    type: DataType.STRING(150),
     defaultValue: "",
   })
   userPhoto!: string;

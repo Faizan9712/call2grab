@@ -2,20 +2,19 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
+import { upload } from "../helpers/functions";
 import {
   getProducts,
   getProduct,
   addProduct,
   updateProduct,
   deleteProduct,
-  uploadProduct,
+  uploadProductImages,
   // filteredProducts
 } from "../controllers/ProductController";
-import upload from "express-fileupload";
 
 dotenv.config();
 const router: Express = express();
-router.use(upload());
 
 //GET ALL PRODUCTS
 router.get("/products", isAuth, getProducts);
@@ -41,6 +40,8 @@ router.put(
 router.delete("/product/:id", isAuth, deleteProduct);
 
 //UPLOAD PRODUCT IMAGE
-router.patch("/upload-product", isAuth, uploadProduct);
+// router.patch("/upload-product", isAuth, uploadProduct);
+// Multiple files upload endpoint
+router.post("/upload-product/:id", isAuth, upload.array("image", 10), uploadProductImages);
 
 export default router;

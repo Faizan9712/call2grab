@@ -2,10 +2,11 @@ import fs from "fs";
 import short from "short-uuid";
 import path from "path";
 import jwt_decode from "jwt-decode";
-
+import multer from "multer";
 // import download from "image-downloader";
 // import axios from "axios";
 import dotenv from "dotenv";
+import { any } from "joi";
 
 dotenv.config();
 const mediaURL = process.env.MEDIA_URL;
@@ -46,6 +47,49 @@ export async function infoFromToken(req: any) {
   }
 }
 
+//PIC UPLOAD USING MULTER
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      `${req.url.slice(8, 12)}-${short.generate()}-${file.originalname}`
+    );
+  },
+});
+
+const fileFilter = (
+  req: any,
+  file: Express.Multer.File,
+  callback: multer.FileFilterCallback
+) => {
+  // Accept only files with .jpg, .jpeg, or .png extensions
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    callback(null, true);
+  } else {
+    callback(new Error("Only .jpg, .jpeg, or .png files are allowed"));
+  }
+};
+
+// Create Multer object
+export const upload = multer({
+  storage,
+  fileFilter,
+  limits: {
+    fileSize: 2 * 1024 * 1024, // 2 MB
+  },
+});
+
+export async function filePath(req: any) {
+  return path.join(req.file.filename.split(".")[0]);
+}
+//END USING MULTER
+
 //Upload Pic
 export async function uploadPic(req: any, res: any, photo: any) {
   filename = photo.name;
@@ -59,7 +103,7 @@ export async function uploadPic(req: any, res: any, photo: any) {
     ) {
       uuid = short.generate();
       const prefix = await sanitizeInput(req.url.slice(8, 12));
-      fullfilename = prefix +"-"+ uuid + "_" + filename;
+      fullfilename = prefix + "_" + uuid + "_" + filename;
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
       }
