@@ -11,10 +11,10 @@ import Product from "./Product";
 import User from "./User";
 export interface cartI {
   cartId: number;
-  userId: number;
-  productId: number;
-  productQuantity: number;
-  productTotalPrice: number;
+  cartUserId: number;
+  cartProductId: number;
+  cartProductQuantity: number;
+  cartProductTotalPrice: number;
   cartDetail: string;
   cartCreatedDate: Date;
   cartUpdatedDate: Date;
@@ -40,35 +40,35 @@ export default class Cart extends Model implements cartI {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: "user_id",
+    field: "cart_user_id",
     defaultValue: 0,
   })
-  userId!: number;
+  cartUserId!: number;
 
   // @ForeignKey(() => Product)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: "product_id",
+    field: "cart_product_id",
     defaultValue: 0,
   })
-  productId!: number;
+  cartProductId!: number;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: "product_quantity",
+    field: "cart_product_quantity",
     defaultValue: 0,
   })
-  productQuantity!: number;
+  cartProductQuantity!: number;
 
   @Column({
     type: DataType.FLOAT,
     allowNull: false,
-    field: "product_total_price",
+    field: "cart_product_total_price",
     defaultValue: 0,
   })
-  productTotalPrice!: number;
+  cartProductTotalPrice!: number;
 
   @Column({
     allowNull: false,
