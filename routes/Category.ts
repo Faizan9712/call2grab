@@ -2,7 +2,7 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
-import { upload } from "../helpers/functions";
+import { handleUpload, upload } from "../helpers/functions";
 import {
   getCategorys,
   getCategory,
@@ -51,7 +51,7 @@ router.get("/populate-categories", isAuth, populateCategories);
 router.patch(
   "/upload-category/:id",
   isAuth,
-  upload.single("image"),
+  handleUpload,
   uploadCategory
 );
 

@@ -7,6 +7,7 @@ import multer from "multer";
 // import axios from "axios";
 import dotenv from "dotenv";
 import { any } from "joi";
+import { NextFunction } from "express";
 
 dotenv.config();
 const mediaURL = process.env.MEDIA_URL;
@@ -65,6 +66,7 @@ const storage = multer.diskStorage({
 
 const fileFilter = (
   req: any,
+  // res:any,
   file: Express.Multer.File,
   callback: multer.FileFilterCallback
 ) => {
@@ -84,52 +86,63 @@ export const upload = multer({
     fileSize: 2 * 1024 * 1024, // 2 MB
   },
 });
+//Handle Upload
+export async function handleUpload(req: any, res: any, next: NextFunction) {
+  upload.array("image", 10)(req, res, function (err) {
+    // INVALID FILE TYPE, message will return from fileFilter callback
+    if (err) {
+      return res.status(400).json({ message: err.message });
+    }
+    next();
+  });
+}
 
 export async function filePath(req: any) {
-  return path.join(req.file.filename.split(".")[0]);
+  return req.files[0].filename;
+  //return path.join(req.files.filename.split(".")[0]);
 }
 //END USING MULTER
 
 //Upload Pic
-export async function uploadPic(req: any, res: any, photo: any) {
-  filename = photo.name;
-  fileSize = photo.size;
-  fileExtension = path.extname(filename);
-  if (fileSize <= 2000000) {
-    if (
-      fileExtension == ".jpg" ||
-      fileExtension == ".jpeg" ||
-      fileExtension == ".png"
-    ) {
-      uuid = short.generate();
-      const prefix = await sanitizeInput(req.url.slice(8, 12));
-      fullfilename = prefix + "_" + uuid + "_" + filename;
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir);
-      }
-      await photo
-        .mv(dir + fullfilename)
-        .then(() => {
-          // console.log("-------+++++++++++", dir);
-          flag = 1;
-        })
-        .catch(() => {
-          flag = 0;
-        });
+// export async function uploadPic(req: any, res: any, photo: any) {
+//   filename = photo.name;
+//   fileSize = photo.size;
+//   fileExtension = path.extname(filename);
+//   if (fileSize <= 2000000) {
+//     if (
+//       fileExtension == ".jpg" ||
+//       fileExtension == ".jpeg" ||
+//       fileExtension == ".png"
+//     ) {
+//       uuid = short.generate();
+//       const prefix = await sanitizeInput(req.url.slice(8, 12));
+//       fullfilename = prefix + "_" + uuid + "_" + filename;
+//       if (!fs.existsSync(dir)) {
+//         fs.mkdirSync(dir);
+//       }
+//       await photo
+//         .mv(dir + fullfilename)
+//         .then(() => {
+//           // console.log("-------+++++++++++", dir);
+//           flag = 1;
+//         })
+//         .catch(() => {
+//           flag = 0;
+//         });
 
-      if (flag == 0) {
-        res.status(400).json({ message: "Something went wrong" });
-        console.log("Something went wrong");
-        return "";
-      } else {
-        return fullfilename;
-      }
-    } else {
-      res.status(400).json({ message: "Upload only jpg,jpeg,png file" });
-      console.log("Upload only jpg, jpeg, png file");
-    }
-  } else {
-    res.status(400).json({ message: "File exceeds 2 MB" });
-    console.log("File exceeds 2 MB");
-  }
-}
+//       if (flag == 0) {
+//         res.status(400).json({ message: "Something went wrong" });
+//         console.log("Something went wrong");
+//         return "";
+//       } else {
+//         return fullfilename;
+//       }
+//     } else {
+//       res.status(400).json({ message: "Upload only jpg,jpeg,png file" });
+//       console.log("Upload only jpg, jpeg, png file");
+//     }
+//   } else {
+//     res.status(400).json({ message: "File exceeds 2 MB" });
+//     console.log("File exceeds 2 MB");
+//   }
+// }

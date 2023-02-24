@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import CategoryService from "../services/CategoryService";
-import { sanitizeInput, uploadPic } from "../helpers/functions";
+import { sanitizeInput } from "../helpers/functions";
 import { filePath } from "../helpers/functions";
 import path from "path";
 
@@ -213,28 +213,27 @@ export async function populateCategories(req: Request, res: Response) {
 export async function uploadCategory(req: any, res: Response) {
   try {
     // Check if file exists
-    if (!req.file) {
-      throw new Error("No file uploaded.");
+    if (!req.files || req.files.length === 0) {
+      res.status(400).json({ message: "Please select image to upload" });
+    } else {
+      // Save file path to database
+      const categoryId = await sanitizeInput(req.params.id);
+      output = await categoryService
+        .getCategory(categoryId)
+        .then(async (output: any) => {
+          // console.log(output);
+          if (typeof output === "string") {
+            res.status(200).json({ message: output });
+          } else {
+            const fullfilename = await filePath(req);
+            // Save file to database using filePath
+            await categoryService.dbSetPath(fullfilename, categoryId);
+            res.status(200).json({ message: "File uploaded successfully." });
+          }
+        });
     }
-    // Save file path to database
-    const categoryId = await sanitizeInput(req.params.id);
-    output = await categoryService
-      .getCategory(categoryId)
-      .then(async (output: any) => {
-        // console.log(output);
-        if (typeof output === "string") {
-          res.status(200).json({ message: output });
-        } else {
-          const fullfilename = await filePath(req);
-          // Save file to database using filePath
-          await categoryService.dbSetPath(fullfilename, categoryId);
-
-          res.status(200).json({ message: "File uploaded successfully." });
-        }
-      });
   } catch (error: any) {
     console.error(error);
     res.status(400).json({ message: "Something went wrong" });
   }
 }
-

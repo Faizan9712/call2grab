@@ -8,6 +8,7 @@ import Cart from "../models/Cart";
 import ParentCategory from "../models/ParentCategory";
 import Order from "../models/Order";
 import Coupon from "../models/Coupon";
+import Brand from "../models/Brand";
 const db: any = new Sequelize("call2grab", "root", "", {
   host: "localhost",
   storage: ".database/mysql",
@@ -24,7 +25,8 @@ db.addModels([
   Image,
   Cart,
   Order,
-  Coupon
+  Coupon,
+  Brand
 ]);
 
 export default db;

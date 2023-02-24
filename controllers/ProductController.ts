@@ -1,11 +1,6 @@
 import { Request, Response } from "express";
 import ProductService from "../services/ProductService";
-import {
-  filePath,
-  infoFromToken,
-  sanitizeInput,
-  uploadPic,
-} from "../helpers/functions";
+import { filePath, infoFromToken, sanitizeInput } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
@@ -219,19 +214,41 @@ export async function deleteProduct(req: Request, res: Response) {
 
 export async function uploadProductImages(req: any, res: Response) {
   try {
+    let flag = 0;
     // Check if files exist
     if (!req.files || req.files.length === 0) {
-      throw new Error("No files uploaded.");
+      res.status(400).json({ message: "Please select image to upload" });
+    } else {
+      const productId = await sanitizeInput(req.params.id);
+      let count = 0;
+      while (req.files[count] !== undefined) {
+        if (
+          req.files[count].mimetype === "image/jpeg" ||
+          req.files[count].mimetype === "image/png"
+        ) {
+          if (req.files[count].size > 2 * 1024 * 1024) {
+            flag = 1;
+            break;
+          }
+          const fullfilename = req.files[count].filename;
+          // Save file to database using filePath
+          await productService.dbSetPath(fullfilename, productId);
+          count++;
+        } else {
+          flag = 2;
+          break;
+        }
+      }
+      if (flag === 1) {
+        res.status(400).json({ message: "Please upload image only upto 2mb" });
+      } else if (flag === 2) {
+        res
+          .status(400)
+          .json({ message: "Only .jpg, .jpeg, or .png files are allowed" });
+      } else {
+        res.status(200).json({ message: "Image Uploaded Successfully" });
+      }
     }
-    const productId = await sanitizeInput(req.params.id);
-    let count = 0;
-    while (req.files[count] !== undefined) {
-      const fullfilename = req.files[count].filename;
-      // Save file to database using filePath
-      await productService.dbSetPath(fullfilename, productId);
-      count++;
-    }
-    res.status(200).json({ message: "File uploaded successfully." });
   } catch (error: any) {
     console.error(error);
     res.status(400).json({ message: "" });

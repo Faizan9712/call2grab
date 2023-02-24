@@ -2,7 +2,7 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
-import { upload } from "../helpers/functions";
+import { handleUpload, upload } from "../helpers/functions";
 import {
   getProducts,
   getProduct,
@@ -12,6 +12,7 @@ import {
   uploadProductImages,
   // filteredProducts
 } from "../controllers/ProductController";
+import multer from "multer";
 
 dotenv.config();
 const router: Express = express();
@@ -42,6 +43,11 @@ router.delete("/product/:id", isAuth, deleteProduct);
 //UPLOAD PRODUCT IMAGE
 // router.patch("/upload-product", isAuth, uploadProduct);
 // Multiple files upload endpoint
-router.post("/upload-product/:id", isAuth, upload.array("image", 10), uploadProductImages);
+router.post(
+  "/upload-product/:id",
+  isAuth,
+  handleUpload,
+  uploadProductImages
+);
 
 export default router;

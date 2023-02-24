@@ -288,9 +288,9 @@ export default class ProductService {
           pageNo,
           orderBy,
           sortBy,
-          "=",
           "product_active",
-          "!1"
+          "!=",
+          "1"
         );
 
       case "instock":

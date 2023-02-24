@@ -1,14 +1,11 @@
 import { Request, Response } from "express";
 import OrderService from "../services/OrderService";
-import { sanitizeInput, uploadPic } from "../helpers/functions";
-import { string } from "joi";
+import { sanitizeInput } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 
 let output: any;
 let querypm: number;
-let photo: any;
-let fullfilename: any;
 
 //CREATING OBJECT
 const orderService = new OrderService();
@@ -93,7 +90,6 @@ export async function addOrder(req: Request, res: Response) {
     console.log(error);
   }
 }
-
 //UPDATE Order
 export async function updateOrder(req: Request, res: Response) {
   try {

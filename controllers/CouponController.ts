@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import CouponService from "../services/CouponService";
-import { sanitizeInput, uploadPic } from "../helpers/functions";
-import { string } from "joi";
+import { sanitizeInput } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 

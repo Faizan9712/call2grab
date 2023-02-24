@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import UserService from "../services/UserService";
-import { filePath, sanitizeInput, uploadPic } from "../helpers/functions";
+import { filePath, sanitizeInput } from "../helpers/functions";
 import { string } from "joi";
 import { stat } from "fs";
 
