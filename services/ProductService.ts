@@ -299,6 +299,9 @@ export default class ProductService {
           "1"
         );
 
+        case "count":
+          return await Product.count()
+
       case "instock":
         return await this.genQuery(
           pageNo,

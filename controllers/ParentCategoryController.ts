@@ -13,12 +13,16 @@ const parentCategoryService = new ParentCategoryService();
 export async function getParentCategorys(req: Request, res: Response) {
   try {
     output = "";
-    const { pageNo, orderBy, sortBy } = await sanitizeInput(req.query);
+    const { pageNo, orderBy, sortBy, query, filter } = await sanitizeInput(
+      req.query
+    );
     output = await parentCategoryService
-      .getAllParentCategorys(
+      .parentCategoryCases(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "parentCategoryId" : orderBy,
-        sortBy == undefined ? "DESC" : sortBy
+        sortBy == undefined ? "DESC" : sortBy,
+        query,
+        filter == undefined ? "all" : filter
       )
       .then((output: any) => {
         if (typeof output === "string") {

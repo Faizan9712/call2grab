@@ -171,6 +171,8 @@ export default class CategoryService {
           "=",
           "1"
         );
+        case "count":
+          return Category.count()
 
       default:
         return output == "" ? `No Categories Found` : output;
