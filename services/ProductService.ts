@@ -197,6 +197,12 @@ export default class ProductService {
       : output;
   }
 
+  //PRODUCT COUNT
+  async countProduct(body: any) {
+    output = "";
+    output = await Product.create(body);
+    return output == "" ? `Error occured` : output;
+  }
   //ADD PRODUCT
   async addProduct(body: any) {
     output = "";
@@ -318,7 +324,7 @@ export default class ProductService {
     condValue: any
   ) {
     output = await db.query(
-      `SELECT
+      `SELECT 
       product.product_id "productId",
       product.product_name "productName",
       product.product_status "productStatus",
@@ -363,6 +369,8 @@ export default class ProductService {
         type: QueryTypes.SELECT,
       }
     );
+
+    output["count"] = await Product.count();
     return output == "" ? `No Products Found` : output;
   }
 

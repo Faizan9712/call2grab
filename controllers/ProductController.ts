@@ -58,7 +58,7 @@ export async function getProducts(req: Request, res: Response) {
         if (typeof output === "string") {
           res.status(200).json({ message: output });
         } else {
-          res.status(200).json({ output: output });
+          res.status(200).json({ count: output.count, output: output });
         }
       })
       .catch((error: any) => {
