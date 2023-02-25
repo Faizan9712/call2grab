@@ -26,7 +26,7 @@ export default class Brand extends Model implements BrandI {
 
   @Column({
     allowNull: false,
-    field: "brand_first_name",
+    field: "brand_name",
     type: DataType.STRING(50),
     defaultValue: "",
   })
@@ -34,7 +34,7 @@ export default class Brand extends Model implements BrandI {
 
   @Column({
     allowNull: false,
-    field: "brand_last_name",
+    field: "brand_description",
     type: DataType.STRING(100),
     defaultValue: "",
   })

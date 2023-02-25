@@ -337,6 +337,7 @@ export default class ProductService {
       product.product_onsale "productOnsale",
       product.product_active "productActive",
       product.product_brand_id "productBrandId",
+      brand.brand_name "productBrandName",
       product.product_coupon_id "productCouponId",
       product.product_tax_id "productTaxId",
       product.product_shipping_id "productShippingId",
@@ -347,6 +348,7 @@ export default class ProductService {
     tempproduct product
       LEFT JOIN image image ON image.product_image_id = product.product_image_id
       LEFT JOIN category category ON category.category_id = product.product_category_id 
+      LEFT JOIN brand brand ON brand.brand_id = product.product_brand_id 
     WHERE
       ${condVariable} ${operator} ${condValue}
       GROUP BY product_id

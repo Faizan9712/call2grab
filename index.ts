@@ -11,6 +11,7 @@ import parentCategoryRouter from "./routes/ParentCategory";
 import cartRouter from "./routes/Cart";
 import orderRouter from "./routes/Order";
 import couponRouter from "./routes/Coupon";
+import brandRouter from "./routes/Brand";
 import createHttpError from "http-errors";
 import cors from "cors";
 import { upload } from "./helpers/functions";
@@ -64,6 +65,7 @@ app.use("/api", parentCategoryRouter);
 app.use("/api", cartRouter);
 app.use("/api", orderRouter);
 app.use("/api", couponRouter);
+app.use("/api", brandRouter);
 
 // Catch HTTP 404
 app.use((req, res, next) => {
