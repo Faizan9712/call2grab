@@ -17,7 +17,7 @@ export async function getProductInCart(req: Request, res: Response) {
       .getAllProducts(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "cartId" : orderBy,
-        sortBy == undefined ? "ASC" : sortBy
+        sortBy == undefined ? "DESC" : sortBy
       )
       .then((output: any) => {
         if (typeof output === "string") {

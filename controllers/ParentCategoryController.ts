@@ -18,7 +18,7 @@ export async function getParentCategorys(req: Request, res: Response) {
       .getAllParentCategorys(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "parentCategoryId" : orderBy,
-        sortBy == undefined ? "ASC" : sortBy
+        sortBy == undefined ? "DESC" : sortBy
       )
       .then((output: any) => {
         if (typeof output === "string") {

@@ -21,7 +21,7 @@ export async function getCoupons(req: Request, res: Response) {
       .getAllCoupons(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "couponId" : orderBy,
-        sortBy == undefined ? "ASC" : sortBy
+        sortBy == undefined ? "DESC" : sortBy
       )
       .then((output: any) => {
         if (typeof output === "string") {

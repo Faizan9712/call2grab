@@ -21,7 +21,7 @@ export async function getOrders(req: Request, res: Response) {
       .orderCases(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "orderId" : orderBy,
-        sortBy == undefined ? "ASC" : sortBy,
+        sortBy == undefined ? "DESC" : sortBy,
         query,
         filter == undefined ? "all" : filter
       )

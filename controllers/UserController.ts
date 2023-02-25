@@ -22,7 +22,7 @@ export async function getUsers(req: Request, res: Response) {
       .getAllUsers(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "userId" : orderBy,
-        sortBy == undefined ? "ASC" : sortBy
+        sortBy == undefined ? "DESC" : sortBy
       )
       .then((output: any) => {
         if (typeof output === "string") {

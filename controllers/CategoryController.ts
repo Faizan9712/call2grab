@@ -25,7 +25,7 @@ export async function getCategorys(req: Request, res: Response) {
       .categoryCases(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "categoryId" : orderBy,
-        sortBy == undefined ? "ASC" : sortBy,
+        sortBy == undefined ? "DESC" : sortBy,
         query,
         filter == undefined ? "all" : filter
       )

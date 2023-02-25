@@ -17,7 +17,7 @@ export async function getBrands(req: Request, res: Response) {
       .getAllBrands(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "brandId" : orderBy,
-        sortBy == undefined ? "ASC" : sortBy
+        sortBy == undefined ? "DESC" : sortBy
       )
       .then((output: any) => {
         if (typeof output === "string") {

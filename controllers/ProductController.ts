@@ -50,7 +50,7 @@ export async function getProducts(req: Request, res: Response) {
       .productCases(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "productId" : orderBy,
-        sortBy == undefined ? "ASC" : sortBy,
+        sortBy == undefined ? "DESC" : sortBy,
         query,
         filter == undefined ? "all" : filter
       )
