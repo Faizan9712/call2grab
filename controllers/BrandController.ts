@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import BrandService from "../services/BrandService";
-import { infoFromToken, sanitizeInput } from "../helpers/functions";
+import { sanitizeInput } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
@@ -8,7 +8,7 @@ let output: any;
 //CREATING OBJECT
 const brandService = new BrandService();
 
-//Get All Brands
+//GET ALL BRANDS
 export async function getBrands(req: Request, res: Response) {
   try {
     output = "";

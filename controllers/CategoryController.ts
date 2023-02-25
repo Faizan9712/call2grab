@@ -8,13 +8,11 @@ import path from "path";
 
 let output: any;
 let querypm: number;
-let photo: any;
-let fullfilename: any;
 
 //CREATING OBJECT
 const categoryService = new CategoryService();
 
-//GET ALL CategoryS FUNCTION
+//GET ALL CATEGORIES
 export async function getCategorys(req: Request, res: Response) {
   try {
     output = "";
@@ -46,7 +44,7 @@ export async function getCategorys(req: Request, res: Response) {
   }
 }
 
-//GET Category BY ID
+//GET CATEGORY BY ID
 export async function getCategory(req: Request, res: Response) {
   try {
     output = "";
@@ -72,7 +70,7 @@ export async function getCategory(req: Request, res: Response) {
   }
 }
 
-//ADD Category
+//ADD CATEGORY
 export async function addCategory(req: Request, res: Response) {
   try {
     output = "";
@@ -96,7 +94,7 @@ export async function addCategory(req: Request, res: Response) {
   }
 }
 
-//UPDATE Category
+//UPDATE CATEGORY
 export async function updateCategory(req: Request, res: Response) {
   try {
     output = "";
@@ -126,7 +124,7 @@ export async function updateCategory(req: Request, res: Response) {
   }
 }
 
-//DELETE Category
+//DELETE CATEGORY
 export async function deleteCategory(req: Request, res: Response) {
   try {
     output = "";
@@ -175,6 +173,34 @@ export async function populateCategories(req: Request, res: Response) {
   }
 }
 
+//UPLOAD CATEGORY PIC
+export async function uploadCategory(req: any, res: Response) {
+  try {
+    // Check if file exists
+    if (!req.files || req.files.length === 0) {
+      res.status(400).json({ message: "Please select image to upload" });
+    } else {
+      // Save file path to database
+      const categoryId = await sanitizeInput(req.params.id);
+      output = await categoryService
+        .getCategory(categoryId)
+        .then(async (output: any) => {
+          if (typeof output === "string") {
+            res.status(200).json({ message: output });
+          } else {
+            const fullfilename = await filePath(req);
+            // Save file to database using filePath
+            await categoryService.dbSetPath(fullfilename, categoryId);
+            res.status(200).json({ message: "Image uploaded successfully." });
+          }
+        });
+    }
+  } catch (error: any) {
+    console.error(error);
+    res.status(400).json({ message: "Something went wrong" });
+  }
+}
+
 //UPLOAD PIC FUNCTION
 // export async function uploadCategory(req: any, res: Response) {
 //   try {
@@ -182,11 +208,10 @@ export async function populateCategories(req: Request, res: Response) {
 //     if (req.files === null || req.files === undefined) {
 //       res.status(400).json({ message: "Please select image" });
 //     } else {
-//       // if (fullfilename) {
+// if (fullfilename) {
 //       output = await categoryService
 //         .getCategory(categoryId)
 //         .then(async (output: any) => {
-//           // console.log(output);
 //           if (typeof output === "string") {
 //             res.status(200).json({ message: output });
 //           } else {
@@ -202,38 +227,10 @@ export async function populateCategories(req: Request, res: Response) {
 //           }
 //         });
 
-//       // }
+// }
 //     }
 //   } catch (error) {
 //     res.status(500).json({ Message: "Something went wrong " });
 //     console.log("Error :  " + error);
 //   }
 // }
-
-export async function uploadCategory(req: any, res: Response) {
-  try {
-    // Check if file exists
-    if (!req.files || req.files.length === 0) {
-      res.status(400).json({ message: "Please select image to upload" });
-    } else {
-      // Save file path to database
-      const categoryId = await sanitizeInput(req.params.id);
-      output = await categoryService
-        .getCategory(categoryId)
-        .then(async (output: any) => {
-          // console.log(output);
-          if (typeof output === "string") {
-            res.status(200).json({ message: output });
-          } else {
-            const fullfilename = await filePath(req);
-            // Save file to database using filePath
-            await categoryService.dbSetPath(fullfilename, categoryId);
-            res.status(200).json({ message: "File uploaded successfully." });
-          }
-        });
-    }
-  } catch (error: any) {
-    console.error(error);
-    res.status(400).json({ message: "Something went wrong" });
-  }
-}

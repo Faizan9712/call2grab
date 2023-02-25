@@ -14,13 +14,13 @@ import {
 dotenv.config();
 const router: Express = express();
 
-//GET ALL CATEGORIES
+//GET ALL PARENT CATEGORIES
 router.get("/parentcategories", isAuth, getParentCategorys);
 
-//GET CATEGORY BY ID
+//GET PARENTCATEGORY BY ID
 router.get("/parentcategory/:id", isAuth, getParentCategory);
 
-// ADD CATEGORY
+// ADD PARENTCATEGORY
 router.post(
   "/parentcategory",
   isAuth,
@@ -28,7 +28,7 @@ router.post(
   addParentCategory
 );
 
-//UPDATE CATEGORY
+//UPDATE PARENTCATEGORY
 router.put(
   "/parentcategory/:id",
   isAuth,
@@ -36,10 +36,10 @@ router.put(
   updateParentCategory
 );
 
-//DELETE CATEGORY
+//DELETE PARENTCATEGORY
 router.delete("/parentcategory/:id", isAuth, deleteParentCategory);
 
-//POPULATE CATEGORIES
+//POPULATE PARENTCATEGORIES
 router.get("/populate-parentcategories", isAuth, populateParentCategories);
 
 export default router;

@@ -13,232 +13,6 @@ dotenv.config();
 
 //Product SERVICE CLASS
 export default class ProductService {
-  //GET ALL ProductS
-  // async getAllProducts(pageNo: number, orderBy: string, sortBy: string) {
-  //   output = "";
-  //   output = await db.query(
-  //     `SELECT
-  //     product.product_id "productId",
-  //     product.product_name "productName",
-  //     product.product_status "productStatus",
-  //     product.product_min_price "productMinPrice",
-  //     product.product_max_price "productMaxPrice",
-  //     product.product_quantity "productQuantity",
-  //     product.product_rating_count "productRatingCount",
-  //     product.product_average_rating "productAverageRating",
-  //     product.product_total_sales "productTotalSales",
-  //     product.product_category_id "productCategoryId",
-  //     category.category_name "productCategoryName",
-  //     product.product_image_id "productImageId",
-  //     GROUP_CONCAT(image.product_image_name) "productImageName",
-  //     product.product_stock_quantity "productStockQuantity",
-  //     product.product_in_stock "productInStock",
-  //     product.product_onsale "productOnsale",
-  //     product.product_active "productActive",
-  //     product.product_brand_id "productBrandId",
-  //     product.product_coupon_id "productCouponId",
-  //     product.product_tax_id "productTaxId",
-  //     product.product_shipping_id "productShippingId",
-  //     product.product_featured_id "productFeaturedId",
-  //     product.product_created_date "productCreatedDate",
-  //     product.product_updated_date "productUpdatedDate"
-
-  //   FROM
-  //     tempproduct product
-  //     LEFT JOIN  image image ON image.product_image_id = product.product_image_id
-  //     LEFT JOIN  category category ON category.category_id = product.product_category_id
-  //   WHERE 1=1
-  //     GROUP BY product_id
-  //     ORDER BY ${orderBy}
-  //     ${sortBy}
-  //     LIMIT 10
-  //     OFFSET ${await pagination(pageNo)}`,
-
-  //     {
-  //       type: QueryTypes.SELECT,
-  //     }
-  //   );
-  //   // output = await Product.findAll({
-  //   //   include: [
-  //   //     {
-  //   //       model: Category,
-  //   //       attributes: [],
-  //   //       required: true,
-  //   //     },
-  //   //   ],
-  //   //   attributes: [
-  //   //     // "productId",
-  //   //     "productId",
-  //   //     "productName",
-  //   //     "productStatus",
-  //   //     "productMinPrice",
-  //   //     "productMaxPrice",
-  //   //     "productQuantity",
-  //   //     "productRatingCount",
-  //   //     "productAverageRating",
-  //   //     "productTotalSales",
-  //   //     "productCategoryId",
-  //   //     // [Sequelize.col("category_name"), "categoryName"],
-  //   //     "productImageId",
-  //   //     "productStockQuantity",
-  //   //     "productInStock",
-  //   //     "productOnsale",
-  //   //     "productActive",
-  //   //     "productBrandId",
-  //   //     "productCouponId",
-  //   //     "productTaxId",
-  //   //     "productShippingId",
-  //   //     "productFeaturedId",
-  //   //     "productCreatedDate",
-  //   //     "productUpdatedDate",
-  //   //   ],
-
-  //   //   raw: true,
-  //   //   order: [[orderBy, sortBy]],
-
-  //   //   limit: 10,
-  //   //   offset: await pagination(pageNo),
-  //   // });
-  //   return output == "" ? "No Products Found" : output;
-  // }
-
-  //GET PRODUCT BY ID
-  async getProduct(id: number) {
-    output = "";
-    output = await db.query(
-      `SELECT
-      product.product_id "productId",
-      product.product_name "productName",
-      product.product_status "productStatus",
-      product.product_min_price "productMinPrice",
-      product.product_max_price "productMaxPrice",
-      product.product_quantity "productQuantity",
-      product.product_rating_count "productRatingCount",
-      product.product_average_rating "productAverageRating",
-      product.product_total_sales "productTotalSales",
-      product.product_category_id "productCategoryId",
-      category.category_name "productCategoryName",
-      product.product_image_id "productImageId",
-      GROUP_CONCAT( image.product_image_name ) "productImageName",
-      product.product_stock_quantity "productStockQuantity",
-      product.product_in_stock "productInStock",
-      product.product_onsale "productOnsale",
-      product.product_active "productActive",
-      product.product_brand_id "productBrandId",
-      product.product_coupon_id "productCouponId",
-      product.product_tax_id "productTaxId",
-      product.product_shipping_id "productShippingId",
-      product.product_featured_id "productFeaturedId",
-      product.product_created_date "productCreatedDate",
-      product.product_updated_date "productUpdatedDate" 
-    FROM
-      tempproduct product
-      LEFT JOIN image image ON image.product_image_id = product.product_image_id
-      LEFT JOIN category category ON category.category_id = product.product_category_id 
-    WHERE
-      product_id = ${id}`,
-
-      {
-        type: QueryTypes.SELECT,
-      }
-    );
-    // output =
-    // await Product.findOne({
-    //   include: [
-    //     {
-    //       model: Category,
-    //       attributes: [],
-
-    //       required: true,
-    //     },
-    //     {
-    //       model: Image,
-    //       where: { product_image_id: "product_image_id" },
-    //       attributes: [],
-    //       required: true,
-    //     },
-    //   ],
-    //   attributes: [
-    //     "productId",
-    //     "productId",
-    //     "productName",
-    //     "productStatus",
-    //     "productMinPrice",
-    //     "productMaxPrice",
-    //     "productQuantity",
-    //     "productRatingCount",
-    //     "productAverageRating",
-    //     "productTotalSales",
-    //     "productCategoryId",
-    //     [Sequelize.col("category_name"), "categoryName"],
-    //     "productImageId",
-    //     [Sequelize.col("product_image_name"), "productImageName"],
-    //     "productStockQuantity",
-    //     "productInStock",
-    //     "productOnsale",
-    //     "productActive",
-    //     "productBrandId",
-    //     "productCouponId",
-    //     "productTaxId",
-    //     "productShippingId",
-    //     "productEntryId",
-    //     "productModifiedId",
-    //     "productFeaturedId",
-    //     "productCreatedDate",
-    //     "productUpdatedDate",
-    //   ],
-
-    //   raw: true,
-    //   limit: 10,
-    //   where: { product_id: id },
-    // });
-    return output == "" || output == null || output[0].productId == null
-      ? `No Product with id=${id} Found`
-      : output;
-  }
-
-  //PRODUCT COUNT
-  async countProduct(body: any) {
-    output = "";
-    output = await Product.create(body);
-    return output == "" ? `Error occured` : output;
-  }
-  //ADD PRODUCT
-  async addProduct(body: any) {
-    output = "";
-    output = await Product.create(body);
-    return output == "" ? `Error occured` : output;
-  }
-
-  //UPDATE PRODUCT
-  async updateProduct(body: any, id: number) {
-    output = "";
-    output = await Product.update(body, {
-      where: { product_id: id },
-    });
-    return output;
-  }
-
-  //DELETE PRODUCT
-  async deleteProduct(id: number) {
-    output = "";
-    output = await Product.destroy({
-      where: { product_id: id },
-    });
-    return output;
-  }
-
-  //PATH OF PHOTO IN DB
-  async dbSetPath(fullfilename: any, id: number) {
-    output = "";
-    output = await ProductImage.create({
-      productImageId: id,
-      productImageName: fullfilename,
-    }).then((output: any) => {
-      return output;
-    });
-  }
-
   //CASES FOR FILTERS AND POPULATES
   async productCases(
     pageNo: number,
@@ -299,8 +73,8 @@ export default class ProductService {
           "1"
         );
 
-        case "count":
-          return await Product.count()
+      case "count":
+        return await Product.count();
 
       case "instock":
         return await this.genQuery(
@@ -373,11 +147,11 @@ export default class ProductService {
       }
     );
 
-    output["count"] = await Product.count();
+    // output["count"] = await Product.count();
     return output == "" ? `No Products Found` : output;
   }
 
-  //GENERAL QUERY
+  //LIKE QUERY
   async likeQuery(
     pageNo: number,
     orderBy: string,
@@ -405,7 +179,9 @@ export default class ProductService {
       product.product_onsale "productOnsale",
       product.product_active "productActive",
       product.product_brand_id "productBrandId",
+      brand.brand_name "productBrandName",
       product.product_coupon_id "productCouponId",
+      coupon.coupon_title "productCouponName",
       product.product_tax_id "productTaxId",
       product.product_shipping_id "productShippingId",
       product.product_featured_id "productFeaturedId",
@@ -413,8 +189,10 @@ export default class ProductService {
       product.product_updated_date "productUpdatedDate" 
     FROM
     tempproduct product
-      LEFT JOIN image image ON image.product_image_id = product.product_image_id
-      LEFT JOIN category category ON category.category_id = product.product_category_id 
+    LEFT JOIN image image ON image.product_image_id = product.product_image_id
+    LEFT JOIN category category ON category.category_id = product.product_category_id 
+    LEFT JOIN brand brand ON brand.brand_id = product.product_brand_id 
+    LEFT JOIN coupon coupon ON coupon.coupon_id = product.product_coupon_id
     WHERE
     ${condVariable} LIKE "%${condValue}%"
       GROUP BY product_id
@@ -428,5 +206,97 @@ export default class ProductService {
       }
     );
     return output == "" ? `No Products Found` : output;
+  }
+
+  //GET PRODUCT BY ID
+  async getProduct(id: number) {
+    output = "";
+    output = await db.query(
+      `SELECT
+      product.product_id "productId",
+      product.product_name "productName",
+      product.product_status "productStatus",
+      product.product_min_price "productMinPrice",
+      product.product_max_price "productMaxPrice",
+      product.product_quantity "productQuantity",
+      product.product_rating_count "productRatingCount",
+      product.product_average_rating "productAverageRating",
+      product.product_total_sales "productTotalSales",
+      product.product_category_id "productCategoryId",
+      category.category_name "productCategoryName",
+      product.product_image_id "productImageId",
+      GROUP_CONCAT( image.product_image_name ) "productImageName",
+      product.product_stock_quantity "productStockQuantity",
+      product.product_in_stock "productInStock",
+      product.product_onsale "productOnsale",
+      product.product_active "productActive",
+      product.product_brand_id "productBrandId",
+      brand.brand_name "productBrandName",
+      product.product_coupon_id "productCouponId",
+      coupon.coupon_title "productCouponName",
+      product.product_tax_id "productTaxId",
+      product.product_shipping_id "productShippingId",
+      product.product_featured_id "productFeaturedId",
+      product.product_created_date "productCreatedDate",
+      product.product_updated_date "productUpdatedDate"  
+    FROM
+      tempproduct product
+      LEFT JOIN image image ON image.product_image_id = product.product_image_id
+      LEFT JOIN category category ON category.category_id = product.product_category_id 
+      LEFT JOIN brand brand ON brand.brand_id = product.product_brand_id 
+      LEFT JOIN coupon coupon ON coupon.coupon_id = product.product_coupon_id
+    WHERE
+      product_id = ${id}`,
+
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
+
+    return output == "" || output == null || output[0].productId == null
+      ? `No Product with id=${id} Found`
+      : output;
+  }
+
+  //PRODUCT COUNT
+  async countProduct(body: any) {
+    output = "";
+    output = await Product.create(body);
+    return output == "" ? `Error occured` : output;
+  }
+  //ADD PRODUCT
+  async addProduct(body: any) {
+    output = "";
+    output = await Product.create(body);
+    return output == "" ? `Error occured` : output;
+  }
+
+  //UPDATE PRODUCT
+  async updateProduct(body: any, id: number) {
+    output = "";
+    output = await Product.update(body, {
+      where: { product_id: id },
+    });
+    return output;
+  }
+
+  //DELETE PRODUCT
+  async deleteProduct(id: number) {
+    output = "";
+    output = await Product.destroy({
+      where: { product_id: id },
+    });
+    return output;
+  }
+
+  //PATH OF PHOTO IN DB
+  async dbSetPath(fullfilename: any, id: number) {
+    output = "";
+    output = await ProductImage.create({
+      productImageId: id,
+      productImageName: fullfilename,
+    }).then((output: any) => {
+      return output;
+    });
   }
 }

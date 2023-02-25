@@ -7,8 +7,6 @@ import { stat } from "fs";
 //INSTANCE VARIABLES
 let output: any;
 let querypm: number;
-let photo: any;
-let fullfilename: any;
 
 //CREATING OBJECT
 const userService = new UserService();
@@ -191,7 +189,7 @@ export async function changeUserPasssword(req: Request, res: Response) {
   }
 }
 
-//CHANGE USER PASSWORD
+//CHANGE ACTIVATION AND DEACTIVATION
 export async function deactivateUser(req: Request, res: Response) {
   try {
     const userId = await sanitizeInput(req.params.id);
@@ -218,6 +216,33 @@ export async function deactivateUser(req: Request, res: Response) {
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
     console.log("Error : ", error);
+  }
+}
+
+//UPLOAD USER PIC
+export async function uploadUser(req: any, res: Response) {
+  try {
+    // Check if file exists
+    if (!req.files || req.files.length === 0) {
+      res.status(400).json({ message: "Please select image to upload" });
+    } else {
+      // Save file path to database
+      const userId = await sanitizeInput(req.params.id);
+      output = await userService.getUser(userId).then(async (output: any) => {
+        // console.log(output);
+        if (typeof output === "string") {
+          res.status(200).json({ message: output });
+        } else {
+          const fullfilename = await filePath(req);
+          // Save file to database using filePath
+          await userService.dbSetPath(fullfilename, userId);
+          res.status(200).json({ message: "Image uploaded successfully." });
+        }
+      });
+    }
+  } catch (error: any) {
+    console.error(error);
+    res.status(400).json({ message: "Something went wrong" });
   }
 }
 
@@ -250,28 +275,3 @@ export async function deactivateUser(req: Request, res: Response) {
 //     console.log("Error :  " + error);
 //   }
 // }
-
-export async function uploadUser(req: any, res: Response) {
-  try {
-    // Check if file exists
-    if (!req.file) {
-      throw new Error("No file uploaded.");
-    }
-    // Save file path to database
-    const userId = await sanitizeInput(req.params.id);
-    output = await userService.getUser(userId).then(async (output: any) => {
-      // console.log(output);
-      if (typeof output === "string") {
-        res.status(200).json({ message: output });
-      } else {
-        const fullfilename = await filePath(req);
-        // Save file to database using filePath
-        await userService.dbSetPath(fullfilename, userId);
-        res.status(200).json({ message: "File uploaded successfully." });
-      }
-    });
-  } catch (error: any) {
-    console.error(error);
-    res.status(400).json({ message: "Something went wrong" });
-  }
-}

@@ -10,7 +10,7 @@ let querypm: number;
 //CREATING OBJECT
 const orderService = new OrderService();
 
-//GET ALL OrderS FUNCTION
+//GET ALL ORDERS
 export async function getOrders(req: Request, res: Response) {
   try {
     output = "";
@@ -42,7 +42,7 @@ export async function getOrders(req: Request, res: Response) {
   }
 }
 
-//GET Order BY ID
+//GET ORDER BY ID
 export async function getOrder(req: Request, res: Response) {
   try {
     output = "";
@@ -67,7 +67,7 @@ export async function getOrder(req: Request, res: Response) {
   }
 }
 
-//ADD Order
+//ADD ORDER
 export async function addOrder(req: Request, res: Response) {
   try {
     output = "";
@@ -90,7 +90,8 @@ export async function addOrder(req: Request, res: Response) {
     console.log(error);
   }
 }
-//UPDATE Order
+
+//UPDATE ORDER
 export async function updateOrder(req: Request, res: Response) {
   try {
     output = "";
@@ -120,7 +121,7 @@ export async function updateOrder(req: Request, res: Response) {
   }
 }
 
-//DELETE Order
+//DELETE ORDER
 export async function deleteOrder(req: Request, res: Response) {
   try {
     output = "";

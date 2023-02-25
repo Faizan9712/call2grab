@@ -8,25 +8,25 @@ import {
   addOrder,
   updateOrder,
   deleteOrder,
-//   populateOrders
+  //   populateOrders
 } from "../controllers/OrderController";
 
 dotenv.config();
 const router: Express = express();
 
-//GET ALL orders
+//GET ALL ORDERS
 router.get("/orders", isAuth, getOrders);
 
-//GET order BY ID
+//GET ORDER BY ID
 router.get("/order/:id", isAuth, getOrder);
 
-// ADD order
+// ADD ORDER
 router.post("/order", isAuth, Validator("addOrderSchema"), addOrder);
 
-// UPDATE order
+// UPDATE ORDER
 router.put("/order/:id", isAuth, Validator("updateOrderSchema"), updateOrder);
 
-//DELETE order
+//DELETE ORDER
 router.delete("/order/:id", isAuth, deleteOrder);
 
 //POPULATE orders

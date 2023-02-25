@@ -13,7 +13,27 @@ dotenv.config();
 
 //ParentCategory SERVICE CLASS
 export default class ParentCategoryService {
-  //GET ALL ParentCategoryS
+  //GET ALL PARENT CATEGORIES
+  async parentCategoryCases(
+    pageNo: number,
+    orderBy: string,
+    sortBy: string,
+    query: any,
+    filter: any
+  ) {
+    switch (query || filter) {
+      case "all":
+        return await this.genQuery(pageNo, orderBy, sortBy);
+
+      case "count":
+        return await ParentCategory.count();
+
+      default:
+        return output == "" ? `No Products Found` : output;
+    }
+  }
+
+  //GEN QUERY
   async genQuery(pageNo: number, orderBy: string, sortBy: string) {
     output = "";
     output = await ParentCategory.findAll({
@@ -25,84 +45,6 @@ export default class ParentCategoryService {
     return output == "" ? "No Parent Categories Found" : output;
   }
 
-  async parentCategoryCases(
-    pageNo: number,
-    orderBy: string,
-    sortBy: string,
-    query: any,
-    filter: any
-  ) {
-    switch (query || filter) {
-      case "all":
-        return await this.genQuery(pageNo, orderBy, sortBy);
-      // case "featured":
-      //   return await this.genQuery(
-      //     pageNo,
-      //     orderBy,
-      //     sortBy,
-      //     "product_featured_id",
-      //     "=",
-      //     "1"
-      //   );
-
-      // case query:
-      //   return await this.likeQuery(
-      //     pageNo,
-      //     orderBy,
-      //     sortBy,
-      //     "product_name",
-      //     query
-        // );
-
-      // case "bestselling":
-      //   break;
-      // case "date":
-      //   return await this.genQuery(
-      //     pageNo,
-      //     "product_updated_date",
-      //     "DESC",
-      //     "1",
-      //     "=",
-      //     "1"
-        // );
-      // case "active":
-      //   return await this.genQuery(
-      //     pageNo,
-      //     orderBy,
-      //     sortBy,
-      //     "product_active",
-      //     "=",
-      //     "1"
-      //   );
-      // case "inactive":
-      //   return await this.genQuery(
-      //     pageNo,
-      //     orderBy,
-      //     sortBy,
-      //     "product_active",
-      //     "!=",
-      //     "1"
-      //   );
-
-        case "count":
-          return await ParentCategory.count()
-
-      // case "instock":
-      //   return await this.genQuery(
-      //     pageNo,
-      //     orderBy,
-      //     sortBy,
-      //     "product_in_stock ",
-      //     "!=",
-      //     "0"
-      //   );
-
-      default:
-        return output == "" ? `No Products Found` : output;
-    }
-  }
-
-
   //GET ParentCategory BY ID
   async getParentCategory(id: number) {
     output = "";
@@ -112,14 +54,14 @@ export default class ParentCategoryService {
       : output;
   }
 
-  //ADD ParentCategory
+  //ADD PARENT CATEGORY
   async addParentCategory(body: any) {
     output = "";
     output = await ParentCategory.create(body);
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE ParentCategory
+  //UPDATE PARENT CATEGORY
   async updateParentCategory(body: any, id: number) {
     output = "";
     output = await ParentCategory.update(body, {
@@ -128,7 +70,7 @@ export default class ParentCategoryService {
     return output;
   }
 
-  //DELETE ParentCategory
+  //DELETE PARENT CATEGORY
   async deleteParentCategory(id: number) {
     output = "";
     output = await ParentCategory.destroy({
@@ -137,7 +79,7 @@ export default class ParentCategoryService {
     return output;
   }
 
-  //POPULATE ParentCategory
+  //POPULATE PARENT CATEGORY
   async populateParentCategories(qpm: any) {
     output = "";
     output = await ParentCategory.findAll({

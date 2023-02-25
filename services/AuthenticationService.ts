@@ -2,7 +2,7 @@ import Admin from "../models/Admin";
 
 let output: any;
 export default class AuthenticationService {
-  //LOGIN IN
+  //LOGIN
   async login(email: string, password: string) {
     output = "";
     output = await Admin.findOne({
@@ -12,11 +12,6 @@ export default class AuthenticationService {
       },
     });
     return (await output) ? { flag: true, result: output } : { flag: false };
-    // if (output) {
-    //   return { flag: true, result: output };
-    // } else {
-    //   return { flag: false };
-    // }
   }
 
   //CHECK EMAIL
@@ -28,11 +23,6 @@ export default class AuthenticationService {
       },
     });
     return output ? true : false;
-    // if (output) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
   }
 
   //CHECK EMAIL AND PASSWORD
@@ -59,7 +49,7 @@ export default class AuthenticationService {
     return output ? true : false;
   }
 
-  //UPDATE PRODUCT
+  //UPDATE PROFILE
   async updateProfile(body: any, id: number) {
     output = "";
     output = await Admin.update(body, {

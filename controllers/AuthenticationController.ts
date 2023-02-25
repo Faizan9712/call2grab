@@ -3,10 +3,6 @@ import AuthenticationService from "../services/AuthenticationService";
 import { infoFromToken, sanitizeInput } from "../helpers/functions";
 import * as jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { DATE } from "sequelize";
-import { PassThrough } from "stream";
-import { any } from "joi";
-import async from "../middlewares/Validator";
 
 dotenv.config();
 
@@ -54,6 +50,7 @@ export async function login(req: Request, res: Response) {
     console.log(error);
   }
 }
+
 //CHANGE PASSWORD FUNCTION
 export async function changePassword(req: Request, res: Response) {
   try {
@@ -85,6 +82,7 @@ export async function changePassword(req: Request, res: Response) {
     console.log(error);
   }
 }
+
 //UPDATE PROFILE
 export async function updateProfile(req: Request, res: Response) {
   try {

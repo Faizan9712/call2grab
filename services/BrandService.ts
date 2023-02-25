@@ -9,9 +9,8 @@ let queryPm: number;
 
 dotenv.config();
 
-//GET brand OF USER SERVICE CLASS
 export default class BrandService {
-  //GET ALL ProductS
+  //GET ALL BRANDS
   async getAllBrands(pageNo: number, orderBy: string, sortBy: string) {
     output = "";
     output = await db.query(

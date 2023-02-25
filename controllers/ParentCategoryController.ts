@@ -9,7 +9,7 @@ let querypm: number;
 //CREATING OBJECT
 const parentCategoryService = new ParentCategoryService();
 
-//GET ALL parentCategoryS FUNCTION
+//GET ALL PARENTCATEGORIES
 export async function getParentCategorys(req: Request, res: Response) {
   try {
     output = "";
@@ -41,7 +41,7 @@ export async function getParentCategorys(req: Request, res: Response) {
   }
 }
 
-//GET parentCategory BY ID
+//GET PARENTCATEGORY BY ID
 export async function getParentCategory(req: Request, res: Response) {
   try {
     output = "";
@@ -65,7 +65,7 @@ export async function getParentCategory(req: Request, res: Response) {
   }
 }
 
-//ADD parentCategory
+//ADD PARENTCATEGORY
 export async function addParentCategory(req: Request, res: Response) {
   try {
     output = "";
@@ -89,7 +89,7 @@ export async function addParentCategory(req: Request, res: Response) {
   }
 }
 
-//UPDATE parentCategory
+//UPDATE PARENTCATEGORY
 export async function updateParentCategory(req: Request, res: Response) {
   try {
     output = "";
@@ -121,7 +121,7 @@ export async function updateParentCategory(req: Request, res: Response) {
   }
 }
 
-//DELETE parentCategory
+//DELETE PARENTCATEGORY
 export async function deleteParentCategory(req: Request, res: Response) {
   try {
     output = "";

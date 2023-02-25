@@ -39,20 +39,7 @@ router.delete("/category/:id", isAuth, deleteCategory);
 //POPULATE CATEGORIES
 router.get("/populate-categories", isAuth, populateCategories);
 
-//UPLOAD PHOTO
-// router.patch("/upload-category/:id", isAuth, uploadCategory);
-
-//UPLOAD PHOTO
-// app.post('/upload', upload.single('image'), uploadCategory);
-
-/////////////////////////////////////////
-
-// Single file upload endpoint
-router.patch(
-  "/upload-category/:id",
-  isAuth,
-  handleUpload,
-  uploadCategory
-);
+// UPLOAD IMAGE
+router.patch("/upload-category/:id", isAuth, handleUpload, uploadCategory);
 
 export default router;

@@ -14,10 +14,6 @@ import couponRouter from "./routes/Coupon";
 import brandRouter from "./routes/Brand";
 import createHttpError from "http-errors";
 import cors from "cors";
-import { upload } from "./helpers/functions";
-import path from "path";
-
-// const upload = multer();
 
 dotenv.config();
 
@@ -29,7 +25,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
-// app.use(upload());
 
 //PORT AND DATABASE CHECK
 app.listen(PORT, () => {
@@ -53,8 +48,6 @@ app.listen(PORT, () => {
 app.get("/", (req: Request, res: Response) => {
   res.send("<h1>Hey Faizan</h1>");
 });
-
-
 
 //BINDING ROUTES
 app.use("/api", authenticationRouter);

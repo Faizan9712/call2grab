@@ -3,22 +3,13 @@ import short from "short-uuid";
 import path from "path";
 import jwt_decode from "jwt-decode";
 import multer from "multer";
-// import download from "image-downloader";
-// import axios from "axios";
 import dotenv from "dotenv";
-import { any } from "joi";
 import { NextFunction } from "express";
 
 dotenv.config();
 const mediaURL = process.env.MEDIA_URL;
 
 let dir = path.join(__dirname, "../../../media/");
-let flag: number = -1;
-let fileExtension;
-let filename;
-let fileSize;
-let uuid;
-let fullfilename: string;
 
 //Sanitize input
 export async function sanitizeInput(data: any) {
@@ -66,7 +57,6 @@ const storage = multer.diskStorage({
 
 const fileFilter = (
   req: any,
-  // res:any,
   file: Express.Multer.File,
   callback: multer.FileFilterCallback
 ) => {
@@ -78,7 +68,7 @@ const fileFilter = (
   }
 };
 
-// Create Multer object
+// MULTER OBJECT
 export const upload = multer({
   storage,
   fileFilter,
@@ -86,7 +76,8 @@ export const upload = multer({
     fileSize: 2 * 1024 * 1024, // 2 MB
   },
 });
-//Handle Upload
+
+//HANDLE UPLOAD
 export async function handleUpload(req: any, res: any, next: NextFunction) {
   upload.array("image", 10)(req, res, function (err) {
     // INVALID FILE TYPE, message will return from fileFilter callback
@@ -97,6 +88,7 @@ export async function handleUpload(req: any, res: any, next: NextFunction) {
   });
 }
 
+//FILE PATH
 export async function filePath(req: any) {
   return req.files[0].filename;
   //return path.join(req.files.filename.split(".")[0]);

@@ -11,9 +11,9 @@ let queryPm: number;
 
 dotenv.config();
 
-//Coupon SERVICE CLASS
+//COUPON SERVICE CLASS
 export default class CouponService {
-  //GET ALL CouponS
+  //GET ALL COUPONS
   async getAllCoupons(pageNo: number, orderBy: string, sortBy: string) {
     output = "";
     output = await Coupon.findAll({
@@ -25,7 +25,7 @@ export default class CouponService {
     return output == "" ? "No Coupons Found" : output;
   }
 
-  //GET Coupon BY ID
+  //GET COUPON BY ID
   async getCoupon(id: number) {
     output = "";
     output = await Coupon.findByPk(id);
@@ -34,14 +34,14 @@ export default class CouponService {
       : output;
   }
 
-  //ADD Coupon
+  //ADD COUPON
   async addCoupon(body: any) {
     output = "";
     output = await Coupon.create(body);
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE Coupon
+  //UPDATE COUPON
   async updateCoupon(body: any, id: number) {
     output = "";
     output = await Coupon.update(body, {
@@ -50,7 +50,7 @@ export default class CouponService {
     return output;
   }
 
-  //DELETE Coupon
+  //DELETE COUPON
   async deleteCoupon(id: number) {
     output = "";
     output = await Coupon.destroy({
@@ -59,7 +59,7 @@ export default class CouponService {
     return output;
   }
 
-  //POPULATE Coupon
+  //POPULATE COUPON
   async populateCoupon(qpm: any) {
     output = "";
     output = await Coupon.findAll({

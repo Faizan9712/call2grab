@@ -2,7 +2,7 @@ import path from "path";
 import { col, fn, json, Op, QueryTypes, Sequelize } from "sequelize";
 import User from "../models/User";
 import dotenv from "dotenv";
-import db from "../config/database";
+
 import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
@@ -94,7 +94,6 @@ export default class UserService {
         where: { userId: id },
       }
     ).then((output: any) => {
-      // console.log("=========",output)
       return output;
     });
   }

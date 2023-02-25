@@ -6,13 +6,11 @@ import { sanitizeInput } from "../helpers/functions";
 
 let output: any;
 let querypm: number;
-let photo: any;
-let fullfilename: any;
 
 //CREATING OBJECT
 const couponService = new CouponService();
 
-//GET ALL CouponS FUNCTION
+//GET ALL COUPONS
 export async function getCoupons(req: Request, res: Response) {
   try {
     output = "";
@@ -40,7 +38,7 @@ export async function getCoupons(req: Request, res: Response) {
   }
 }
 
-//GET Coupon BY ID
+//GET COUPON BY ID
 export async function getCoupon(req: Request, res: Response) {
   try {
     output = "";
@@ -65,7 +63,7 @@ export async function getCoupon(req: Request, res: Response) {
   }
 }
 
-//ADD Coupon
+//ADD COUPON
 export async function addCoupon(req: Request, res: Response) {
   try {
     output = "";
@@ -89,7 +87,7 @@ export async function addCoupon(req: Request, res: Response) {
   }
 }
 
-//UPDATE Coupon
+//UPDATE COUPON
 export async function updateCoupon(req: Request, res: Response) {
   try {
     output = "";
@@ -119,7 +117,7 @@ export async function updateCoupon(req: Request, res: Response) {
   }
 }
 
-//DELETE Coupon
+//DELETE COUPON
 export async function deleteCoupon(req: Request, res: Response) {
   try {
     output = "";

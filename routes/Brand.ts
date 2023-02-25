@@ -6,7 +6,7 @@ import { getBrands } from "../controllers/BrandController";
 dotenv.config();
 const router: Express = express();
 
-//Get All Brands
+//GET ALL BRANDS
 router.get("/brands", isAuth, getBrands);
 
 export default router;

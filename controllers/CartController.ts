@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import CartService from "../services/CartService";
-import { infoFromToken, sanitizeInput } from "../helpers/functions";
+import { sanitizeInput } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;

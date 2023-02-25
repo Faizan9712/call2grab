@@ -92,7 +92,7 @@ export default class User extends Model implements UserI {
   @Column({
     allowNull: false,
     field: "user_photo",
-    type: DataType.STRING(150),
+    type: DataType.STRING(100),
     defaultValue: "",
   })
   userPhoto!: string;

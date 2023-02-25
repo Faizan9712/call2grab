@@ -12,16 +12,12 @@ import {
   uploadProductImages,
   // filteredProducts
 } from "../controllers/ProductController";
-import multer from "multer";
 
 dotenv.config();
 const router: Express = express();
 
 //GET ALL PRODUCTS
 router.get("/products", isAuth, getProducts);
-
-//GET ALL PRODUCTS
-// router.get("/filter-products", isAuth, filteredProducts);
 
 //GET PRODUCT BY ID
 router.get("/product/:id", isAuth, getProduct);
@@ -41,13 +37,7 @@ router.put(
 router.delete("/product/:id", isAuth, deleteProduct);
 
 //UPLOAD PRODUCT IMAGE
-// router.patch("/upload-product", isAuth, uploadProduct);
-// Multiple files upload endpoint
-router.post(
-  "/upload-product/:id",
-  isAuth,
-  handleUpload,
-  uploadProductImages
-);
+
+router.post("/upload-product/:id", isAuth, handleUpload, uploadProductImages);
 
 export default router;

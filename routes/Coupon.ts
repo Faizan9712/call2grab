@@ -8,7 +8,7 @@ import {
   addCoupon,
   updateCoupon,
   deleteCoupon,
-//   populateCoupons
+  //   populateCoupons
 } from "../controllers/CouponController";
 
 dotenv.config();
@@ -24,7 +24,12 @@ router.get("/coupon/:id", isAuth, getCoupon);
 router.post("/coupon", isAuth, Validator("addCouponSchema"), addCoupon);
 
 // UPDATE Coupon
-router.put("/coupon/:id", isAuth, Validator("updateCouponSchema"), updateCoupon);
+router.put(
+  "/coupon/:id",
+  isAuth,
+  Validator("updateCouponSchema"),
+  updateCoupon
+);
 
 //DELETE Coupon
 router.delete("/coupon/:id", isAuth, deleteCoupon);

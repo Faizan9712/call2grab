@@ -18,7 +18,7 @@ dotenv.config();
 
 //GET CART OF USER SERVICE CLASS
 export default class CartService {
-  //GET ALL ProductS
+  //GET ALL PRODUCTS IN CART
   async getAllProducts(pageNo: number, orderBy: string, sortBy: string) {
     output = "";
     output = await db.query(
@@ -46,53 +46,6 @@ export default class CartService {
         type: QueryTypes.SELECT,
       }
     );
-    // output = await Cart.findAll({
-    //   include: [
-    //     {
-    //       model: Product,
-    //       attributes: [],
-    //       required: true,
-    //     },
-    //     {
-    //       model: User,
-    //       attributes: [],
-    //       required: true,
-    //     },
-    //   ],
-    //   attributes: [
-    //     // "productId",
-    //     "productId",
-    //     "userId",
-    //     [Sequelize.col("user_first_name"), "userFirstName"],
-    //     // "productName",
-    //     // "productStatus",
-    //     // "productMinPrice",
-    //     // "productMaxPrice",
-    //     "productQuantity",
-    //     // "productRatingCount",
-    //     // "productAverageRating",
-    //     // "productTotalSales",
-    //     // "productCategoryId",
-    //     [Sequelize.col("product_name"), "productName"],
-    //     // "productImageId",
-    //     // "productStockQuantity",
-    //     // "productInStock",
-    //     // "productOnsale",
-    //     // "productActive",
-    //     // "productBrandId",
-    //     // "productCouponId",
-    //     // "productTaxId",
-    //     // "productShippingId",
-    //     "cartCreatedDate",
-    //     "cartUpdatedDate",
-    //   ],
-
-    //   raw: true,
-    //   order: [[orderBy, sortBy]],
-
-    //   limit: 10,
-    //   offset: await pagination(pageNo),
-    // });
     return output == "" ? "No Products Found" : output;
   }
 }

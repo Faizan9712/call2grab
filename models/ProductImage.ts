@@ -42,7 +42,7 @@ export default class ProductImage extends Model implements ImageI {
   @Column({
     allowNull: false,
     field: "product_image_name",
-    type: DataType.STRING(70),
+    type: DataType.STRING(100),
     defaultValue: "",
   })
   productImageName!: string;
