@@ -19,7 +19,12 @@ dotenv.config();
 //GET CART OF USER SERVICE CLASS
 export default class CartService {
   //GET ALL PRODUCTS IN CART
-  async getAllProducts(pageNo: number, orderBy: string, sortBy: string) {
+  async getAllProducts(
+    pageNo: number,
+    orderBy: string,
+    sortBy: string,
+    limit: number
+  ) {
     output = "";
     output = await db.query(
       `SELECT
@@ -39,7 +44,7 @@ export default class CartService {
       1=1
       ORDER BY ${orderBy}
       ${sortBy}
-      LIMIT 10
+      LIMIT ${limit}
       OFFSET ${await pagination(pageNo)}`,
 
       {

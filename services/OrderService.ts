@@ -18,16 +18,26 @@ export default class OrderService {
     orderBy: string,
     sortBy: string,
     query: any,
-    filter: any
+    filter: any,
+    limit: number
   ) {
     switch (query || filter) {
       case "all":
-        return await this.genQuery(pageNo, orderBy, sortBy, "1", "=", "1");
+        return await this.genQuery(
+          pageNo,
+          orderBy,
+          sortBy,
+          limit,
+          "1",
+          "=",
+          "1"
+        );
       case "featured":
         return await this.genQuery(
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "Order_featured_id",
           "=",
           "1"
@@ -38,6 +48,7 @@ export default class OrderService {
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "Order_name",
           query
         );
@@ -49,6 +60,7 @@ export default class OrderService {
           pageNo,
           "Order_updated_date",
           "DESC",
+          limit,
           "1",
           "=",
           "1"
@@ -58,6 +70,7 @@ export default class OrderService {
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "Order_active",
           "=",
           "1"
@@ -67,6 +80,7 @@ export default class OrderService {
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "=",
           "Order_active",
           "!1"
@@ -77,6 +91,7 @@ export default class OrderService {
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "Order_in_stock ",
           "!=",
           "0"
@@ -92,6 +107,7 @@ export default class OrderService {
     pageNo: number,
     orderBy: string,
     sortBy: string,
+    limit: number,
     condVariable: any,
     operator: any,
     condValue: any
@@ -126,7 +142,7 @@ export default class OrderService {
       GROUP BY order_id
       ORDER BY ${orderBy}
       ${sortBy}
-      LIMIT 10
+      LIMIT ${limit}
       OFFSET ${await pagination(pageNo)}`,
 
       {
@@ -141,6 +157,7 @@ export default class OrderService {
     pageNo: number,
     orderBy: string,
     sortBy: string,
+    limit: number,
     condVariable: any,
     condValue: any
   ) {
@@ -179,7 +196,7 @@ export default class OrderService {
       GROUP BY order_id
       ORDER BY ${orderBy}
       ${sortBy}
-      LIMIT 10
+      LIMIT ${limit}
       OFFSET ${await pagination(pageNo)}`,
 
       {

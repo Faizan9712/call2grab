@@ -12,12 +12,13 @@ const cartService = new CartService();
 export async function getProductInCart(req: Request, res: Response) {
   try {
     output = "";
-    const { pageNo, orderBy, sortBy } = await sanitizeInput(req.query);
+    const { pageNo, orderBy, sortBy, limit } = await sanitizeInput(req.query);
     output = await cartService
       .getAllProducts(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "cartId" : orderBy,
-        sortBy == undefined ? "DESC" : sortBy
+        sortBy == undefined ? "DESC" : sortBy,
+        limit == undefined ? 10 : limit
       )
       .then((output: any) => {
         if (typeof output === "string") {

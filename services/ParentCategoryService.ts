@@ -19,11 +19,12 @@ export default class ParentCategoryService {
     orderBy: string,
     sortBy: string,
     query: any,
-    filter: any
+    filter: any,
+    limit: number
   ) {
     switch (query || filter) {
       case "all":
-        return await this.genQuery(pageNo, orderBy, sortBy);
+        return await this.genQuery(pageNo, orderBy, sortBy, limit);
 
       case "count":
         return await ParentCategory.count();
@@ -34,14 +35,35 @@ export default class ParentCategoryService {
   }
 
   //GEN QUERY
-  async genQuery(pageNo: number, orderBy: string, sortBy: string) {
+  async genQuery(
+    pageNo: number,
+    orderBy: string,
+    sortBy: string,
+    limit: number
+  ) {
     output = "";
-    output = await ParentCategory.findAll({
-      raw: true,
-      order: [[orderBy, sortBy]],
-      limit: 10,
-      offset: await pagination(pageNo),
-    });
+    // output = await ParentCategory.findAll({
+    //   raw: true,
+    //   order: [[orderBy, sortBy]],
+    //   limit: limit,
+    //   offset: await pagination(pageNo),
+    // });
+    output = await db.query(
+      `SELECT
+	  parent_category_id AS parentCategoryId,
+	  parent_category_name AS parentCategoryName,
+	  parent_category_description AS parentCategoryDescription 
+  FROM
+	  parentcategory AS ParentCategory 
+      GROUP BY parent_category_id
+      ORDER BY ${orderBy}
+      ${sortBy}
+      LIMIT ${limit}
+      OFFSET ${await pagination(pageNo)}`,
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
     return output == "" ? "No Parent Categories Found" : output;
   }
 

@@ -15,16 +15,16 @@ const productService = new ProductService();
 export async function getProducts(req: Request, res: Response) {
   try {
     output = "";
-    const { pageNo, orderBy, sortBy, query, filter } = await sanitizeInput(
-      req.query
-    );
+    const { pageNo, orderBy, sortBy, query, filter, limit } =
+      await sanitizeInput(req.query);
     output = await productService
       .productCases(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "productId" : orderBy,
         sortBy == undefined ? "DESC" : sortBy,
         query,
-        filter == undefined ? "all" : filter
+        filter == undefined ? "all" : filter,
+        limit == undefined ? 10 : limit
       )
       .then((output: any) => {
         if (typeof output === "string") {

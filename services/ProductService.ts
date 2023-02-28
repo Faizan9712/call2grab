@@ -19,16 +19,26 @@ export default class ProductService {
     orderBy: string,
     sortBy: string,
     query: any,
-    filter: any
+    filter: any,
+    limit: number
   ) {
     switch (query || filter) {
       case "all":
-        return await this.genQuery(pageNo, orderBy, sortBy, "1", "=", "1");
+        return await this.genQuery(
+          pageNo,
+          orderBy,
+          sortBy,
+          limit,
+          "1",
+          "=",
+          "1"
+        );
       case "featured":
         return await this.genQuery(
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "product_featured_id",
           "=",
           "1"
@@ -39,6 +49,7 @@ export default class ProductService {
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "product_name",
           query
         );
@@ -50,6 +61,7 @@ export default class ProductService {
           pageNo,
           "product_updated_date",
           "DESC",
+          limit,
           "1",
           "=",
           "1"
@@ -59,6 +71,7 @@ export default class ProductService {
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "product_active",
           "=",
           "1"
@@ -68,6 +81,7 @@ export default class ProductService {
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "product_active",
           "!=",
           "1"
@@ -81,6 +95,7 @@ export default class ProductService {
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "product_in_stock ",
           "!=",
           "0"
@@ -96,6 +111,7 @@ export default class ProductService {
     pageNo: number,
     orderBy: string,
     sortBy: string,
+    limit: number,
     condVariable: any,
     operator: any,
     condValue: any
@@ -139,7 +155,7 @@ export default class ProductService {
       GROUP BY product_id
       ORDER BY ${orderBy}
       ${sortBy}
-      LIMIT 10
+      LIMIT ${limit}
       OFFSET ${await pagination(pageNo)}`,
 
       {
@@ -156,6 +172,7 @@ export default class ProductService {
     pageNo: number,
     orderBy: string,
     sortBy: string,
+    limit:number,
     condVariable: any,
     condValue: any
   ) {
@@ -198,7 +215,7 @@ export default class ProductService {
       GROUP BY product_id
       ORDER BY ${orderBy}
       ${sortBy}
-      LIMIT 10
+      LIMIT ${limit}
       OFFSET ${await pagination(pageNo)}`,
 
       {

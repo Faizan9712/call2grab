@@ -14,21 +14,32 @@ dotenv.config();
 //Category SERVICE CLASS
 export default class CategoryService {
   //CASES FOR FILTERS AND POPULATES
+
   async categoryCases(
     pageNo: number,
     orderBy: string,
     sortBy: string,
     query: any,
-    filter: any
+    filter: any,
+    limit: any
   ) {
     switch (query || filter) {
       case "all":
-        return await this.genQuery(pageNo, orderBy, sortBy, "1", "=", "1");
+        return await this.genQuery(
+          pageNo,
+          orderBy,
+          sortBy,
+          limit,
+          "1",
+          "=",
+          "1"
+        );
       case "featured":
         return await this.genQuery(
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "category_featured_id",
           "=",
           "1"
@@ -39,6 +50,7 @@ export default class CategoryService {
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "category_name",
           query
         );
@@ -50,6 +62,7 @@ export default class CategoryService {
           pageNo,
           "category_updated_date",
           "DESC",
+          limit,
           "1",
           "=",
           "1"
@@ -59,6 +72,7 @@ export default class CategoryService {
           pageNo,
           orderBy,
           sortBy,
+          limit,
           "category_active",
           "=",
           "1"
@@ -76,6 +90,7 @@ export default class CategoryService {
     pageNo: number,
     orderBy: string,
     sortBy: string,
+    limit: number,
     condVariable: any,
     operator: any,
     condValue: any
@@ -96,7 +111,7 @@ export default class CategoryService {
     GROUP BY category_id
     ORDER BY ${orderBy}
     ${sortBy}
-    LIMIT 10
+    LIMIT ${limit}
     OFFSET ${await pagination(pageNo)}`,
 
       {
@@ -111,6 +126,7 @@ export default class CategoryService {
     pageNo: number,
     orderBy: string,
     sortBy: string,
+    limit: number,
     condVariable: any,
     condValue: any
   ) {
@@ -131,7 +147,7 @@ export default class CategoryService {
     GROUP BY category_id
     ORDER BY ${orderBy}
     ${sortBy}
-    LIMIT 10
+    LIMIT ${limit}
     OFFSET ${await pagination(pageNo)}`,
 
       {

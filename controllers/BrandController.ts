@@ -12,12 +12,13 @@ const brandService = new BrandService();
 export async function getBrands(req: Request, res: Response) {
   try {
     output = "";
-    const { pageNo, orderBy, sortBy } = await sanitizeInput(req.query);
+    const { pageNo, orderBy, sortBy, limit } = await sanitizeInput(req.query);
     output = await brandService
       .getAllBrands(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "brandId" : orderBy,
-        sortBy == undefined ? "DESC" : sortBy
+        sortBy == undefined ? "DESC" : sortBy,
+        limit == undefined ? 10 : limit
       )
       .then((output: any) => {
         if (typeof output === "string") {
