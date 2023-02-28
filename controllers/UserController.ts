@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import UserService from "../services/UserService";
 import { filePath, sanitizeInput } from "../helpers/functions";
-import { string } from "joi";
-import { stat } from "fs";
+
 
 //INSTANCE VARIABLES
 let output: any;
@@ -15,12 +14,15 @@ const userService = new UserService();
 export async function getUsers(req: Request, res: Response) {
   try {
     output = "";
-    const { pageNo, orderBy, sortBy } = await sanitizeInput(req.query);
+    const { pageNo, orderBy, sortBy,query,filter,limit } = await sanitizeInput(req.query);
     output = await userService
-      .getAllUsers(
+      .userCases(
         pageNo == undefined ? 1 : pageNo,
         orderBy == undefined ? "userId" : orderBy,
-        sortBy == undefined ? "DESC" : sortBy
+        sortBy == undefined ? "DESC" : sortBy,
+        query,
+        filter == undefined ? "all" : filter,
+        limit == undefined ? 10 : limit
       )
       .then((output: any) => {
         if (typeof output === "string") {

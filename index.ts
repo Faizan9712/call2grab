@@ -12,6 +12,7 @@ import cartRouter from "./routes/Cart";
 import orderRouter from "./routes/Order";
 import couponRouter from "./routes/Coupon";
 import brandRouter from "./routes/Brand";
+import dealRouter from "./routes/Deal";
 import createHttpError from "http-errors";
 import cors from "cors";
 
@@ -59,6 +60,7 @@ app.use("/api", cartRouter);
 app.use("/api", orderRouter);
 app.use("/api", couponRouter);
 app.use("/api", brandRouter);
+app.use("/api", dealRouter);
 
 // Catch HTTP 404
 app.use((req, res, next) => {

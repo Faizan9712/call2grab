@@ -18,6 +18,7 @@ import {
 } from "./ParentCategorySchema";
 import { addOrderSchema, updateOrderSchema } from "./OrderSchema";
 import { addCouponSchema, updateCouponSchema } from "./CouponSchema";
+import { addDealSchema, updateDealSchema } from "./DealSchema";
 module.exports = {
   loginSchema,
   changePasswordSchema,
@@ -38,4 +39,6 @@ module.exports = {
   updateOrderSchema,
   addCouponSchema,
   updateCouponSchema,
+  addDealSchema,
+  updateDealSchema,
 };
