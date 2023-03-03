@@ -44,6 +44,17 @@ export default class ProductService {
           "1"
         );
 
+      case "name":
+        return await this.genQuery(
+          pageNo,
+          "product_name",
+          sortBy,
+          limit,
+          "1",
+          "=",
+          "1"
+        );
+
       case query:
         return await this.likeQuery(
           pageNo,
@@ -172,7 +183,7 @@ export default class ProductService {
     pageNo: number,
     orderBy: string,
     sortBy: string,
-    limit:number,
+    limit: number,
     condVariable: any,
     condValue: any
   ) {

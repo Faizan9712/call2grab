@@ -44,6 +44,16 @@ export default class CategoryService {
           "=",
           "1"
         );
+      case "name":
+        return await this.genQuery(
+          pageNo,
+          "category_name",
+          sortBy,
+          limit,
+          "1",
+          "=",
+          "1"
+        );
 
       case query:
         return await this.likeQuery(
