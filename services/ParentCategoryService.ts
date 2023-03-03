@@ -34,6 +34,14 @@ export default class ParentCategoryService {
           limit
         );
 
+      case "name":
+        return await this.genQuery(
+          pageNo,
+          "parent_category_name",
+          sortBy,
+          limit
+        );
+
       case "count":
         return await ParentCategory.count();
 
