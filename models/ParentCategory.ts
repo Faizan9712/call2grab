@@ -5,6 +5,8 @@ export interface parentCategoryI {
   parentCategoryId: number;
   parentCategoryName: string;
   parentCategoryDescription: string;
+  parentCategoryCreatedDate: Date;
+  parentCategoryUpdatedDate: Date;
 }
 
 @Table({
@@ -39,6 +41,22 @@ export default class ParentCategory extends Model implements parentCategoryI {
   })
   parentCategoryDescription!: string;
 
-//   @HasMany(() => Category)
-//   Category!: Category[];
+  @Column({
+    allowNull: false,
+    type: DataType.DATE,
+    field: "parent_category_created_date",
+    defaultValue: new Date(),
+  })
+  parentCategoryCreatedDate!: Date;
+
+  @Column({
+    allowNull: false,
+    type: DataType.DATE,
+    field: "parent_category_updated_date",
+    defaultValue: new Date(),
+  })
+  parentCategoryUpdatedDate!: Date;
+
+  //   @HasMany(() => Category)
+  //   Category!: Category[];
 }

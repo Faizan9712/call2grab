@@ -26,6 +26,14 @@ export default class ParentCategoryService {
       case "all":
         return await this.genQuery(pageNo, orderBy, sortBy, limit);
 
+      case "date":
+        return await this.genQuery(
+          pageNo,
+          "parent_category_updated_date",
+          "DESC",
+          limit
+        );
+
       case "count":
         return await ParentCategory.count();
 
@@ -52,7 +60,10 @@ export default class ParentCategoryService {
       `SELECT
 	  parent_category_id AS parentCategoryId,
 	  parent_category_name AS parentCategoryName,
-	  parent_category_description AS parentCategoryDescription 
+	  parent_category_description AS parentCategoryDescription,
+    parent_category_created_date AS parentCategoryCreatedDate,
+    parent_category_updated_date AS parentCategoryUpdatedDate
+
   FROM
 	  parentcategory AS ParentCategory 
       GROUP BY parent_category_id
