@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import BrandService from "../services/BrandService";
+import TaxService from "../services/TaxService";
 import { sanitizeInput } from "../helpers/functions";
 
 //INSTANCE VARIABLES
@@ -8,18 +8,18 @@ let output: any;
 let querypm: number;
 
 //CREATING OBJECT
-const brandService = new BrandService();
+const taxService = new TaxService();
 
-//GET ALL CATEGORIES
-export async function getBrands(req: Request, res: Response) {
+//GET ALL TaxS
+export async function getTaxes(req: Request, res: Response) {
   try {
     output = "";
     const { pageNo, orderBy, sortBy, query, filter, limit } =
       await sanitizeInput(req.query);
-    output = await brandService
-      .brandCases(
+    output = await taxService
+      .taxCases(
         pageNo == undefined ? 1 : pageNo,
-        orderBy == undefined ? "brandId" : orderBy,
+        orderBy == undefined ? "TaxId" : orderBy,
         sortBy == undefined ? "DESC" : sortBy,
         query,
         filter == undefined ? "all" : filter,
@@ -42,14 +42,14 @@ export async function getBrands(req: Request, res: Response) {
   }
 }
 
-//GET Brand BY ID
-export async function getBrand(req: Request, res: Response) {
+//GET Tax BY ID
+export async function getTax(req: Request, res: Response) {
   try {
     output = "";
     querypm = await sanitizeInput(Number(req.params.id));
 
-    output = await brandService
-      .getBrand(querypm)
+    output = await taxService
+      .getTax(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
           // console.log("======", output);
@@ -68,13 +68,13 @@ export async function getBrand(req: Request, res: Response) {
   }
 }
 
-//ADD Brand
-export async function addBrand(req: Request, res: Response) {
+//ADD Tax
+export async function addTax(req: Request, res: Response) {
   try {
     output = "";
     querypm = await sanitizeInput(req.body);
-    output = await brandService
-      .addBrand(querypm)
+    output = await taxService
+      .addTax(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
           res.status(200).json({ message: output });
@@ -92,23 +92,23 @@ export async function addBrand(req: Request, res: Response) {
   }
 }
 
-//UPDATE Brand
-export async function updateBrand(req: Request, res: Response) {
+//UPDATE Tax
+export async function updateTax(req: Request, res: Response) {
   try {
     output = "";
     querypm = await sanitizeInput(req.body);
     const id = await sanitizeInput(Number(req.params.id));
-    let result = await brandService.getBrand(id);
+    let result = await taxService.getTax(id);
     if (typeof result == "string") {
       res.status(400).json({ message: result });
     } else {
-      output = await brandService
-        .updateBrand(querypm, id)
+      output = await taxService
+        .updateTax(querypm, id)
         .then((output: any) => {
           if (output[0] === 0) {
             res.status(200).json({ message: "Already Updated" });
           } else {
-            res.status(200).json({ message: "Brand Updated Successfully" });
+            res.status(200).json({ message: "Tax Updated Successfully" });
           }
         })
         .catch((error: any) => {
@@ -122,19 +122,19 @@ export async function updateBrand(req: Request, res: Response) {
   }
 }
 
-//DELETE Brand
-export async function deleteBrand(req: Request, res: Response) {
+//DELETE Tax
+export async function deleteTax(req: Request, res: Response) {
   try {
     output = "";
     querypm = await sanitizeInput(Number(req.params.id));
-    let result = await brandService.getBrand(querypm);
+    let result = await taxService.getTax(querypm);
     if (typeof result == "string") {
       res.status(400).json({ message: result });
     } else {
-      output = await brandService
-        .deleteBrand(querypm)
+      output = await taxService
+        .deleteTax(querypm)
         .then((output: any) => {
-          res.status(200).json({ message: "Brand Deleted Successfully" });
+          res.status(200).json({ message: "Tax Deleted Successfully" });
         })
         .catch((error: any) => {
           res.status(400).json({ message: "Invalid input" });
@@ -146,29 +146,3 @@ export async function deleteBrand(req: Request, res: Response) {
     console.log(error);
   }
 }
-
-//POPULATE CATEGORIES
-export async function populateCategories(req: Request, res: Response) {
-  try {
-    output = "";
-    querypm = await sanitizeInput(req.query.qpm);
-    output = await brandService
-      .populateCategories(querypm)
-      .then((output: any) => {
-        if (typeof output === "string") {
-          res.status(200).json({ message: output });
-        } else {
-          res.status(200).json({ output: output });
-        }
-      })
-      .catch((error: any) => {
-        res.status(400).json({ output: "Something went wrong" });
-        console.log(error);
-      });
-  } catch (error) {
-    res.status(503).json({ output: "Something went wrong" });
-    console.log(error);
-  }
-}
-
-

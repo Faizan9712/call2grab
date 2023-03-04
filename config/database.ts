@@ -10,6 +10,9 @@ import Order from "../models/Order";
 import Coupon from "../models/Coupon";
 import Brand from "../models/Brand";
 import Deal from "../models/Deal";
+import Area from "../models/Area";
+import ParentArea from "../models/ParentArea";
+import Tax from "../models/Tax";
 const db: any = new Sequelize("call2grab", "root", "", {
   host: "localhost",
   storage: ".database/mysql",
@@ -28,7 +31,10 @@ db.addModels([
   Order,
   Coupon,
   Brand,
-  Deal
+  Deal,
+  Area,
+  ParentArea,
+  Tax,
 ]);
 
 export default db;

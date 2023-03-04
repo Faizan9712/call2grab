@@ -1,6 +1,6 @@
 import path from "path";
 import { col, fn, json, Op, or, QueryTypes, Sequelize } from "sequelize";
-import Brand from "../models/Brand";
+import ParentArea from "../models/ParentArea";
 import dotenv from "dotenv";
 import db from "../config/database";
 import { pagination } from "../helpers/functions";
@@ -11,11 +11,11 @@ let queryPm: number;
 
 dotenv.config();
 
-//Brand SERVICE CLASS
-export default class BrandService {
+//parentArea SERVICE CLASS
+export default class ParentAreaService {
   //CASES FOR FILTERS AND POPULATES
 
-  async brandCases(
+  async parentAreaCases(
     pageNo: number,
     orderBy: string,
     sortBy: string,
@@ -37,7 +37,7 @@ export default class BrandService {
       case "name":
         return await this.genQuery(
           pageNo,
-          "brand_name",
+          "parentarea_name",
           sortBy,
           limit,
           "1",
@@ -51,14 +51,14 @@ export default class BrandService {
           orderBy,
           sortBy,
           limit,
-          "brand_name",
+          "parentarea_name",
           query
         );
 
       case "date":
         return await this.genQuery(
           pageNo,
-          "brand_updated_date",
+          "parentarea_updated_date",
           "DESC",
           limit,
           "1",
@@ -71,15 +71,15 @@ export default class BrandService {
           orderBy,
           sortBy,
           limit,
-          "brand_active",
+          "parentarea_active",
           "=",
           "1"
         );
       case "count":
-        return Brand.count();
+        return ParentArea.count();
 
       default:
-        return output == "" ? `No Brands Found` : output;
+        return output == "" ? `No parentAreas Found` : output;
     }
   }
 
@@ -95,18 +95,17 @@ export default class BrandService {
   ) {
     output = await db.query(
       `SELECT
-      brand.brand_id "brandId",
-      brand.brand_name "brandName",
-      brand.brand_description "brandDescription",
-      brand.brand_active "brandActive",
-      brand.brand_created_date "brandCreatedDate",
-      brand.brand_updated_date "brandUpdatedDate" 
-      FROM
-      brand brand
- 
+    parentArea.parentarea_id "parentAreaId",
+    parentArea.parentarea_name "parentAreaName",
+    parentArea.parentarea_description "parentAreaDescription",
+    parentArea.parentArea_active "parentAreaActive",
+    parentArea.parentArea_created_date "parentAreaCreatedDate",
+    parentArea.parentArea_updated_date "parentAreaUpdatedDate"
+  FROM
+  parent_area parentArea
   WHERE
     ${condVariable} ${operator} ${condValue}
-    GROUP BY Brand_id
+    GROUP BY parentarea_id
     ORDER BY ${orderBy}
     ${sortBy}
     LIMIT ${limit}
@@ -116,7 +115,7 @@ export default class BrandService {
         type: QueryTypes.SELECT,
       }
     );
-    return output == "" ? `No Brands Found` : output;
+    return output == "" ? `No parentAreas Found` : output;
   }
 
   //LIKE QUERY
@@ -130,18 +129,18 @@ export default class BrandService {
   ) {
     output = await db.query(
       `SELECT
-      brand.brand_id "brandId",
-      brand.brand_name "brandName",
-      brand.brand_description "brandDescription",
-      brand.brand_active "brandActive",
-      brand.brand_created_date "brandCreatedDate",
-      brand.brand_updated_date "brandUpdatedDate" 
-      FROM
-      brand brand
+      parentArea.parentarea_id "parentAreaId",
+      parentArea.parentarea_name "parentAreaName",
+      parentArea.parentarea_description "parentAreaDescription",
+      parentArea.parentArea_active "parentAreaActive",
+      parentArea.parentArea_created_date "parentAreaCreatedDate",
+      parentArea.parentArea_updated_date "parentAreaUpdatedDate"
+    FROM
+    parent_area parentArea
 
   WHERE
   ${condVariable} LIKE "%${condValue}%"
-    GROUP BY Brand_id
+    GROUP BY parentArea_id
     ORDER BY ${orderBy}
     ${sortBy}
     LIMIT ${limit}
@@ -151,64 +150,50 @@ export default class BrandService {
         type: QueryTypes.SELECT,
       }
     );
-    return output == "" ? `No Brands Found` : output;
+    return output == "" ? `No Parent Areas Found` : output;
   }
 
-  //GET Brand BY ID
-  async getBrand(id: number) {
+  //GET parentArea BY ID
+  async getParentArea(id: number) {
     output = "";
-    output = await Brand.findByPk(id);
+    output = await ParentArea.findByPk(id);
     return output == "" || output == null
-      ? `No Brand with id=${id} Found`
+      ? `No parentArea with id=${id} Found`
       : output;
   }
 
-  //ADD Brand
-  async addBrand(body: any) {
+  //ADD parentArea
+  async addParentArea(body: any) {
     output = "";
-    output = await Brand.create(body);
+    output = await ParentArea.create(body);
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE Brand
-  async updateBrand(body: any, id: number) {
+  //UPDATE parentArea
+  async updateParentArea(body: any, id: number) {
     output = "";
-    output = await Brand.update(body, {
-      where: { brand_id: id },
+    output = await ParentArea.update(body, {
+      where: { parentArea_id: id },
     });
     return output;
   }
 
-  //DELETE Brand
-  async deleteBrand(id: number) {
+  //DELETE parentArea
+  async deleteParentArea(id: number) {
     output = "";
-    output = await Brand.destroy({
-      where: { brand_id: id },
+    output = await ParentArea.destroy({
+      where: { parentArea_id: id },
     });
     return output;
   }
 
-  //POPULATE Brand
-  async populateCategories(qpm: any) {
+  //POPULATE parentArea
+  async populateParentAreas(qpm: any) {
     output = "";
-    output = await Brand.findAll({
-      where: { BrandName: { [Op.like]: `%${qpm}%` } },
+    output = await ParentArea.findAll({
+      where: { parentAreaName: { [Op.like]: `%${qpm}%` } },
       limit: 10,
     });
-    return output == "" ? "No Brands Found" : output;
-  }
-
-  //PATH OF PHOTO IN DB
-  async dbSetPath(fullfilename: any, id: number) {
-    output = "";
-    output = await Brand.update(
-      { BrandImage: fullfilename },
-      {
-        where: { brandId: id },
-      }
-    ).then((output: any) => {
-      // console.log("=========",output)
-      return output;
-    });
+    return output == "" ? "No Parent Areas Found" : output;
   }
 }

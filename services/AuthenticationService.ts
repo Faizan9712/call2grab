@@ -49,6 +49,13 @@ export default class AuthenticationService {
     return output ? true : false;
   }
 
+  //GET ADMIN BY ID
+  async getAdmin(id: number) {
+    output = "";
+    output = await Admin.findByPk(id);
+    return output == "" || output == null ? `Admin Not Found` : output;
+  }
+
   //UPDATE PROFILE
   async updateProfile(body: any, id: number) {
     output = "";

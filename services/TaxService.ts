@@ -1,6 +1,6 @@
 import path from "path";
 import { col, fn, json, Op, or, QueryTypes, Sequelize } from "sequelize";
-import Brand from "../models/Brand";
+import Tax from "../models/Tax";
 import dotenv from "dotenv";
 import db from "../config/database";
 import { pagination } from "../helpers/functions";
@@ -11,11 +11,11 @@ let queryPm: number;
 
 dotenv.config();
 
-//Brand SERVICE CLASS
-export default class BrandService {
+//Tax SERVICE CLASS
+export default class TaxService {
   //CASES FOR FILTERS AND POPULATES
 
-  async brandCases(
+  async taxCases(
     pageNo: number,
     orderBy: string,
     sortBy: string,
@@ -37,7 +37,7 @@ export default class BrandService {
       case "name":
         return await this.genQuery(
           pageNo,
-          "brand_name",
+          "tax_name",
           sortBy,
           limit,
           "1",
@@ -51,14 +51,14 @@ export default class BrandService {
           orderBy,
           sortBy,
           limit,
-          "brand_name",
+          "tax_name",
           query
         );
 
       case "date":
         return await this.genQuery(
           pageNo,
-          "brand_updated_date",
+          "tax_updated_date",
           "DESC",
           limit,
           "1",
@@ -71,15 +71,15 @@ export default class BrandService {
           orderBy,
           sortBy,
           limit,
-          "brand_active",
+          "tax_active",
           "=",
           "1"
         );
       case "count":
-        return Brand.count();
+        return Tax.count();
 
       default:
-        return output == "" ? `No Brands Found` : output;
+        return output == "" ? `No Taxes Found` : output;
     }
   }
 
@@ -95,18 +95,17 @@ export default class BrandService {
   ) {
     output = await db.query(
       `SELECT
-      brand.brand_id "brandId",
-      brand.brand_name "brandName",
-      brand.brand_description "brandDescription",
-      brand.brand_active "brandActive",
-      brand.brand_created_date "brandCreatedDate",
-      brand.brand_updated_date "brandUpdatedDate" 
-      FROM
-      brand brand
- 
+      tax.tax_id "taxId",
+      tax.tax_name "taxName",
+      tax.tax_rate "taxRate",
+      tax.tax_city_code "taxCityCode",
+      tax.tax_active "taxActive",
+      tax.tax_created_date "taxCreatedDate",
+      tax.tax_updated_date "taxUpdatedDate"
+    FROM
+    tax tax
   WHERE
     ${condVariable} ${operator} ${condValue}
-    GROUP BY Brand_id
     ORDER BY ${orderBy}
     ${sortBy}
     LIMIT ${limit}
@@ -116,7 +115,7 @@ export default class BrandService {
         type: QueryTypes.SELECT,
       }
     );
-    return output == "" ? `No Brands Found` : output;
+    return output == "" ? `No Taxes Found` : output;
   }
 
   //LIKE QUERY
@@ -130,18 +129,18 @@ export default class BrandService {
   ) {
     output = await db.query(
       `SELECT
-      brand.brand_id "brandId",
-      brand.brand_name "brandName",
-      brand.brand_description "brandDescription",
-      brand.brand_active "brandActive",
-      brand.brand_created_date "brandCreatedDate",
-      brand.brand_updated_date "brandUpdatedDate" 
-      FROM
-      brand brand
+      tax.tax_id "taxId",
+      tax.tax_name "taxName",
+      tax.tax_rate "taxRate",
+      tax.tax_city_code "taxCityCode",
+      tax.tax_active "taxActive",
+      tax.tax_created_date "taxCreatedDate",
+      tax.tax_updated_date "taxUpdatedDate"
+    FROM
+    tax tax
 
   WHERE
   ${condVariable} LIKE "%${condValue}%"
-    GROUP BY Brand_id
     ORDER BY ${orderBy}
     ${sortBy}
     LIMIT ${limit}
@@ -151,64 +150,50 @@ export default class BrandService {
         type: QueryTypes.SELECT,
       }
     );
-    return output == "" ? `No Brands Found` : output;
+    return output == "" ? `No Taxes Found` : output;
   }
 
-  //GET Brand BY ID
-  async getBrand(id: number) {
+  //GET Tax BY ID
+  async getTax(id: number) {
     output = "";
-    output = await Brand.findByPk(id);
+    output = await Tax.findByPk(id);
     return output == "" || output == null
-      ? `No Brand with id=${id} Found`
+      ? `No Tax with id=${id} Found`
       : output;
   }
 
-  //ADD Brand
-  async addBrand(body: any) {
+  //ADD Tax
+  async addTax(body: any) {
     output = "";
-    output = await Brand.create(body);
+    output = await Tax.create(body);
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE Brand
-  async updateBrand(body: any, id: number) {
+  //UPDATE Tax
+  async updateTax(body: any, id: number) {
     output = "";
-    output = await Brand.update(body, {
-      where: { brand_id: id },
+    output = await Tax.update(body, {
+      where: { tax_id: id },
     });
     return output;
   }
 
-  //DELETE Brand
-  async deleteBrand(id: number) {
+  //DELETE Tax
+  async deleteTax(id: number) {
     output = "";
-    output = await Brand.destroy({
-      where: { brand_id: id },
+    output = await Tax.destroy({
+      where: { tax_id: id },
     });
     return output;
   }
 
-  //POPULATE Brand
-  async populateCategories(qpm: any) {
+  //POPULATE Tax
+  async populateTaxs(qpm: any) {
     output = "";
-    output = await Brand.findAll({
-      where: { BrandName: { [Op.like]: `%${qpm}%` } },
+    output = await Tax.findAll({
+      where: { taxName: { [Op.like]: `%${qpm}%` } },
       limit: 10,
     });
-    return output == "" ? "No Brands Found" : output;
-  }
-
-  //PATH OF PHOTO IN DB
-  async dbSetPath(fullfilename: any, id: number) {
-    output = "";
-    output = await Brand.update(
-      { BrandImage: fullfilename },
-      {
-        where: { brandId: id },
-      }
-    ).then((output: any) => {
-      // console.log("=========",output)
-      return output;
-    });
+    return output == "" ? "No Taxs Found" : output;
   }
 }

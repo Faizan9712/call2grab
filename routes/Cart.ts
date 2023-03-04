@@ -7,6 +7,6 @@ dotenv.config();
 const router: Express = express();
 
 //GET PRODUCTS TO CART OF USER
-router.get("/getcart", isAuth, getProductInCart);
+router.get("/cart", isAuth, getProductInCart);
 
 export default router;

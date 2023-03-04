@@ -19,6 +19,13 @@ import {
 import { addOrderSchema, updateOrderSchema } from "./OrderSchema";
 import { addCouponSchema, updateCouponSchema } from "./CouponSchema";
 import { addDealSchema, updateDealSchema } from "./DealSchema";
+import { addBrandSchema, updateBrandSchema } from "./BrandSchema";
+import { addAreaSchema, updateAreaSchema } from "./AreaSchema";
+import { addTaxSchema, updateTaxSchema } from "./TaxSchema";
+import {
+  addParentAreaSchema,
+  updateParentAreaSchema,
+} from "./ParentAreaSchema";
 module.exports = {
   loginSchema,
   changePasswordSchema,
@@ -41,4 +48,12 @@ module.exports = {
   updateCouponSchema,
   addDealSchema,
   updateDealSchema,
+  addAreaSchema,
+  updateAreaSchema,
+  addParentAreaSchema,
+  updateParentAreaSchema,
+  addBrandSchema,
+  updateBrandSchema,
+  addTaxSchema,
+  updateTaxSchema,
 };

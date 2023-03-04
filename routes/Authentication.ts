@@ -1,6 +1,11 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
-import { login, changePassword,updateProfile } from "../controllers/AuthenticationController";
+import {
+  login,
+  changePassword,
+  updateProfile,
+  getAdmin,
+} from "../controllers/AuthenticationController";
 import Validator from "../middlewares/Validator";
 import isAuth from "../middlewares/CheckJWT";
 
@@ -17,6 +22,9 @@ router.post(
   Validator("changePasswordSchema"),
   changePassword
 );
+
+//GET CATEGORY BY ID
+router.get("/admin", isAuth, getAdmin);
 
 //UPDATE PROFILE
 router.put(

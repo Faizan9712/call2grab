@@ -83,6 +83,31 @@ export async function changePassword(req: Request, res: Response) {
   }
 }
 
+//GET CATEGORY BY ID
+export async function getAdmin(req: Request, res: Response) {
+  try {
+    output = "";
+    const information: any = await infoFromToken(req);
+    output = await authenticationService
+      .getAdmin(information.id)
+      .then((output: any) => {
+        if (typeof output === "string") {
+          // console.log("======", output);
+          res.status(200).json({ message: output });
+        } else {
+          res.status(200).json({ output: output });
+        }
+      })
+      .catch((error: any) => {
+        res.status(400).json({ message: "Something went wrong" });
+        console.log(error);
+      });
+  } catch (error) {
+    res.status(503).json({ output: "Something went wrong" });
+    console.log(error);
+  }
+}
+
 //UPDATE PROFILE
 export async function updateProfile(req: Request, res: Response) {
   try {

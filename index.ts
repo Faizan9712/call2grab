@@ -13,6 +13,9 @@ import orderRouter from "./routes/Order";
 import couponRouter from "./routes/Coupon";
 import brandRouter from "./routes/Brand";
 import dealRouter from "./routes/Deal";
+import areaRouter from "./routes/Area";
+import parentAreaRouter from "./routes/ParentArea";
+import taxRouter from "./routes/Tax";
 import createHttpError from "http-errors";
 import cors from "cors";
 
@@ -61,6 +64,9 @@ app.use("/api", orderRouter);
 app.use("/api", couponRouter);
 app.use("/api", brandRouter);
 app.use("/api", dealRouter);
+app.use("/api", areaRouter);
+app.use("/api", parentAreaRouter);
+app.use("/api", taxRouter);
 
 // Catch HTTP 404
 app.use((req, res, next) => {
