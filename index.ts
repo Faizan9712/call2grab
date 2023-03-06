@@ -16,6 +16,9 @@ import dealRouter from "./routes/Deal";
 import areaRouter from "./routes/Area";
 import parentAreaRouter from "./routes/ParentArea";
 import taxRouter from "./routes/Tax";
+import paymentRouter from "./routes/Payment";
+import feedbackRouter from "./routes/Feedback";
+import refundRouter from "./routes/Refund";
 import createHttpError from "http-errors";
 import cors from "cors";
 
@@ -67,6 +70,9 @@ app.use("/api", dealRouter);
 app.use("/api", areaRouter);
 app.use("/api", parentAreaRouter);
 app.use("/api", taxRouter);
+app.use("/api", paymentRouter);
+app.use("/api", feedbackRouter);
+app.use("/api", refundRouter);
 
 // Catch HTTP 404
 app.use((req, res, next) => {

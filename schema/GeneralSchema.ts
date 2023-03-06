@@ -22,10 +22,13 @@ import { addDealSchema, updateDealSchema } from "./DealSchema";
 import { addBrandSchema, updateBrandSchema } from "./BrandSchema";
 import { addAreaSchema, updateAreaSchema } from "./AreaSchema";
 import { addTaxSchema, updateTaxSchema } from "./TaxSchema";
+import { addPaymentSchema, updatePaymentSchema } from "./PaymentSchema";
 import {
   addParentAreaSchema,
   updateParentAreaSchema,
 } from "./ParentAreaSchema";
+import { addFeedbackSchema, updateFeedbackSchema } from "./FeedbackSchema";
+import { addRefundSchema, updateRefundSchema } from "./RefundSchema";
 module.exports = {
   loginSchema,
   changePasswordSchema,
@@ -56,4 +59,10 @@ module.exports = {
   updateBrandSchema,
   addTaxSchema,
   updateTaxSchema,
+  addPaymentSchema,
+  updatePaymentSchema,
+  addFeedbackSchema,
+  updateFeedbackSchema,
+  addRefundSchema,
+  updateRefundSchema,
 };

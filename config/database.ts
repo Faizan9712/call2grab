@@ -13,6 +13,9 @@ import Deal from "../models/Deal";
 import Area from "../models/Area";
 import ParentArea from "../models/ParentArea";
 import Tax from "../models/Tax";
+import Payment from "../models/Payment";
+import Feedback from "../models/Feedback";
+import Refund from "../models/Refund";
 const db: any = new Sequelize("call2grab", "root", "", {
   host: "localhost",
   storage: ".database/mysql",
@@ -35,6 +38,9 @@ db.addModels([
   Area,
   ParentArea,
   Tax,
+  Payment,
+  Feedback,
+  Refund,
 ]);
 
 export default db;
