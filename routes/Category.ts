@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
@@ -9,7 +9,6 @@ import {
   addCategory,
   updateCategory,
   deleteCategory,
-  populateCategories,
   uploadCategory,
 } from "../controllers/CategoryController";
 
@@ -35,9 +34,6 @@ router.put(
 
 //DELETE CATEGORY
 router.delete("/category/:id", isAuth, deleteCategory);
-
-//POPULATE CATEGORIES
-router.get("/populate-categories", isAuth, populateCategories);
 
 // UPLOAD IMAGE
 router.patch("/upload-category/:id", isAuth, handleUpload, uploadCategory);

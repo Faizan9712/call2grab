@@ -1,15 +1,5 @@
-import {
-  Model,
-  Table,
-  Column,
-  DataType,
-  ForeignKey,
-  BelongsTo,
-  HasMany,
-} from "sequelize-typescript";
-import Cart from "./Cart";
-import Category from "./Category";
-import Image from "./ProductImage";
+import { Model, Table, Column, DataType } from "sequelize-typescript";
+
 export interface CouponI {
   couponId: number;
   couponTitle: string;
@@ -32,7 +22,6 @@ export interface CouponI {
   underscored: true,
 })
 export default class Coupon extends Model implements CouponI {
-
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -129,15 +118,4 @@ export default class Coupon extends Model implements CouponI {
     defaultValue: new Date(),
   })
   couponUpdatedDate!: Date;
-
-
-
-  // @BelongsTo(() => Category)
-  // Category!: Category;
-
-  // @BelongsTo(() => Image)
-  // Image!: Image[];
-
-  // @HasMany(() => Cart)
-  // Cart!: Cart[];
 }

@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
@@ -14,22 +14,19 @@ import {
 dotenv.config();
 const router: Express = express();
 
-//GET ALL Brands
+//GET ALL BRANDS
 router.get("/brands", isAuth, getBrands);
 
-//GET Brand BY ID
+//GET BRAND BY ID
 router.get("/brand/:id", isAuth, getBrand);
 
-// ADD Brand
+// ADD BRAND
 router.post("/brand", isAuth, Validator("addBrandSchema"), addBrand);
 
-// UPDATE Brand
+// UPDATE BRAND
 router.put("/brand/:id", isAuth, Validator("updateBrandSchema"), updateBrand);
 
-//DELETE Brand
+//DELETE BRAND
 router.delete("/brand/:id", isAuth, deleteBrand);
-
-//POPULATE Brands
-// router.get("/populate-Brands", isAuth, populateBrands);
 
 export default router;

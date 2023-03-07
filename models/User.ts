@@ -1,5 +1,4 @@
 import { Model, Table, Column, DataType, HasOne } from "sequelize-typescript";
-import Cart from "./Cart";
 
 export interface UserI {
   userId: number;
@@ -200,7 +199,4 @@ export default class User extends Model implements UserI {
     defaultValue: new Date(),
   })
   userUpdatedDate!: Date;
-
-  // @HasOne(() => Cart)
-  // Cart!: Cart[];
 }

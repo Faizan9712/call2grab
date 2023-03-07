@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
@@ -8,22 +8,21 @@ import {
   addPayment,
   updatePayment,
   deletePayment,
-  //   populatePayments
 } from "../controllers/PaymentController";
 
 dotenv.config();
 const router: Express = express();
 
-//GET ALL Payments
+//GET ALL PAYMENTS
 router.get("/payments", isAuth, getPayments);
 
-//GET Payment BY ID
+//GET PAYMENT BY ID
 router.get("/payment/:id", isAuth, getPayment);
 
-// ADD Payment
+// ADD PAYMENT
 router.post("/payment", isAuth, Validator("addPaymentSchema"), addPayment);
 
-// UPDATE Payment
+// UPDATE PAYMENT
 router.put(
   "/payment/:id",
   isAuth,
@@ -31,7 +30,7 @@ router.put(
   updatePayment
 );
 
-//DELETE Payment
+//DELETE PAYMENT
 router.delete("/payment/:id", isAuth, deletePayment);
 
 export default router;

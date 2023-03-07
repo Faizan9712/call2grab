@@ -1,17 +1,6 @@
-import {
-  Model,
-  Table,
-  Column,
-  DataType,
-  ForeignKey,
-  BelongsTo,
-  HasMany,
-} from "sequelize-typescript";
-import Cart from "./Cart";
-import Category from "./Category";
-import Image from "./ProductImage";
+import { Model, Table, Column, DataType } from "sequelize-typescript";
+
 export interface ProductI {
-  
   productId: number;
   productName: string;
   productStatus: string;
@@ -32,7 +21,7 @@ export interface ProductI {
   productTaxId: number;
   productShippingId: number;
   productEntryId: number;
-  productFeaturedId:number;
+  productFeaturedId: number;
   productModifiedId: number;
   productCreatedDate: Date;
   productUpdatedDate: Date;
@@ -44,9 +33,7 @@ export interface ProductI {
   timestamps: false,
   underscored: true,
 })
-
 export default class Product extends Model implements ProductI {
-  
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -120,7 +107,6 @@ export default class Product extends Model implements ProductI {
   })
   productTotalSales!: number;
 
-  // @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -129,7 +115,6 @@ export default class Product extends Model implements ProductI {
   })
   productCategoryId!: number;
 
-  // @ForeignKey(() => Image)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -241,13 +226,4 @@ export default class Product extends Model implements ProductI {
     defaultValue: new Date(),
   })
   productUpdatedDate!: Date;
-
-  // @BelongsTo(() => Category)
-  // Category!: Category;
-
-  // @BelongsTo(() => Image)
-  // Image!: Image[];
-
-  // @HasMany(() => Cart)
-  // Cart!: Cart[];
 }

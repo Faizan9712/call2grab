@@ -27,8 +27,6 @@ export const addUserSchema = Joi.object({
   userDob: Joi.date().required(),
   userActive: Joi.string().required(),
   userLastLogin: Joi.date().required(),
-  userCreatedDate: Joi.date().optional(),
-  userUpdatedDate: Joi.date().optional(),
 });
 
 //UPDATE PRODUCT SCHEMA
@@ -58,8 +56,6 @@ export const updateUserSchema = Joi.object({
   userDob: Joi.date().optional(),
   userActive: Joi.string().optional(),
   userLastLogin: Joi.date().optional(),
-  userCreatedDate: Joi.date().optional(),
-  userUpdatedDate: Joi.date().optional(),
 });
 
 export const changeUserPasswordSchema = Joi.object({

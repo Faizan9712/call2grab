@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
@@ -8,25 +8,24 @@ import {
   addArea,
   updateArea,
   deleteArea,
-  //   populateareas
 } from "../controllers/AreaController";
 
 dotenv.config();
 const router: Express = express();
 
-//GET ALL areas
+//GET ALL AREAS
 router.get("/areas", isAuth, getAreas);
 
-//GET area BY ID
+//GET AREA BY ID
 router.get("/area/:id", isAuth, getArea);
 
-// ADD area
+// ADD AREA
 router.post("/area", isAuth, Validator("addAreaSchema"), addArea);
 
-// UPDATE area
+// UPDATE AREA
 router.put("/area/:id", isAuth, Validator("updateAreaSchema"), updateArea);
 
-//DELETE area
+//DELETE AREA
 router.delete("/area/:id", isAuth, deleteArea);
 
 export default router;

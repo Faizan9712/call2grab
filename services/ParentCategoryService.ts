@@ -1,5 +1,4 @@
-import path from "path";
-import { col, fn, json, Op, QueryTypes, Sequelize } from "sequelize";
+import { QueryTypes } from "sequelize";
 import ParentCategory from "../models/ParentCategory";
 import dotenv from "dotenv";
 import db from "../config/database";
@@ -7,11 +6,10 @@ import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
-let queryPm: number;
 
 dotenv.config();
 
-//ParentCategory SERVICE CLASS
+//PARENT CATEGORY SERVICE CLASS
 export default class ParentCategoryService {
   //GET ALL PARENT CATEGORIES
   async parentCategoryCases(
@@ -58,12 +56,7 @@ export default class ParentCategoryService {
     limit: number
   ) {
     output = "";
-    // output = await ParentCategory.findAll({
-    //   raw: true,
-    //   order: [[orderBy, sortBy]],
-    //   limit: limit,
-    //   offset: await pagination(pageNo),
-    // });
+
     output = await db.query(
       `SELECT
 	  parent_category_id AS parentCategoryId,
@@ -86,7 +79,7 @@ export default class ParentCategoryService {
     return output == "" ? "No Parent Categories Found" : output;
   }
 
-  //GET ParentCategory BY ID
+  //GET PARENT CATEGORY BY ID
   async getParentCategory(id: number) {
     output = "";
     output = await ParentCategory.findByPk(id);
@@ -118,20 +111,5 @@ export default class ParentCategoryService {
       where: { parentCategoryId: id },
     });
     return output;
-  }
-
-  //POPULATE PARENT CATEGORY
-  async populateParentCategories(qpm: any) {
-    output = "";
-    output = await ParentCategory.findAll({
-      where: { parentCategoryName: { [Op.like]: `%${qpm}%` } },
-      limit: 10,
-    });
-    return output == "" ? "No Parent Categories Found" : output;
-  }
-
-  //COUNT
-  async countParentCategory(qpm: any) {
-    return await ParentCategory.count();
   }
 }

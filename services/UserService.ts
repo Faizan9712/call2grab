@@ -12,9 +12,9 @@ let queryPm: number;
 
 dotenv.config();
 
-//User SERVICE CLASS
+//USER SERVICE CLASS
 export default class UserService {
-  //GET ALL UserS
+  //GET ALL USERS
   async getAllUsers(
     pageNo: number,
     orderBy: string,
@@ -61,7 +61,7 @@ export default class UserService {
     return output == "" || output == null ? "No Users Found" : output;
   }
 
-  //GET User BY ID
+  //GET USER BY ID
   async getUser(id: number) {
     output = "";
     output = await User.findByPk(id);
@@ -77,17 +77,16 @@ export default class UserService {
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE User
+  //UPDATE USER
   async updateUser(body: any, id: number) {
     output = "";
-    // console.log("Error : ", body);
     output = await User.update(body, {
       where: { user_id: id },
     });
     return output;
   }
 
-  //DELETE User
+  //DELETE USER
   async deleteUser(id: number) {
     output = "";
     output = await User.destroy({

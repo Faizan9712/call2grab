@@ -1,5 +1,4 @@
-import path from "path";
-import { col, fn, json, Op, or, QueryTypes, Sequelize } from "sequelize";
+import { QueryTypes } from "sequelize";
 import Feedback from "../models/Feedback";
 import dotenv from "dotenv";
 import db from "../config/database";
@@ -7,11 +6,10 @@ import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
-let queryPm: number;
 
 dotenv.config();
 
-//Feedback SERVICE CLASS
+//FEEDBACK SERVICE CLASS
 export default class FeedbackService {
   //CASES FOR FILTERS AND POPULATES
 
@@ -162,7 +160,7 @@ export default class FeedbackService {
     return output == "" ? `No Feedbacks Found` : output;
   }
 
-  //GET Feedback BY ID
+  //GET FEEDBACK BY ID
   async getFeedback(id: number) {
     output = "";
     output = await Feedback.findByPk(id);
@@ -171,14 +169,14 @@ export default class FeedbackService {
       : output;
   }
 
-  //ADD Feedback
+  //ADD FEEDBACK
   async addFeedback(body: any) {
     output = "";
     output = await Feedback.create(body);
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE Feedback
+  //UPDATE FEEDBACK
   async updateFeedback(body: any, id: number) {
     output = "";
     output = await Feedback.update(body, {
@@ -187,22 +185,12 @@ export default class FeedbackService {
     return output;
   }
 
-  //DELETE Feedback
+  //DELETE FEEDBACK
   async deleteFeedback(id: number) {
     output = "";
     output = await Feedback.destroy({
       where: { Feedback_id: id },
     });
     return output;
-  }
-
-  //POPULATE Feedback
-  async populateFeedbacks(qpm: any) {
-    output = "";
-    output = await Feedback.findAll({
-      where: { FeedbackName: { [Op.like]: `%${qpm}%` } },
-      limit: 10,
-    });
-    return output == "" ? "No Feedbacks Found" : output;
   }
 }

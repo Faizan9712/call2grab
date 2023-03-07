@@ -1,5 +1,4 @@
-import path from "path";
-import { col, fn, json, Op, or, QueryTypes, Sequelize } from "sequelize";
+import { QueryTypes } from "sequelize";
 import Refund from "../models/Refund";
 import dotenv from "dotenv";
 import db from "../config/database";
@@ -7,11 +6,10 @@ import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
-let queryPm: number;
 
 dotenv.config();
 
-//Refund SERVICE CLASS
+//REFUND SERVICE CLASS
 export default class RefundService {
   //CASES FOR FILTERS AND POPULATES
 
@@ -159,7 +157,7 @@ export default class RefundService {
     return output == "" ? `No Refunds Found` : output;
   }
 
-  //GET Refund BY ID
+  //GET REFUND BY ID
   async getRefund(id: number) {
     output = "";
     output = await Refund.findByPk(id);
@@ -168,14 +166,14 @@ export default class RefundService {
       : output;
   }
 
-  //ADD Refund
+  //ADD REFUND
   async addRefund(body: any) {
     output = "";
     output = await Refund.create(body);
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE Refund
+  //UPDATE REFUND
   async updateRefund(body: any, id: number) {
     output = "";
     output = await Refund.update(body, {
@@ -184,22 +182,12 @@ export default class RefundService {
     return output;
   }
 
-  //DELETE Refund
+  //DELETE REFUND
   async deleteRefund(id: number) {
     output = "";
     output = await Refund.destroy({
       where: { refund_id: id },
     });
     return output;
-  }
-
-  //POPULATE Refund
-  async populateRefunds(qpm: any) {
-    output = "";
-    output = await Refund.findAll({
-      where: { refundName: { [Op.like]: `%${qpm}%` } },
-      limit: 10,
-    });
-    return output == "" ? "No Refunds Found" : output;
   }
 }

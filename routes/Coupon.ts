@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
@@ -8,22 +8,21 @@ import {
   addCoupon,
   updateCoupon,
   deleteCoupon,
-  //   populateCoupons
 } from "../controllers/CouponController";
 
 dotenv.config();
 const router: Express = express();
 
-//GET ALL Coupons
+//GET ALL COUPONS
 router.get("/coupons", isAuth, getCoupons);
 
-//GET Coupon BY ID
+//GET COUPON BY ID
 router.get("/coupon/:id", isAuth, getCoupon);
 
-// ADD Coupon
+// ADD COUPON
 router.post("/coupon", isAuth, Validator("addCouponSchema"), addCoupon);
 
-// UPDATE Coupon
+// UPDATE COUPON
 router.put(
   "/coupon/:id",
   isAuth,
@@ -31,10 +30,7 @@ router.put(
   updateCoupon
 );
 
-//DELETE Coupon
+//DELETE COUPON
 router.delete("/coupon/:id", isAuth, deleteCoupon);
-
-//POPULATE Coupons
-// router.get("/populate-coupons", isAuth, populateCoupons);
 
 export default router;

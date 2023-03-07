@@ -1,14 +1,4 @@
-import {
-  Model,
-  Table,
-  Column,
-  DataType,
-  HasMany,
-  ForeignKey,
-  BelongsTo,
-} from "sequelize-typescript";
-import Product from "./Product";
-import User from "./User";
+import { Model, Table, Column, DataType } from "sequelize-typescript";
 export interface cartI {
   cartId: number;
   cartUserId: number;
@@ -36,7 +26,6 @@ export default class Cart extends Model implements cartI {
   })
   cartId!: number;
 
-  // @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -45,7 +34,6 @@ export default class Cart extends Model implements cartI {
   })
   cartUserId!: number;
 
-  // @ForeignKey(() => Product)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -93,13 +81,4 @@ export default class Cart extends Model implements cartI {
     defaultValue: new Date(),
   })
   cartUpdatedDate!: Date;
-
-  // @BelongsTo(() => User)
-  // User!: User[];
-
-  // @BelongsTo(() => Product)
-  // Product!: Product[];
-
-//   @HasMany(() => Product)
-//   Product!: Product[];
 }

@@ -10,7 +10,7 @@ let querypm: number;
 //CREATING OBJECT
 const refundService = new RefundService();
 
-//GET ALL RefundS
+//GET ALL REFUNDS
 export async function getRefunds(req: Request, res: Response) {
   try {
     output = "";
@@ -42,7 +42,7 @@ export async function getRefunds(req: Request, res: Response) {
   }
 }
 
-//GET Refund BY ID
+//GET REFUND BY ID
 export async function getRefund(req: Request, res: Response) {
   try {
     output = "";
@@ -52,7 +52,6 @@ export async function getRefund(req: Request, res: Response) {
       .getRefund(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
-          // console.log("======", output);
           res.status(200).json({ message: output });
         } else {
           res.status(200).json({ output: output });
@@ -68,7 +67,7 @@ export async function getRefund(req: Request, res: Response) {
   }
 }
 
-//ADD Refund
+//ADD REFUND
 export async function addRefund(req: Request, res: Response) {
   try {
     output = "";
@@ -92,7 +91,7 @@ export async function addRefund(req: Request, res: Response) {
   }
 }
 
-//UPDATE Refund
+//UPDATE REFUND
 export async function updateRefund(req: Request, res: Response) {
   try {
     output = "";
@@ -122,7 +121,7 @@ export async function updateRefund(req: Request, res: Response) {
   }
 }
 
-//DELETE Refund
+//DELETE REFUND
 export async function deleteRefund(req: Request, res: Response) {
   try {
     output = "";

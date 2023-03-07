@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
@@ -8,19 +8,18 @@ import {
   addParentArea,
   updateParentArea,
   deleteParentArea,
-  //   populateparentArea
 } from "../controllers/ParentAreaController";
 
 dotenv.config();
 const router: Express = express();
 
-//GET ALL parentArea
+//GET ALL PARENT AREAS
 router.get("/parentareas", isAuth, getParentAreas);
 
-//GET area BY ID
+//GET PARENT AREA BY ID
 router.get("/parentarea/:id", isAuth, getParentArea);
 
-// ADD area
+// ADD PARENT AREA
 router.post(
   "/parentarea",
   isAuth,
@@ -28,7 +27,7 @@ router.post(
   addParentArea
 );
 
-// UPDATE area
+// UPDATE PARENT AREA
 router.put(
   "/parentarea/:id",
   isAuth,
@@ -36,7 +35,7 @@ router.put(
   updateParentArea
 );
 
-//DELETE area
+//DELETE PARENT AREA
 router.delete("/parentarea/:id", isAuth, deleteParentArea);
 
 export default router;

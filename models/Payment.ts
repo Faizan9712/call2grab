@@ -1,15 +1,5 @@
-import {
-  Model,
-  Table,
-  Column,
-  DataType,
-  ForeignKey,
-  BelongsTo,
-  HasMany,
-} from "sequelize-typescript";
-import Cart from "./Cart";
-import Category from "./Category";
-import Image from "./ProductImage";
+import { Model, Table, Column, DataType } from "sequelize-typescript";
+
 export interface PaymentI {
   paymentId: number;
   paymentOrderId: number;
@@ -137,13 +127,4 @@ export default class Payment extends Model implements PaymentI {
     defaultValue: new Date(),
   })
   paymentUpdatedDate!: Date;
-
-  // @BelongsTo(() => Category)
-  // Category!: Category;
-
-  // @BelongsTo(() => Image)
-  // Image!: Image[];
-
-  // @HasMany(() => Cart)
-  // Cart!: Cart[];
 }

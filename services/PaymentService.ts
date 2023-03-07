@@ -1,5 +1,4 @@
-import path from "path";
-import { col, fn, json, Op, or, QueryTypes, Sequelize } from "sequelize";
+import { QueryTypes } from "sequelize";
 import Payment from "../models/Payment";
 import dotenv from "dotenv";
 import db from "../config/database";
@@ -7,11 +6,10 @@ import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
-let queryPm: number;
 
 dotenv.config();
 
-//Payment SERVICE CLASS
+//PAYMENT SERVICE CLASS
 export default class PaymentService {
   //CASES FOR FILTERS AND POPULATES
 
@@ -45,16 +43,6 @@ export default class PaymentService {
           "1"
         );
 
-    //   case query:
-    //     return await this.likeQuery(
-    //       pageNo,
-    //       orderBy,
-    //       sortBy,
-    //       limit,
-    //       "payment_name",
-    //       query
-    //     );
-
       case "date":
         return await this.genQuery(
           pageNo,
@@ -65,16 +53,6 @@ export default class PaymentService {
           "=",
           "1"
         );
-    //   case "active":
-    //     return await this.genQuery(
-    //       pageNo,
-    //       orderBy,
-    //       sortBy,
-    //       limit,
-    //       "Payment_active",
-    //       "=",
-    //       "1"
-    //     );
       case "count":
         return Payment.count();
 
@@ -167,7 +145,7 @@ FROM
     return output == "" ? `No Payments Found` : output;
   }
 
-  //GET Payment BY ID
+  //GET PAYMENT BY ID
   async getPayment(id: number) {
     output = "";
     output = await Payment.findByPk(id);
@@ -176,14 +154,14 @@ FROM
       : output;
   }
 
-  //ADD Payment
+  //ADD PAYMENT
   async addPayment(body: any) {
     output = "";
     output = await Payment.create(body);
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE Payment
+  //UPDATE PAYMENT
   async updatePayment(body: any, id: number) {
     output = "";
     output = await Payment.update(body, {
@@ -192,22 +170,12 @@ FROM
     return output;
   }
 
-  //DELETE Payment
+  //DELETE PAYMENT
   async deletePayment(id: number) {
     output = "";
     output = await Payment.destroy({
       where: { payment_id: id },
     });
     return output;
-  }
-
-  //POPULATE Payment
-  async populatePayments(qpm: any) {
-    output = "";
-    output = await Payment.findAll({
-      where: { PaymentName: { [Op.like]: `%${qpm}%` } },
-      limit: 10,
-    });
-    return output == "" ? "No Payments Found" : output;
   }
 }

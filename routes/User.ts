@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
@@ -26,7 +26,7 @@ router.get("/user/:id", isAuth, getUser);
 // ADD USER
 router.post("/user", isAuth, Validator("addUserSchema"), addUser);
 
-// ADD USER
+// CHANGE PASSWORD
 router.put(
   "/change-userpassword/:id",
   isAuth,
@@ -34,7 +34,7 @@ router.put(
   changeUserPasssword
 );
 
-// ADD USER
+// CHANGE USER STATUS
 router.put(
   "/change-userstatus/:id",
   isAuth,
@@ -49,8 +49,6 @@ router.put("/user/:id", isAuth, Validator("updateUserSchema"), updateUser);
 router.delete("/user/:id", isAuth, deleteUser);
 
 //UPLOAD PHOTO
-// router.patch("/upload-user/:id", isAuth, uploadUser);
-
 router.patch("/upload-user/:id", isAuth, handleUpload, uploadUser);
 
 export default router;

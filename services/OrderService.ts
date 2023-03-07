@@ -1,4 +1,4 @@
-import { col, fn, json, Op, QueryTypes, Sequelize } from "sequelize";
+import { QueryTypes } from "sequelize";
 import Order from "../models/Order";
 import dotenv from "dotenv";
 import db from "../config/database";
@@ -10,7 +10,7 @@ let queryPm: number;
 
 dotenv.config();
 
-//Order SERVICE CLASS
+//ORDER SERVICE CLASS
 export default class OrderService {
   //CASES FOR FILTERS AND POPULATES
   async orderCases(
@@ -32,17 +32,6 @@ export default class OrderService {
           "=",
           "1"
         );
-      case "featured":
-        return await this.genQuery(
-          pageNo,
-          orderBy,
-          sortBy,
-          limit,
-          "Order_featured_id",
-          "=",
-          "1"
-        );
-
       case query:
         return await this.likeQuery(
           pageNo,
@@ -52,9 +41,6 @@ export default class OrderService {
           "Order_name",
           query
         );
-
-      case "bestselling":
-        break;
       case "date":
         return await this.genQuery(
           pageNo,
@@ -246,14 +232,14 @@ export default class OrderService {
       : output;
   }
 
-  //ADD Order
+  //ADD ORDER
   async addOrder(body: any) {
     output = "";
     output = await Order.create(body);
     return output == "" ? `Error occured` : output;
   }
 
-  //UPDATE Order
+  //UPDATE ORDER
   async updateOrder(body: any, id: number) {
     output = "";
     output = await Order.update(body, {
@@ -262,7 +248,7 @@ export default class OrderService {
     return output;
   }
 
-  //DELETE Order
+  //DELETE ORDER
   async deleteOrder(id: number) {
     output = "";
     output = await Order.destroy({

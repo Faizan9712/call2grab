@@ -10,7 +10,7 @@ let querypm: number;
 //CREATING OBJECT
 const feedbackService = new FeedbackService();
 
-//GET ALL FeedbackS
+//GET ALL FEEDBACKS
 export async function getFeedbacks(req: Request, res: Response) {
   try {
     output = "";
@@ -42,7 +42,7 @@ export async function getFeedbacks(req: Request, res: Response) {
   }
 }
 
-//GET Feedback BY ID
+//GET FEEDBACK BY ID
 export async function getFeedback(req: Request, res: Response) {
   try {
     output = "";
@@ -52,7 +52,6 @@ export async function getFeedback(req: Request, res: Response) {
       .getFeedback(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
-          // console.log("======", output);
           res.status(200).json({ message: output });
         } else {
           res.status(200).json({ output: output });
@@ -68,7 +67,7 @@ export async function getFeedback(req: Request, res: Response) {
   }
 }
 
-//ADD Feedback
+//ADD FEEDBACK
 export async function addFeedback(req: Request, res: Response) {
   try {
     output = "";
@@ -92,7 +91,7 @@ export async function addFeedback(req: Request, res: Response) {
   }
 }
 
-//UPDATE Feedback
+//UPDATE FEEDBACK
 export async function updateFeedback(req: Request, res: Response) {
   try {
     output = "";
@@ -122,7 +121,7 @@ export async function updateFeedback(req: Request, res: Response) {
   }
 }
 
-//DELETE Feedback
+//DELETE FEEDBACK
 export async function deleteFeedback(req: Request, res: Response) {
   try {
     output = "";

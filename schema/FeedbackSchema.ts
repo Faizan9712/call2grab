@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-//ADD Feedback SCHEMA
+//ADD FEEDBACK SCHEMA
 export const addFeedbackSchema = Joi.object({
   feedbackUserId: Joi.number().required(),
   feedbackOrderId: Joi.number().required(),
@@ -12,7 +12,7 @@ export const addFeedbackSchema = Joi.object({
   feedbackVerifiedPurchase: Joi.boolean().required(),
 });
 
-//UPDATE Feedback SCHEMA
+//UPDATE FEEDBACK SCHEMA
 export const updateFeedbackSchema = Joi.object({
   feedbackUserId: Joi.number().optional(),
   feedbackOrderId: Joi.number().optional(),

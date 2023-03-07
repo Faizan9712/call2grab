@@ -10,7 +10,7 @@ let querypm: number;
 //CREATING OBJECT
 const paymentService = new PaymentService();
 
-//GET ALL PaymentS
+//GET ALL PAYMENTS
 export async function getPayments(req: Request, res: Response) {
   try {
     output = "";
@@ -52,7 +52,6 @@ export async function getPayment(req: Request, res: Response) {
       .getPayment(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
-          // console.log("======", output);
           res.status(200).json({ message: output });
         } else {
           res.status(200).json({ output: output });
@@ -68,7 +67,7 @@ export async function getPayment(req: Request, res: Response) {
   }
 }
 
-//ADD Payment
+//ADD PAYMENT
 export async function addPayment(req: Request, res: Response) {
   try {
     output = "";
@@ -92,7 +91,7 @@ export async function addPayment(req: Request, res: Response) {
   }
 }
 
-//UPDATE Payment
+//UPDATE PAYMENT
 export async function updatePayment(req: Request, res: Response) {
   try {
     output = "";
@@ -122,7 +121,7 @@ export async function updatePayment(req: Request, res: Response) {
   }
 }
 
-//DELETE Payment
+//DELETE PAYMENT
 export async function deletePayment(req: Request, res: Response) {
   try {
     output = "";

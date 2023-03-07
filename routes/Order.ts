@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
@@ -8,7 +8,6 @@ import {
   addOrder,
   updateOrder,
   deleteOrder,
-  //   populateOrders
 } from "../controllers/OrderController";
 
 dotenv.config();
@@ -28,8 +27,5 @@ router.put("/order/:id", isAuth, Validator("updateOrderSchema"), updateOrder);
 
 //DELETE ORDER
 router.delete("/order/:id", isAuth, deleteOrder);
-
-//POPULATE orders
-// router.get("/populate-orders", isAuth, populateOrders);
 
 export default router;

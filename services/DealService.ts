@@ -1,5 +1,4 @@
-import path from "path";
-import { col, fn, json, Op, or, QueryTypes, Sequelize } from "sequelize";
+import { QueryTypes } from "sequelize";
 import Deal from "../models/Deal";
 import dotenv from "dotenv";
 import db from "../config/database";
@@ -7,11 +6,10 @@ import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
-let queryPm: number;
 
 dotenv.config();
 
-//Deal SERVICE CLASS
+//DEAL SERVICE CLASS
 export default class DealService {
   //CASES FOR FILTERS AND POPULATES
 
@@ -143,14 +141,14 @@ export default class DealService {
       : output;
   }
 
-  //ADD Deal
+  //ADD DEAL
   async addDeal(body: any) {
     output = "";
     output = await Deal.create(body);
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE Deal
+  //UPDATE DEAL
   async updateDeal(body: any, id: number) {
     output = "";
     output = await Deal.update(body, {
@@ -159,23 +157,13 @@ export default class DealService {
     return output;
   }
 
-  //DELETE Deal
+  //DELETE DEAL
   async deleteDeal(id: number) {
     output = "";
     output = await Deal.destroy({
       where: { Deal_id: id },
     });
     return output;
-  }
-
-  //POPULATE Deal
-  async populateDeals(qpm: any) {
-    output = "";
-    output = await Deal.findAll({
-      where: { DealName: { [Op.like]: `%${qpm}%` } },
-      limit: 10,
-    });
-    return output == "" ? "No Deals Found" : output;
   }
 
   //PATH OF PHOTO IN DB
@@ -187,7 +175,6 @@ export default class DealService {
         where: { dealId: id },
       }
     ).then((output: any) => {
-      // console.log("=========",output)
       return output;
     });
   }

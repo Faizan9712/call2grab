@@ -21,8 +21,6 @@ export const addProductSchema = Joi.object({
   productTaxId: Joi.number().required(),
   productShippingId: Joi.number().required(),
   productFeaturedId: Joi.number().required(),
-  productCreatedDate: Joi.date().optional(),
-  productUpdatedDate: Joi.date().optional(),
 });
 
 //UPDATE PRODUCT SCHEMA
@@ -46,6 +44,4 @@ export const updateProductSchema = Joi.object({
   productTaxId: Joi.number().optional(),
   productShippingId: Joi.number().optional(),
   productFeaturedId: Joi.number().optional(),
-  productCreatedDate: Joi.date().optional(),
-  productUpdatedDate: Joi.date().optional(),
 });

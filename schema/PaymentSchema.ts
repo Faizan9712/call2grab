@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-//ADD Payment SCHEMA
+//ADD PAYMENT SCHEMA
 export const addPaymentSchema = Joi.object({
   paymentOrderId: Joi.number().required(),
   paymentProductId: Joi.number().required(),
@@ -14,7 +14,7 @@ export const addPaymentSchema = Joi.object({
   paymentCardCvv: Joi.number().required(),
 });
 
-//UPDATE Payment SCHEMA
+//UPDATE PAYMENT SCHEMA
 export const updatePaymentSchema = Joi.object({
   paymentOrderId: Joi.number().optional(),
   paymentProductId: Joi.number().optional(),

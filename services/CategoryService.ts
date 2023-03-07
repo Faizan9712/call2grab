@@ -1,5 +1,4 @@
-import path from "path";
-import { col, fn, json, Op, or, QueryTypes, Sequelize } from "sequelize";
+import { QueryTypes } from "sequelize";
 import Category from "../models/Category";
 import dotenv from "dotenv";
 import db from "../config/database";
@@ -7,11 +6,10 @@ import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
-let queryPm: number;
 
 dotenv.config();
 
-//Category SERVICE CLASS
+//CATEGORY SERVICE CLASS
 export default class CategoryService {
   //CASES FOR FILTERS AND POPULATES
 
@@ -65,8 +63,6 @@ export default class CategoryService {
           query
         );
 
-      case "bestselling":
-        break;
       case "date":
         return await this.genQuery(
           pageNo,
@@ -201,16 +197,6 @@ export default class CategoryService {
     return output;
   }
 
-  //POPULATE CATEGORY
-  async populateCategories(qpm: any) {
-    output = "";
-    output = await Category.findAll({
-      where: { categoryName: { [Op.like]: `%${qpm}%` } },
-      limit: 10,
-    });
-    return output == "" ? "No Categories Found" : output;
-  }
-
   //PATH OF PHOTO IN DB
   async dbSetPath(fullfilename: any, id: number) {
     output = "";
@@ -220,7 +206,6 @@ export default class CategoryService {
         where: { categoryId: id },
       }
     ).then((output: any) => {
-      // console.log("=========",output)
       return output;
     });
   }

@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import UserService from "../services/UserService";
 import { filePath, sanitizeInput } from "../helpers/functions";
 
-
 //INSTANCE VARIABLES
 let output: any;
 let querypm: number;
@@ -10,11 +9,12 @@ let querypm: number;
 //CREATING OBJECT
 const userService = new UserService();
 
-//GET ALL UserS FUNCTION
+//GET ALL USERS
 export async function getUsers(req: Request, res: Response) {
   try {
     output = "";
-    const { pageNo, orderBy, sortBy,query,filter,limit } = await sanitizeInput(req.query);
+    const { pageNo, orderBy, sortBy, query, filter, limit } =
+      await sanitizeInput(req.query);
     output = await userService
       .userCases(
         pageNo == undefined ? 1 : pageNo,
@@ -41,7 +41,7 @@ export async function getUsers(req: Request, res: Response) {
   }
 }
 
-//GET User BY ID
+//GET USER BY ID
 export async function getUser(req: Request, res: Response) {
   try {
     output = "";
@@ -65,7 +65,7 @@ export async function getUser(req: Request, res: Response) {
   }
 }
 
-//ADD User
+//ADD USER
 export async function addUser(req: Request, res: Response) {
   try {
     output = "";
@@ -109,7 +109,7 @@ export async function addUser(req: Request, res: Response) {
   }
 }
 
-//UPDATE User
+//UPDATE USER
 export async function updateUser(req: Request, res: Response) {
   try {
     output = "";

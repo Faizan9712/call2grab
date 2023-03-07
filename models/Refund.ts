@@ -1,15 +1,5 @@
-import {
-  Model,
-  Table,
-  Column,
-  DataType,
-  ForeignKey,
-  BelongsTo,
-  HasMany,
-} from "sequelize-typescript";
-import Cart from "./Cart";
-import Category from "./Category";
-import Image from "./ProductImage";
+import { Model, Table, Column, DataType } from "sequelize-typescript";
+
 export interface RefundI {
   refundId: number;
   refundUserId: number;

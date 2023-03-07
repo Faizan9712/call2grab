@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express} from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
@@ -8,22 +8,21 @@ import {
   addFeedback,
   updateFeedback,
   deleteFeedback,
-  //   populateFeedbacks
 } from "../controllers/FeedbackController";
 
 dotenv.config();
 const router: Express = express();
 
-//GET ALL Feedbacks
+//GET ALL FEEDBACKS
 router.get("/feedbacks", isAuth, getFeedbacks);
 
-//GET Feedback BY ID
+//GET FEEDBACK BY ID
 router.get("/feedback/:id", isAuth, getFeedback);
 
-// ADD Feedback
+// ADD FEEDBACK
 router.post("/feedback", isAuth, Validator("addFeedbackSchema"), addFeedback);
 
-// UPDATE Feedback
+// UPDATE FEEDBACK
 router.put(
   "/feedback/:id",
   isAuth,
@@ -31,7 +30,7 @@ router.put(
   updateFeedback
 );
 
-//DELETE Feedback
+//DELETE FEEDBACK
 router.delete("/feedback/:id", isAuth, deleteFeedback);
 
 export default router;

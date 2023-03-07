@@ -1,16 +1,9 @@
-import {
-  Model,
-  Table,
-  Column,
-  DataType,
-  BelongsTo,
-  HasOne,
-} from "sequelize-typescript";
-import Product from "./Product";
+import { Model, Table, Column, DataType } from "sequelize-typescript";
+
 export interface ImageI {
   imageId: number;
   productImageId: number;
-  productImageName:string;
+  productImageName: string;
   imageCreatedDate: Date;
   imageUpdatedDate: Date;
 }
@@ -62,7 +55,4 @@ export default class ProductImage extends Model implements ImageI {
     defaultValue: new Date(),
   })
   imageUpdatedDate!: Date;
-
-  // @HasOne(() => Product)
-  // Product!: Product;
 }

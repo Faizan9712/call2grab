@@ -115,7 +115,7 @@ export async function filePath(req: any) {
 //       await photo
 //         .mv(dir + fullfilename)
 //         .then(() => {
-//           // console.log("-------+++++++++++", dir);
+// console.log("-------+++++++++++", dir);
 //           flag = 1;
 //         })
 //         .catch(() => {

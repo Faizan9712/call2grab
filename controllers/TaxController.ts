@@ -10,7 +10,7 @@ let querypm: number;
 //CREATING OBJECT
 const taxService = new TaxService();
 
-//GET ALL TaxS
+//GET ALL TAXES
 export async function getTaxes(req: Request, res: Response) {
   try {
     output = "";
@@ -42,7 +42,7 @@ export async function getTaxes(req: Request, res: Response) {
   }
 }
 
-//GET Tax BY ID
+//GET TAX BY ID
 export async function getTax(req: Request, res: Response) {
   try {
     output = "";
@@ -52,7 +52,6 @@ export async function getTax(req: Request, res: Response) {
       .getTax(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
-          // console.log("======", output);
           res.status(200).json({ message: output });
         } else {
           res.status(200).json({ output: output });
@@ -68,7 +67,7 @@ export async function getTax(req: Request, res: Response) {
   }
 }
 
-//ADD Tax
+//ADD TAX
 export async function addTax(req: Request, res: Response) {
   try {
     output = "";
@@ -92,7 +91,7 @@ export async function addTax(req: Request, res: Response) {
   }
 }
 
-//UPDATE Tax
+//UPDATE TAX
 export async function updateTax(req: Request, res: Response) {
   try {
     output = "";
@@ -122,7 +121,7 @@ export async function updateTax(req: Request, res: Response) {
   }
 }
 
-//DELETE Tax
+//DELETE TAX
 export async function deleteTax(req: Request, res: Response) {
   try {
     output = "";

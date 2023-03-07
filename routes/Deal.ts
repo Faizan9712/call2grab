@@ -1,8 +1,8 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
-import { handleUpload, upload } from "../helpers/functions";
+import { handleUpload } from "../helpers/functions";
 import {
   getDeals,
   getDeal,
@@ -15,19 +15,19 @@ import {
 dotenv.config();
 const router: Express = express();
 
-//GET ALL CATEGORIES
+//GET ALL DEALS
 router.get("/deals", isAuth, getDeals);
 
-//GET Deal BY ID
+//GET DEAL BY ID
 router.get("/deal/:id", isAuth, getDeal);
 
-// ADD Deal
+// ADD DEAL
 router.post("/deal", isAuth, Validator("addDealSchema"), addDeal);
 
-//UPDATE Deal
+//UPDATE DEAL
 router.put("/deal/:id", isAuth, Validator("updateDealSchema"), updateDeal);
 
-//DELETE Deal
+//DELETE DEAL
 router.delete("/deal/:id", isAuth, deleteDeal);
 
 // UPLOAD IMAGE

@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
@@ -8,7 +8,6 @@ import {
   addParentCategory,
   updateParentCategory,
   deleteParentCategory,
-  populateParentCategories,
 } from "../controllers/ParentCategoryController";
 
 dotenv.config();
@@ -38,8 +37,5 @@ router.put(
 
 //DELETE PARENTCATEGORY
 router.delete("/parentcategory/:id", isAuth, deleteParentCategory);
-
-//POPULATE PARENTCATEGORIES
-router.get("/populate-parentcategories", isAuth, populateParentCategories);
 
 export default router;

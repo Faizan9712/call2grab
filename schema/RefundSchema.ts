@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-//ADD Refund SCHEMA
+//ADD REFUND SCHEMA
 export const addRefundSchema = Joi.object({
   refundUserId: Joi.number().required(),
   refundOrderId: Joi.number().required(),
@@ -10,7 +10,7 @@ export const addRefundSchema = Joi.object({
   refundMethod: Joi.string().required(),
 });
 
-//UPDATE Refund SCHEMA
+//UPDATE REFUND SCHEMA
 export const updateRefundSchema = Joi.object({
   refundUserId: Joi.number().optional(),
   refundOrderId: Joi.number().optional(),

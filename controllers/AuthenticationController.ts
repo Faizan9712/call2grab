@@ -92,7 +92,6 @@ export async function getAdmin(req: Request, res: Response) {
       .getAdmin(information.id)
       .then((output: any) => {
         if (typeof output === "string") {
-          // console.log("======", output);
           res.status(200).json({ message: output });
         } else {
           res.status(200).json({ output: output });

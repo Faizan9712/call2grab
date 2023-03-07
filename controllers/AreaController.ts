@@ -33,7 +33,7 @@ export async function getAreas(req: Request, res: Response) {
         }
       })
       .catch((error: any) => {
-        res.status(400).json({ output: "Something went wrong" });
+        res.status(400).json({ output: "Bad Request Please try again!!!" });
         console.log(error);
       });
   } catch (error) {
@@ -52,7 +52,6 @@ export async function getArea(req: Request, res: Response) {
       .getArea(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
-          // console.log("======", output);
           res.status(200).json({ message: output });
         } else {
           res.status(200).json({ output: output });

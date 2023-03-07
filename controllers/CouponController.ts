@@ -142,26 +142,4 @@ export async function deleteCoupon(req: Request, res: Response) {
   }
 }
 
-//POPULATE Coupons
-// export async function populateCoupons(req: Request, res: Response) {
-//   try {
-//     output = "";
-//     querypm = await sanitizeInput(req.query.qpm);
-//     output = await couponService
-//       .populateCoupons(querypm)
-//       .then((output: any) => {
-//         if (typeof output === "string") {
-//           res.status(200).json({ message: output });
-//         } else {
-//           res.status(200).json({ output: output });
-//         }
-//       })
-//       .catch((error: any) => {
-//         res.status(400).json({ output: "Something went wrong" });
-//         console.log(error);
-//       });
-//   } catch (error) {
-//     res.status(503).json({ output: "Something went wrong" });
-//     console.log(error);
-//   }
-// }
+

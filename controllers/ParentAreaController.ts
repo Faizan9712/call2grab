@@ -10,7 +10,7 @@ let querypm: number;
 //CREATING OBJECT
 const parentAreaService = new ParentAreaService();
 
-//GET ALL parentAreaS
+//GET ALL PARENT AREAS
 export async function getParentAreas(req: Request, res: Response) {
   try {
     output = "";
@@ -42,7 +42,7 @@ export async function getParentAreas(req: Request, res: Response) {
   }
 }
 
-//GET parentArea BY ID
+//GET PARENT AREA BY ID
 export async function getParentArea(req: Request, res: Response) {
   try {
     output = "";
@@ -52,7 +52,6 @@ export async function getParentArea(req: Request, res: Response) {
       .getParentArea(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
-          // console.log("======", output);
           res.status(200).json({ message: output });
         } else {
           res.status(200).json({ output: output });
@@ -68,7 +67,7 @@ export async function getParentArea(req: Request, res: Response) {
   }
 }
 
-//ADD parentArea
+//ADD PARENT AREA
 export async function addParentArea(req: Request, res: Response) {
   try {
     output = "";
@@ -92,7 +91,7 @@ export async function addParentArea(req: Request, res: Response) {
   }
 }
 
-//UPDATE parentArea
+//UPDATE PARENT AREA
 export async function updateParentArea(req: Request, res: Response) {
   try {
     output = "";
@@ -124,7 +123,7 @@ export async function updateParentArea(req: Request, res: Response) {
   }
 }
 
-//DELETE parentArea
+//DELETE PARENT AREA
 export async function deleteParentArea(req: Request, res: Response) {
   try {
     output = "";

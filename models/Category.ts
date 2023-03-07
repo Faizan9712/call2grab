@@ -14,7 +14,6 @@ export interface categoryI {
   timestamps: false,
   underscored: true,
 })
-
 export default class Category extends Model implements categoryI {
   @Column({
     autoIncrement: true,
@@ -56,7 +55,4 @@ export default class Category extends Model implements categoryI {
     defaultValue: 0,
   })
   categoryActive!: number;
-
-  // @HasMany(() => Product)
-  // Product!: Product[];
 }

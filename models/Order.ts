@@ -1,15 +1,5 @@
-import {
-  Model,
-  Table,
-  Column,
-  DataType,
-  ForeignKey,
-  BelongsTo,
-  HasMany,
-} from "sequelize-typescript";
-import Cart from "./Cart";
-import Category from "./Category";
-import Image from "./ProductImage";
+import { Model, Table, Column, DataType } from "sequelize-typescript";
+
 export interface OrderI {
   orderId: number;
   orderUserId: number;
@@ -189,13 +179,4 @@ export default class Order extends Model implements OrderI {
     defaultValue: new Date(),
   })
   orderUpdatedDate!: Date;
-
-  // @BelongsTo(() => Category)
-  // Category!: Category;
-
-  // @BelongsTo(() => Image)
-  // Image!: Image[];
-
-  // @HasMany(() => Cart)
-  // Cart!: Cart[];
 }

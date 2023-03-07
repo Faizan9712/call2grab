@@ -18,13 +18,11 @@ export const addOrderSchema = Joi.object({
   orderShippingMethod: Joi.string().required(),
   orderShippingCost: Joi.number().required(),
   orderTax: Joi.number().required(),
-  orderCreatedDate: Joi.date().optional(),
-  orderUpdatedDate: Joi.date().optional(),
 });
 
 //UPDATE ORDER SCHEMA
 export const updateOrderSchema = Joi.object({
-    orderUserId: Joi.number().optional(),
+  orderUserId: Joi.number().optional(),
   orderStatus: Joi.string().optional(),
   orderCouponId: Joi.number().optional(),
   orderSubtotal: Joi.number().optional(),
@@ -40,6 +38,4 @@ export const updateOrderSchema = Joi.object({
   orderShippingMethod: Joi.string().optional(),
   orderShippingCost: Joi.number().optional(),
   orderTax: Joi.number().optional(),
-  orderCreatedDate: Joi.date().optional(),
-  orderUpdatedDate: Joi.date().optional(),
 });

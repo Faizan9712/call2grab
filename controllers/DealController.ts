@@ -11,7 +11,7 @@ let querypm: number;
 //CREATING OBJECT
 const dealService = new DealService();
 
-//GET ALL CATEGORIES
+//GET ALL DEALS
 export async function getDeals(req: Request, res: Response) {
   try {
     output = "";
@@ -43,7 +43,7 @@ export async function getDeals(req: Request, res: Response) {
   }
 }
 
-//GET Deal BY ID
+//GET DEAL BY ID
 export async function getDeal(req: Request, res: Response) {
   try {
     output = "";
@@ -69,7 +69,7 @@ export async function getDeal(req: Request, res: Response) {
   }
 }
 
-//ADD Deal
+//ADD DEAL
 export async function addDeal(req: Request, res: Response) {
   try {
     output = "";
@@ -93,7 +93,7 @@ export async function addDeal(req: Request, res: Response) {
   }
 }
 
-//UPDATE Deal
+//UPDATE DEAL
 export async function updateDeal(req: Request, res: Response) {
   try {
     output = "";
@@ -123,7 +123,7 @@ export async function updateDeal(req: Request, res: Response) {
   }
 }
 
-//DELETE Deal
+//DELETE DEAL
 export async function deleteDeal(req: Request, res: Response) {
   try {
     output = "";
@@ -148,7 +148,6 @@ export async function deleteDeal(req: Request, res: Response) {
   }
 }
 
-
 //UPLOAD DEAL BANNER PIC
 export async function uploadDeal(req: any, res: Response) {
   try {
@@ -158,18 +157,16 @@ export async function uploadDeal(req: any, res: Response) {
     } else {
       // Save file path to database
       const dealId = await sanitizeInput(req.params.id);
-      output = await dealService
-        .getDeal(dealId)
-        .then(async (output: any) => {
-          if (typeof output === "string") {
-            res.status(200).json({ message: output });
-          } else {
-            const fullfilename = await filePath(req);
-            // Save file to database using filePath
-            await dealService.dbSetPath(fullfilename, dealId);
-            res.status(200).json({ message: "Image uploaded successfully." });
-          }
-        });
+      output = await dealService.getDeal(dealId).then(async (output: any) => {
+        if (typeof output === "string") {
+          res.status(200).json({ message: output });
+        } else {
+          const fullfilename = await filePath(req);
+          // Save file to database using filePath
+          await dealService.dbSetPath(fullfilename, dealId);
+          res.status(200).json({ message: "Image uploaded successfully." });
+        }
+      });
     }
   } catch (error: any) {
     console.error(error);

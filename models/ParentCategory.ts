@@ -1,6 +1,5 @@
-import { Model, Table, Column, DataType, HasMany } from "sequelize-typescript";
-import Category from "./Category";
-import Product from "./Product";
+import { Model, Table, Column, DataType } from "sequelize-typescript";
+
 export interface parentCategoryI {
   parentCategoryId: number;
   parentCategoryName: string;
@@ -56,7 +55,4 @@ export default class ParentCategory extends Model implements parentCategoryI {
     defaultValue: new Date(),
   })
   parentCategoryUpdatedDate!: Date;
-
-  //   @HasMany(() => Category)
-  //   Category!: Category[];
 }

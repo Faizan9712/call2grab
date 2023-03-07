@@ -11,7 +11,7 @@ let queryPm: number;
 
 dotenv.config();
 
-//Tax SERVICE CLASS
+//TAX SERVICE CLASS
 export default class TaxService {
   //CASES FOR FILTERS AND POPULATES
 
@@ -153,7 +153,7 @@ export default class TaxService {
     return output == "" ? `No Taxes Found` : output;
   }
 
-  //GET Tax BY ID
+  //GET TAX BY ID
   async getTax(id: number) {
     output = "";
     output = await Tax.findByPk(id);
@@ -162,14 +162,14 @@ export default class TaxService {
       : output;
   }
 
-  //ADD Tax
+  //ADD TAX
   async addTax(body: any) {
     output = "";
     output = await Tax.create(body);
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE Tax
+  //UPDATE TAX
   async updateTax(body: any, id: number) {
     output = "";
     output = await Tax.update(body, {
@@ -178,22 +178,12 @@ export default class TaxService {
     return output;
   }
 
-  //DELETE Tax
+  //DELETE TAX
   async deleteTax(id: number) {
     output = "";
     output = await Tax.destroy({
       where: { tax_id: id },
     });
     return output;
-  }
-
-  //POPULATE Tax
-  async populateTaxs(qpm: any) {
-    output = "";
-    output = await Tax.findAll({
-      where: { taxName: { [Op.like]: `%${qpm}%` } },
-      limit: 10,
-    });
-    return output == "" ? "No Taxs Found" : output;
   }
 }

@@ -1,5 +1,4 @@
-import path from "path";
-import { col, fn, json, Op, or, QueryTypes, Sequelize } from "sequelize";
+import { QueryTypes } from "sequelize";
 import Area from "../models/Area";
 import dotenv from "dotenv";
 import db from "../config/database";
@@ -7,7 +6,6 @@ import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
-let queryPm: number;
 
 dotenv.config();
 
@@ -157,7 +155,7 @@ export default class AreaService {
     return output == "" ? `No Areas Found` : output;
   }
 
-  //GET area BY ID
+  //GET AREA BY ID
   async getArea(id: number) {
     output = "";
     output = await Area.findByPk(id);
@@ -166,14 +164,14 @@ export default class AreaService {
       : output;
   }
 
-  //ADD area
+  //ADD AREA
   async addArea(body: any) {
     output = "";
     output = await Area.create(body);
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE area
+  //UPDATE AREA
   async updateArea(body: any, id: number) {
     output = "";
     output = await Area.update(body, {
@@ -182,22 +180,12 @@ export default class AreaService {
     return output;
   }
 
-  //DELETE area
+  //DELETE AREA
   async deleteArea(id: number) {
     output = "";
     output = await Area.destroy({
       where: { area_id: id },
     });
     return output;
-  }
-
-  //POPULATE area
-  async populateAreas(qpm: any) {
-    output = "";
-    output = await Area.findAll({
-      where: { areaName: { [Op.like]: `%${qpm}%` } },
-      limit: 10,
-    });
-    return output == "" ? "No Areas Found" : output;
   }
 }

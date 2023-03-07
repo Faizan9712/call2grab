@@ -1,5 +1,4 @@
-import path from "path";
-import { col, fn, json, Op, or, QueryTypes, Sequelize } from "sequelize";
+import { QueryTypes } from "sequelize";
 import Brand from "../models/Brand";
 import dotenv from "dotenv";
 import db from "../config/database";
@@ -7,11 +6,10 @@ import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
-let queryPm: number;
 
 dotenv.config();
 
-//Brand SERVICE CLASS
+//BRAND SERVICE CLASS
 export default class BrandService {
   //CASES FOR FILTERS AND POPULATES
 
@@ -154,7 +152,7 @@ export default class BrandService {
     return output == "" ? `No Brands Found` : output;
   }
 
-  //GET Brand BY ID
+  //GET BRAND BY ID
   async getBrand(id: number) {
     output = "";
     output = await Brand.findByPk(id);
@@ -163,14 +161,14 @@ export default class BrandService {
       : output;
   }
 
-  //ADD Brand
+  //ADD BRAND
   async addBrand(body: any) {
     output = "";
     output = await Brand.create(body);
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE Brand
+  //UPDATE BRAND
   async updateBrand(body: any, id: number) {
     output = "";
     output = await Brand.update(body, {
@@ -179,23 +177,13 @@ export default class BrandService {
     return output;
   }
 
-  //DELETE Brand
+  //DELETE BRAND
   async deleteBrand(id: number) {
     output = "";
     output = await Brand.destroy({
       where: { brand_id: id },
     });
     return output;
-  }
-
-  //POPULATE Brand
-  async populateCategories(qpm: any) {
-    output = "";
-    output = await Brand.findAll({
-      where: { BrandName: { [Op.like]: `%${qpm}%` } },
-      limit: 10,
-    });
-    return output == "" ? "No Brands Found" : output;
   }
 
   //PATH OF PHOTO IN DB
@@ -207,7 +195,6 @@ export default class BrandService {
         where: { brandId: id },
       }
     ).then((output: any) => {
-      // console.log("=========",output)
       return output;
     });
   }

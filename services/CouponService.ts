@@ -1,13 +1,9 @@
-import path from "path";
-import { col, fn, json, Op, QueryTypes, Sequelize } from "sequelize";
 import Coupon from "../models/Coupon";
 import dotenv from "dotenv";
-import db from "../config/database";
 import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
-let queryPm: number;
 
 dotenv.config();
 
@@ -57,15 +53,5 @@ export default class CouponService {
       where: { couponId: id },
     });
     return output;
-  }
-
-  //POPULATE COUPON
-  async populateCoupon(qpm: any) {
-    output = "";
-    output = await Coupon.findAll({
-      where: { couponName: { [Op.like]: `%${qpm}%` } },
-      limit: 10,
-    });
-    return output == "" ? "No Coupons Found" : output;
   }
 }

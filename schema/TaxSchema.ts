@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-//ADD tax SCHEMA
+//ADD TAX SCHEMA
 export const addTaxSchema = Joi.object({
   taxName: Joi.string().min(3).max(50).required(),
   taxRate: Joi.number().required(),
@@ -8,7 +8,7 @@ export const addTaxSchema = Joi.object({
   taxActive: Joi.number().required(),
 });
 
-//UPDATE tax SCHEMA
+//UPDATE TAX SCHEMA
 export const updateTaxSchema = Joi.object({
   taxName: Joi.string().min(3).max(50).required(),
   taxRate: Joi.number().required(),

@@ -1,5 +1,4 @@
-import path from "path";
-import { col, fn, json, Op, or, QueryTypes, Sequelize } from "sequelize";
+import { QueryTypes } from "sequelize";
 import ParentArea from "../models/ParentArea";
 import dotenv from "dotenv";
 import db from "../config/database";
@@ -7,11 +6,10 @@ import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
-let queryPm: number;
 
 dotenv.config();
 
-//parentArea SERVICE CLASS
+//PARENT AREA SERVICE CLASS
 export default class ParentAreaService {
   //CASES FOR FILTERS AND POPULATES
 
@@ -153,7 +151,7 @@ export default class ParentAreaService {
     return output == "" ? `No Parent Areas Found` : output;
   }
 
-  //GET parentArea BY ID
+  //GET PARENT AREA BY ID
   async getParentArea(id: number) {
     output = "";
     output = await ParentArea.findByPk(id);
@@ -162,14 +160,14 @@ export default class ParentAreaService {
       : output;
   }
 
-  //ADD parentArea
+  //ADD PARENT AREA
   async addParentArea(body: any) {
     output = "";
     output = await ParentArea.create(body);
     return output == "" ? `Error occured` : output._previousDataValues;
   }
 
-  //UPDATE parentArea
+  //UPDATE PARENT AREA
   async updateParentArea(body: any, id: number) {
     output = "";
     output = await ParentArea.update(body, {
@@ -178,22 +176,12 @@ export default class ParentAreaService {
     return output;
   }
 
-  //DELETE parentArea
+  //DELETE PARENT AREA
   async deleteParentArea(id: number) {
     output = "";
     output = await ParentArea.destroy({
       where: { parentArea_id: id },
     });
     return output;
-  }
-
-  //POPULATE parentArea
-  async populateParentAreas(qpm: any) {
-    output = "";
-    output = await ParentArea.findAll({
-      where: { parentAreaName: { [Op.like]: `%${qpm}%` } },
-      limit: 10,
-    });
-    return output == "" ? "No Parent Areas Found" : output;
   }
 }

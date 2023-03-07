@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-//ADD Coupon SCHEMA
+//ADD COUPON SCHEMA
 export const addCouponSchema = Joi.object({
   couponTitle: Joi.string().required(),
   couponCode: Joi.string().required(),
@@ -11,11 +11,10 @@ export const addCouponSchema = Joi.object({
   couponActive: Joi.number().required(),
   couponStartDate: Joi.date().required(),
   couponEndDate: Joi.date().required(),
-  couponCreatedDate: Joi.date().optional(),
-  couponUpdatedDate: Joi.date().optional(),
+
 });
 
-//UPDATE Coupon SCHEMA
+//UPDATE COUPON SCHEMA
 export const updateCouponSchema = Joi.object({
   couponTitle: Joi.string().optional(),
   couponCode: Joi.string().optional(),
@@ -26,6 +25,5 @@ export const updateCouponSchema = Joi.object({
   couponActive: Joi.number().optional(),
   couponStartDate: Joi.date().optional(),
   couponEndDate: Joi.date().optional(),
-  couponCreatedDate: Joi.date().optional(),
-  couponUpdatedDate: Joi.date().optional(),
+
 });

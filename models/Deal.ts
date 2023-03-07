@@ -1,14 +1,5 @@
-import {
-  Model,
-  Table,
-  Column,
-  DataType,
-  HasMany,
-  ForeignKey,
-  BelongsTo,
-} from "sequelize-typescript";
-import Product from "./Product";
-import User from "./User";
+import { Model, Table, Column, DataType } from "sequelize-typescript";
+
 export interface DealI {
   dealId: number;
   dealBannerImage: string;
@@ -100,13 +91,4 @@ export default class Deal extends Model implements DealI {
     defaultValue: new Date(),
   })
   dealUpdatedDate!: Date;
-
-  // @BelongsTo(() => User)
-  // User!: User[];
-
-  // @BelongsTo(() => Product)
-  // Product!: Product[];
-
-  //   @HasMany(() => Product)
-  //   Product!: Product[];
 }

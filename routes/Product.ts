@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import isAuth from "../middlewares/CheckJWT";
 import Validator from "../middlewares/Validator";
@@ -10,7 +10,6 @@ import {
   updateProduct,
   deleteProduct,
   uploadProductImages,
-  // filteredProducts
 } from "../controllers/ProductController";
 
 dotenv.config();
@@ -37,7 +36,6 @@ router.put(
 router.delete("/product/:id", isAuth, deleteProduct);
 
 //UPLOAD PRODUCT IMAGE
-
 router.post("/upload-product/:id", isAuth, handleUpload, uploadProductImages);
 
 export default router;

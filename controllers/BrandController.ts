@@ -10,7 +10,7 @@ let querypm: number;
 //CREATING OBJECT
 const brandService = new BrandService();
 
-//GET ALL CATEGORIES
+//GET ALL BRANDS
 export async function getBrands(req: Request, res: Response) {
   try {
     output = "";
@@ -52,7 +52,6 @@ export async function getBrand(req: Request, res: Response) {
       .getBrand(querypm)
       .then((output: any) => {
         if (typeof output === "string") {
-          // console.log("======", output);
           res.status(200).json({ message: output });
         } else {
           res.status(200).json({ output: output });
@@ -146,29 +145,3 @@ export async function deleteBrand(req: Request, res: Response) {
     console.log(error);
   }
 }
-
-//POPULATE CATEGORIES
-export async function populateCategories(req: Request, res: Response) {
-  try {
-    output = "";
-    querypm = await sanitizeInput(req.query.qpm);
-    output = await brandService
-      .populateCategories(querypm)
-      .then((output: any) => {
-        if (typeof output === "string") {
-          res.status(200).json({ message: output });
-        } else {
-          res.status(200).json({ output: output });
-        }
-      })
-      .catch((error: any) => {
-        res.status(400).json({ output: "Something went wrong" });
-        console.log(error);
-      });
-  } catch (error) {
-    res.status(503).json({ output: "Something went wrong" });
-    console.log(error);
-  }
-}
-
-

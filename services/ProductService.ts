@@ -1,4 +1,4 @@
-import { col, fn, json, Op, QueryTypes, Sequelize } from "sequelize";
+import { QueryTypes } from "sequelize";
 import Product from "../models/Product";
 import dotenv from "dotenv";
 import db from "../config/database";
@@ -7,11 +7,10 @@ import { pagination } from "../helpers/functions";
 
 //INSTANCE VARIABLES
 let output: any;
-let queryPm: number;
 
 dotenv.config();
 
-//Product SERVICE CLASS
+//PRODUCT SERVICE CLASS
 export default class ProductService {
   //CASES FOR FILTERS AND POPULATES
   async productCases(
