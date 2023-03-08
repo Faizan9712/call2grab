@@ -3,6 +3,7 @@ import { Model, Table, Column, DataType } from "sequelize-typescript";
 export interface parentCategoryI {
   parentCategoryId: number;
   parentCategoryName: string;
+  parentCategoryActive: number;
   parentCategoryDescription: string;
   parentCategoryCreatedDate: Date;
   parentCategoryUpdatedDate: Date;
@@ -14,6 +15,7 @@ export interface parentCategoryI {
   timestamps: false,
   underscored: true,
 })
+
 export default class ParentCategory extends Model implements parentCategoryI {
   @Column({
     autoIncrement: true,
@@ -39,6 +41,13 @@ export default class ParentCategory extends Model implements parentCategoryI {
     defaultValue: "",
   })
   parentCategoryDescription!: string;
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: "parent_category_active",
+    defaultValue: 0,
+  })
+  parentCategoryActive!: number;
 
   @Column({
     allowNull: false,

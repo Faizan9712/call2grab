@@ -22,14 +22,25 @@ export default class ParentCategoryService {
   ) {
     switch (query || filter) {
       case "all":
-        return await this.genQuery(pageNo, orderBy, sortBy, limit);
+        return await this.genQuery(
+          pageNo,
+          orderBy,
+          sortBy,
+          limit,
+          "1",
+          "=",
+          "1"
+        );
 
       case "date":
         return await this.genQuery(
           pageNo,
           "parent_category_updated_date",
           "DESC",
-          limit
+          limit,
+          "1",
+          "=",
+          "1"
         );
 
       case "name":
@@ -37,7 +48,21 @@ export default class ParentCategoryService {
           pageNo,
           "parent_category_name",
           sortBy,
-          limit
+          limit,
+          "1",
+          "=",
+          "1"
+        );
+
+      case "active":
+        return await this.genQuery(
+          pageNo,
+          orderBy,
+          sortBy,
+          limit,
+          "parent_category_active",
+          "=",
+          "1"
         );
 
       case "count":
@@ -53,7 +78,10 @@ export default class ParentCategoryService {
     pageNo: number,
     orderBy: string,
     sortBy: string,
-    limit: number
+    limit: number,
+    condVariable: any,
+    operator: any,
+    condValue: any
   ) {
     output = "";
 
@@ -62,11 +90,14 @@ export default class ParentCategoryService {
 	  parent_category_id AS parentCategoryId,
 	  parent_category_name AS parentCategoryName,
 	  parent_category_description AS parentCategoryDescription,
+    parent_category_active AS "parentCategoryActive",
     parent_category_created_date AS parentCategoryCreatedDate,
     parent_category_updated_date AS parentCategoryUpdatedDate
 
   FROM
 	  parentcategory AS ParentCategory 
+  WHERE
+    ${condVariable} ${operator} ${condValue}
       GROUP BY parent_category_id
       ORDER BY ${orderBy}
       ${sortBy}
