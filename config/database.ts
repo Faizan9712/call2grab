@@ -16,8 +16,8 @@ import Tax from "../models/Tax";
 import Payment from "../models/Payment";
 import Feedback from "../models/Feedback";
 import Refund from "../models/Refund";
-const db: any = new Sequelize("call2grab", "root", "", {
-  host: "localhost",
+const db: any = new Sequelize("call2grab", "admin", "call2grab", {
+  host: "database-2.ct814wzajzwe.us-east-1.rds.amazonaws.com",
   storage: ".database/mysql",
   dialect: "mysql",
   models: ["../models/*.ts"],
