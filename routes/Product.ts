@@ -16,7 +16,7 @@ dotenv.config();
 const router: Express = express();
 
 //GET ALL PRODUCTS
-router.get("/products", isAuth, getProducts);
+router.get("/products", getProducts);
 
 //GET PRODUCT BY ID
 router.get("/product/:id", isAuth, getProduct);
