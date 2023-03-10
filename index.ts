@@ -53,7 +53,7 @@ app.listen(PORT, () => {
 
 //TESTING API
 app.get("/", (req: Request, res: Response) => {
-  res.send("<h1>kaisa raha din aapka...</h1>");
+  res.send("<h1>Hey Wallayl !!!!</h1>");
 });
 
 //BINDING ROUTES
