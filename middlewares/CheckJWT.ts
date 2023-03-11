@@ -13,7 +13,7 @@ export default async function isAuth(
   res: Response,
   next: NextFunction
 ) {
-  const jwtPrivateKey: any = "huiyh89y89tyg8yubbbbbbbbo8uilgbhjbhjb";
+  const jwtPrivateKey = "huiyh89y89tyg8yubbbbbbbbo8uilgbhjbhjb";
   let authorization = await sanitizeInput(req.headers["authorization"]);
   if (authorization) {
     const authHeader = authorization;
