@@ -8,7 +8,7 @@ dotenv.config();
 
 //INSTANCE VARIABLES
 let output: any;
-let jwtPrivateKey: any = process.env.jwtPrivateKey;
+let jwtPrivateKey: any = "huiyh89y89tyg8yubbbbbbbbo8uilgbhjbhjb";
 
 //CREATING OBJECT
 const authenticationService = new AuthenticationService();
